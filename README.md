@@ -9,5 +9,10 @@ Each challenge represents an opportunity for me to enhance my WordPress skills a
 To explore challenges with their respective solutions, navigate to the corresponding challenge folder. The folders are organized numerically, making it easy to find the specific challenge you're interested in.
 
 ### List of Challenges
-- [Challenge #01](./challenge_01/README.md) - Block Development
+
+#### Challenge #01: Block Development
+- [Junior Challenge: Create a Custom Gutenberg Block](challenge_01/task_01/README.md)
+- [Medior Challenge: Fetch & Display Dynamic Content](challenge_01/task_02/README.md)
+- [Senior Challenge: Accordion](challenge_01/task_03/README.md)
+
 
