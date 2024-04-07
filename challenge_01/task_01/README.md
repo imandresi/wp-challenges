@@ -8,7 +8,7 @@ Develop a custom Gutenberg block that displays a testimonial card with fields fo
 
 ### Requirements:
 
-Create a custom block using @wo[.gitignore](..%2F..%2F.gitignore)rdpress/create-block,
+Create a custom block using `@wordpress/create-block`,
 
 Implement a block that includes fields for testimonial quotes, author name, and job title,
 
