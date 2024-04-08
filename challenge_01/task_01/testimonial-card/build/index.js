@@ -54,51 +54,87 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-function Edit() {
+function Edit({
+  attributes,
+  setAttributes
+}) {
   let {
-    className: blockClassName,
+    className,
     ...blockProps
   } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
-  blockClassName += " is-style-default";
-
-  // <p {...useBlockProps()}>
-  // 	{__('Testimonial Card – hello from the editor!', 'testimonial-card')}
-  // </p>
-
-  const blockStyle = {
+  const authorPictureStyle = {
     backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__})`
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: blockClassName,
-    ...blockProps
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "title"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "part-1"
-  }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "part-2"
-  }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "content-container"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "author-picture",
-    style: blockStyle
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "content-inner-border"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "quote quote-left"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "quote quote-right"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "author"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "author-name"
-  }, "Sara Anderson"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "author-job"
-  }, "CEO, AGENCY")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "quote-text"
-  }, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "footer"
-  }));
+
+  // Apply default class (is-style-default) if necessary
+  const cardStylesClass = ['is-style-default', 'is-style-classic', 'is-style-modern'];
+  const cardStyleApplied = !!~cardStylesClass.findIndex(v => {
+    const currentClasses = className.split(" ");
+    return currentClasses.includes(v);
+  });
+  if (!cardStyleApplied) {
+    className += ' is-style-default';
+    console.log('here');
+  }
+  return (
+    // <div className={className} {...blockProps}>
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: className,
+      ...blockProps
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "title"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "part-1"
+    }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "part-2"
+    }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "content-container"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "author-picture",
+      style: authorPictureStyle
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "content-inner-border"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "quote quote-left"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "quote quote-right"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "author"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+      tagname: "div",
+      className: "author-name",
+      placeholder: "Author Name",
+      multiline: false,
+      value: attributes.authorName,
+      onChange: authorName => {
+        setAttributes({
+          authorName
+        });
+      }
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+      tagname: "div",
+      placeholder: "Author Job",
+      className: "author-job",
+      value: attributes.authorJob,
+      onChange: authorJob => {
+        setAttributes({
+          authorJob
+        });
+      }
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+      tagname: "div",
+      className: "quote-text",
+      placeholder: "Please enter the author testimony here...",
+      value: attributes.quoteText,
+      onChange: quoteText => {
+        setAttributes({
+          quoteText
+        });
+      }
+    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "footer"
+    }))
+  );
 }
 
 /***/ }),
@@ -175,6 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -182,6 +219,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
+
 
 
 /**
@@ -193,10 +231,65 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
-function save() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
-  }, 'Testimonial Card – hello from the saved content!');
+function save({
+  attributes
+}) {
+  let {
+    className,
+    ...blockProps
+  } = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save();
+  const blockStyle = {
+    backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_2__})`
+  };
+
+  // Apply default class (is-style-default) if necessary
+  if (className) {
+    const cardStylesClass = ['is-style-default', 'is-style-classic', 'is-style-modern'];
+    const cardStyleApplied = !!~cardStylesClass.findIndex(v => {
+      const currentClasses = className.split(" ");
+      return currentClasses.includes(v);
+    });
+    if (!cardStyleApplied) {
+      className += ' is-style-default';
+    }
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: className,
+    ...blockProps
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "part-1"
+  }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "part-2"
+  }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "content-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "author-picture",
+    style: blockStyle
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "content-inner-border"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "quote quote-left"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "quote quote-right"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "author"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    tagName: "div",
+    className: "author-name",
+    value: attributes.authorName
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    tagName: "div",
+    className: "author-job",
+    value: attributes.authorJob
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+    tagName: "div",
+    className: "quote-text",
+    value: attributes.quoteText
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "footer"
+  }));
 }
 
 /***/ }),
@@ -305,7 +398,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
 
 /***/ })
 
