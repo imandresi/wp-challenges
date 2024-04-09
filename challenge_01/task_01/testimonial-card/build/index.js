@@ -114,7 +114,7 @@ function Edit({
 
   /*
    * Identify if a click occurs inside the card or not
-   * That will be used for customize buttons in BlockControls
+   * That will be used to customize buttons in BlockControls
    * according to the active RichText component
    */
   const cardIsClicked = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
@@ -132,11 +132,17 @@ function Edit({
       setCardClickStatus(false);
     });
   }, []);
+
+  /*
+   * Thumbnail
+   */
   const authorPictureStyle = {
     backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__})`
   };
 
-  // Apply default class (is-style-default) if necessary
+  /*
+   * Apply default class (is-style-default) to card if no style applied
+   */
   const cardStylesClass = ['is-style-default', 'is-style-classic', 'is-style-modern'];
   const cardStyleApplied = !!~cardStylesClass.findIndex(v => {
     const currentClasses = className.split(" ");

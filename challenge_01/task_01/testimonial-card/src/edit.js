@@ -50,7 +50,7 @@ export default function Edit({attributes, setAttributes}) {
 
 	/*
 	 * Identify if a click occurs inside the card or not
-	 * That will be used for customize buttons in BlockControls
+	 * That will be used to customize buttons in BlockControls
 	 * according to the active RichText component
 	 */
 	const cardIsClicked = useRef(false);
@@ -75,11 +75,16 @@ export default function Edit({attributes, setAttributes}) {
 
 	}, []);
 
+	/*
+	 * Thumbnail
+	 */
 	const authorPictureStyle = {
 		backgroundImage: `url(${authorPicture})`
 	};
 
-	// Apply default class (is-style-default) if necessary
+	/*
+	 * Apply default class (is-style-default) to card if no style applied
+	 */
 	const cardStylesClass = [
 		'is-style-default',
 		'is-style-classic',
