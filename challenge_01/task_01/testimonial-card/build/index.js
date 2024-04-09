@@ -2,52 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/components/rich-text-ex.js":
-/*!****************************************!*\
-  !*** ./src/components/rich-text-ex.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   RichTextEx: () => (/* binding */ RichTextEx)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function RichTextEx(props) {
-  const {
-    id,
-    setSelectedControl,
-    cardIsClicked
-  } = props;
-  const richTextProps = {
-    tagname: props.tagname,
-    className: props.className,
-    placeholder: props.placeholder,
-    value: props.value,
-    allowedFormats: props.allowedFormats,
-    style: props.style,
-    onChange: props.onChange,
-    onBlur: () => {
-      if (cardIsClicked.current) {
-        setSelectedControl(null);
-      }
-    },
-    onFocus: () => {
-      setSelectedControl(id);
-    }
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    ...richTextProps
-  });
-}
-
-/***/ }),
-
 /***/ "./src/edit.js":
 /*!*********************!*\
   !*** ./src/edit.js ***!
@@ -66,7 +20,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 /* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
-/* harmony import */ var _components_rich_text_ex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/rich-text-ex */ "./src/components/rich-text-ex.js");
 
 /**
  * Retrieves the translation of text.
@@ -102,7 +55,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-
 function Edit({
   attributes,
   setAttributes
@@ -111,27 +63,6 @@ function Edit({
     className,
     ...blockProps
   } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
-
-  /*
-   * Identify if a click occurs inside the card or not
-   * That will be used to customize buttons in BlockControls
-   * according to the active RichText component
-   */
-  const cardIsClicked = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    let editorIframe = document.querySelector('.editor-canvas__iframe');
-    editorIframe = editorIframe && editorIframe.contentDocument || document;
-    const cardEl = editorIframe.querySelector('.wp-block-imandresi-testimonial');
-    const setCardClickStatus = clickStatus => {
-      cardIsClicked.current = clickStatus;
-    };
-    editorIframe.addEventListener('mousedown', e => {
-      setCardClickStatus(cardEl.contains(e.target));
-    });
-    window.addEventListener('mousedown', () => {
-      setCardClickStatus(false);
-    });
-  }, []);
 
   /*
    * Thumbnail
@@ -156,16 +87,16 @@ function Edit({
    * Used with the RichTextEx component for custom controls
    * in multiple RichText
    */
-  const [selectedRichTextControl, setSelectedRichTextControl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [activeRichTextControl, setActiveRichTextControl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
   const customRichTextData = {
     'quote-text': {
       attribute: 'quoteAlign'
     }
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, selectedRichTextControl ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentControl, {
-    value: attributes[customRichTextData[selectedRichTextControl].attribute],
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, activeRichTextControl ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentControl, {
+    value: attributes[customRichTextData[activeRichTextControl].attribute],
     onChange: textAlign => {
-      const key = customRichTextData[selectedRichTextControl].attribute;
+      const key = customRichTextData[activeRichTextControl].attribute;
       setAttributes({
         [key]: textAlign
       });
@@ -202,6 +133,9 @@ function Edit({
       setAttributes({
         authorName
       });
+    },
+    onFocus: () => {
+      setActiveRichTextControl(null);
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     tagname: "div",
@@ -213,8 +147,11 @@ function Edit({
       setAttributes({
         authorJob
       });
+    },
+    onFocus: () => {
+      setActiveRichTextControl(null);
     }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_rich_text_ex__WEBPACK_IMPORTED_MODULE_5__.RichTextEx, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     tagname: "div",
     className: "quote-text",
     placeholder: "Please enter the author testimony here...",
@@ -225,9 +162,9 @@ function Edit({
         quoteText
       });
     },
-    id: "quote-text",
-    cardIsClicked: cardIsClicked,
-    setSelectedControl: setSelectedRichTextControl,
+    onFocus: () => {
+      setActiveRichTextControl('quote-text');
+    },
     style: {
       textAlign: attributes.quoteAlign
     }

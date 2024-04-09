@@ -40,40 +40,11 @@ import './editor.scss';
 
 import authorPicture from './assets/images/photo_01.jpg';
 
-import {RichTextEx} from "./components/rich-text-ex";
-
 export default function Edit({attributes, setAttributes}) {
 	let {
 		className,
 		...blockProps
 	} = useBlockProps();
-
-	/*
-	 * Identify if a click occurs inside the card or not
-	 * That will be used to customize buttons in BlockControls
-	 * according to the active RichText component
-	 */
-	const cardIsClicked = useRef(false);
-
-	useEffect(() => {
-		let editorIframe = document.querySelector('.editor-canvas__iframe');
-		editorIframe = (editorIframe && editorIframe.contentDocument) || document;
-
-		const cardEl = editorIframe.querySelector('.wp-block-imandresi-testimonial');
-
-		const setCardClickStatus = clickStatus => {
-			cardIsClicked.current = clickStatus;
-		};
-
-		editorIframe.addEventListener('mousedown', e => {
-			setCardClickStatus(cardEl.contains(e.target));
-		});
-
-		window.addEventListener('mousedown', () => {
-			setCardClickStatus(false);
-		});
-
-	}, []);
 
 	/*
 	 * Thumbnail
@@ -104,7 +75,7 @@ export default function Edit({attributes, setAttributes}) {
 	 * Used with the RichTextEx component for custom controls
 	 * in multiple RichText
 	 */
-	const [selectedRichTextControl, setSelectedRichTextControl] = useState(null);
+	const [activeRichTextControl, setActiveRichTextControl] = useState(null);
 	const customRichTextData = {
 		'quote-text': {
 			attribute: 'quoteAlign'
@@ -115,11 +86,11 @@ export default function Edit({attributes, setAttributes}) {
 		<>
 			<BlockControls>
 				{
-					selectedRichTextControl ?
+					activeRichTextControl ?
 						<AlignmentControl
-							value={attributes[customRichTextData[selectedRichTextControl].attribute]}
+							value={attributes[customRichTextData[activeRichTextControl].attribute]}
 							onChange={textAlign => {
-								const key = customRichTextData[selectedRichTextControl].attribute;
+								const key = customRichTextData[activeRichTextControl].attribute;
 								setAttributes({
 									[key]: textAlign
 								})
@@ -150,6 +121,10 @@ export default function Edit({attributes, setAttributes}) {
 								onChange={authorName => {
 									setAttributes({authorName});
 								}}
+								onFocus={() => {
+									setActiveRichTextControl(null);
+								}}
+
 							/>
 
 							<RichText
@@ -161,11 +136,14 @@ export default function Edit({attributes, setAttributes}) {
 								onChange={authorJob => {
 									setAttributes({authorJob});
 								}}
+								onFocus={() => {
+									setActiveRichTextControl(null);
+								}}
 							/>
 
 						</div>
 
-						<RichTextEx
+						<RichText
 							tagname="div"
 							className="quote-text"
 							placeholder="Please enter the author testimony here..."
@@ -174,11 +152,12 @@ export default function Edit({attributes, setAttributes}) {
 							onChange={quoteText => {
 								setAttributes({quoteText});
 							}}
-							id='quote-text'
-							cardIsClicked={cardIsClicked}
-							setSelectedControl={setSelectedRichTextControl}
+							onFocus={() => {
+								setActiveRichTextControl('quote-text');
+							}}
 							style={{textAlign: attributes.quoteAlign}}
 						/>
+
 					</div>
 				</div>
 
