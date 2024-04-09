@@ -8,7 +8,7 @@
  * Replace them with your own styles or remove the file completely.
  */
 .wp-block-imandresi-testimonial {
-  width: 580px;
+  width: 580px !important;
   min-height: 100px;
   border: 8px solid #cccccc;
   background-color: white;
@@ -271,6 +271,7 @@
 .wp-block-imandresi-testimonial.is-style-modern .title .part-2 {
   display: block;
   font-family: "Roboto Black", serif;
+  line-height: 1;
   color: #142a42;
 }
 .wp-block-imandresi-testimonial.is-style-modern .title .part-2::after {
@@ -279,6 +280,7 @@
   content: "";
   width: 50px;
   height: 1px;
+  top: 3px;
   background-color: #142a42;
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container {
@@ -327,7 +329,8 @@
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container .content-inner-border .author .author-job {
   color: #34404c;
-  margin-top: 8px;
+  margin-top: 0px;
+  text-align: left;
   font-size: 15px;
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container .content-inner-border .quote-text {

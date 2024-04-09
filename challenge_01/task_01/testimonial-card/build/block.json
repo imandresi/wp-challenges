@@ -28,6 +28,10 @@
     "quoteText": {
       "type": "string",
       "default": ""
+    },
+    "quoteAlign": {
+      "type": "string",
+      "default": "none"
     }
   },
   "styles": [

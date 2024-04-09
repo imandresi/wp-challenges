@@ -12,7 +12,7 @@
 	$color-highlight: white;
 
 	$block-width: 580px;
-	width: $block-width;
+	width: $block-width !important;
 	min-height: 100px;
 	border: 8px solid #cccccc;
 	background-color: white;
@@ -332,6 +332,7 @@
 			.part-2 {
 				display: block;
 				font-family: "Roboto Black", serif;
+				line-height: 1;
 				color: $secondary-color;
 
 				&::after {
@@ -340,6 +341,7 @@
 					content: "";
 					width: 50px;
 					height: 1px;
+					top: 3px;
 					background-color: $secondary-color;
 				}
 
@@ -398,7 +400,8 @@
 
 					.author-job {
 						color: $color-dark;
-						margin-top: 8px;
+						margin-top: 0px;
+						text-align: left;
 						font-size: 15px;
 					}
 

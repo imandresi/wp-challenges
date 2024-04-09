@@ -2,6 +2,52 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/components/rich-text-ex.js":
+/*!****************************************!*\
+  !*** ./src/components/rich-text-ex.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   RichTextEx: () => (/* binding */ RichTextEx)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function RichTextEx(props) {
+  const {
+    id,
+    setSelectedControl,
+    cardIsClicked
+  } = props;
+  const richTextProps = {
+    tagname: props.tagname,
+    className: props.className,
+    placeholder: props.placeholder,
+    value: props.value,
+    allowedFormats: props.allowedFormats,
+    style: props.style,
+    onChange: props.onChange,
+    onBlur: () => {
+      if (cardIsClicked.current) {
+        setSelectedControl(null);
+      }
+    },
+    onFocus: () => {
+      setSelectedControl(id);
+    }
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    ...richTextProps
+  });
+}
+
+/***/ }),
+
 /***/ "./src/edit.js":
 /*!*********************!*\
   !*** ./src/edit.js ***!
@@ -20,12 +66,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 /* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
+/* harmony import */ var _components_rich_text_ex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/rich-text-ex */ "./src/components/rich-text-ex.js");
 
 /**
  * Retrieves the translation of text.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
+
 
 
 /**
@@ -54,6 +102,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 function Edit({
   attributes,
   setAttributes
@@ -62,6 +111,27 @@ function Edit({
     className,
     ...blockProps
   } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
+
+  /*
+   * Identify if a click occurs inside the card or not
+   * That will be used for customize buttons in BlockControls
+   * according to the active RichText component
+   */
+  const cardIsClicked = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let editorIframe = document.querySelector('.editor-canvas__iframe');
+    editorIframe = editorIframe && editorIframe.contentDocument || document;
+    const cardEl = editorIframe.querySelector('.wp-block-imandresi-testimonial');
+    const setCardClickStatus = clickStatus => {
+      cardIsClicked.current = clickStatus;
+    };
+    editorIframe.addEventListener('mousedown', e => {
+      setCardClickStatus(cardEl.contains(e.target));
+    });
+    window.addEventListener('mousedown', () => {
+      setCardClickStatus(false);
+    });
+  }, []);
   const authorPictureStyle = {
     backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__})`
   };
@@ -74,67 +144,90 @@ function Edit({
   });
   if (!cardStyleApplied) {
     className += ' is-style-default';
-    console.log('here');
   }
-  return (
-    // <div className={className} {...blockProps}>
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: className,
-      ...blockProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "title"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "part-1"
-    }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "part-2"
-    }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "content-container"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "author-picture",
-      style: authorPictureStyle
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "content-inner-border"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "quote quote-left"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "quote quote-right"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "author"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-      tagname: "div",
-      className: "author-name",
-      placeholder: "Author Name",
-      multiline: false,
-      value: attributes.authorName,
-      onChange: authorName => {
-        setAttributes({
-          authorName
-        });
-      }
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-      tagname: "div",
-      placeholder: "Author Job",
-      className: "author-job",
-      value: attributes.authorJob,
-      onChange: authorJob => {
-        setAttributes({
-          authorJob
-        });
-      }
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
-      tagname: "div",
-      className: "quote-text",
-      placeholder: "Please enter the author testimony here...",
-      value: attributes.quoteText,
-      onChange: quoteText => {
-        setAttributes({
-          quoteText
-        });
-      }
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "footer"
-    }))
-  );
+
+  /*
+   * Used with the RichTextEx component for custom controls
+   * in multiple RichText
+   */
+  const [selectedRichTextControl, setSelectedRichTextControl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const customRichTextData = {
+    'quote-text': {
+      attribute: 'quoteAlign'
+    }
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, selectedRichTextControl ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentControl, {
+    value: attributes[customRichTextData[selectedRichTextControl].attribute],
+    onChange: textAlign => {
+      const key = customRichTextData[selectedRichTextControl].attribute;
+      setAttributes({
+        [key]: textAlign
+      });
+    }
+  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: className,
+    ...blockProps
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "part-1"
+  }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "part-2"
+  }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "content-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "author-picture",
+    style: authorPictureStyle
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "content-inner-border"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "quote quote-left"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "quote quote-right"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "author"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    tagname: "div",
+    className: "author-name",
+    placeholder: "Author Name",
+    allowedFormats: ['core/bold', 'core/italic'],
+    value: attributes.authorName,
+    onChange: authorName => {
+      setAttributes({
+        authorName
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    tagname: "div",
+    placeholder: "Author Job",
+    className: "author-job",
+    allowedFormats: ['core/bold', 'core/italic'],
+    value: attributes.authorJob,
+    onChange: authorJob => {
+      setAttributes({
+        authorJob
+      });
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_rich_text_ex__WEBPACK_IMPORTED_MODULE_5__.RichTextEx, {
+    tagname: "div",
+    className: "quote-text",
+    placeholder: "Please enter the author testimony here...",
+    value: attributes.quoteText,
+    allowedFormats: ['core/bold', 'core/italic'],
+    onChange: quoteText => {
+      setAttributes({
+        quoteText
+      });
+    },
+    id: "quote-text",
+    cardIsClicked: cardIsClicked,
+    setSelectedControl: setSelectedRichTextControl,
+    style: {
+      textAlign: attributes.quoteAlign
+    }
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "footer"
+  })));
 }
 
 /***/ }),
@@ -398,7 +491,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""},"quoteAlign":{"type":"string","default":"none"}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
 
 /***/ })
 
