@@ -17,8 +17,16 @@ import {
 	useBlockProps,
 	RichText,
 	AlignmentControl,
-	BlockControls
+	BlockControls,
+	InspectorControls,
 } from '@wordpress/block-editor';
+
+import {
+	Panel,
+	PanelBody,
+	PanelRow,
+	TextControl
+} from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -100,10 +108,25 @@ export default function Edit({attributes, setAttributes}) {
 				}
 			</BlockControls>
 
+			<InspectorControls>
+					<PanelBody title="Title">
+						<TextControl
+							label="Part 1"
+							value={attributes.titlePart1}
+							onChange={(titlePart1) => setAttributes({titlePart1})}
+						/>
+						<TextControl
+							label="Part 2"
+							value={attributes.titlePart2}
+							onChange={(titlePart2) => setAttributes(titlePart2)}
+						/>
+					</PanelBody>
+			</InspectorControls>
+
 			<div className={className} {...blockProps}>
 				<div className="title">
-					<span className="part-1">Clients</span>
-					<span className="part-2">FeedBack</span>
+					<span className="part-1">{attributes.titlePart1}</span>
+					<span className="part-2">{attributes.titlePart2}</span>
 				</div>
 
 				<div className="content-container">

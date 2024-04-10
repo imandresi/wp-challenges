@@ -59,6 +59,8 @@
 			.part-1 {
 				font-family: "Montserrat ExtraLight", serif;
 				color: $color-dark;
+				margin-right: 10px;
+
 			}
 
 			.part-2 {
@@ -182,6 +184,7 @@
 			.part-1 {
 				font-family: "Montserrat ExtraLight", serif;
 				color: $color-highlight;
+				margin-right: 10px;
 			}
 
 			.part-2 {
@@ -396,6 +399,7 @@
 						color: $primary-color;
 						font-family: "Roboto Bold", sans-serif;
 						font-size: 25px;
+						text-transform: uppercase;
 					}
 
 					.author-job {
@@ -403,6 +407,7 @@
 						margin-top: 0px;
 						text-align: left;
 						font-size: 15px;
+						text-transform: capitalize;
 					}
 
 				}

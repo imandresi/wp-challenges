@@ -18,8 +18,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
 
 /**
  * Retrieves the translation of text.
@@ -35,6 +37,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
+
 
 
 /**
@@ -68,7 +71,7 @@ function Edit({
    * Thumbnail
    */
   const authorPictureStyle = {
-    backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_4__})`
+    backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_5__})`
   };
 
   /*
@@ -101,16 +104,28 @@ function Edit({
         [key]: textAlign
       });
     }
-  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: "Title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Part 1",
+    value: attributes.titlePart1,
+    onChange: titlePart1 => setAttributes({
+      titlePart1
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+    label: "Part 2",
+    value: attributes.titlePart2,
+    onChange: titlePart2 => setAttributes(titlePart2)
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: className,
     ...blockProps
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "title"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "part-1"
-  }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, attributes.titlePart1), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "part-2"
-  }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, attributes.titlePart2)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "content-container"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "author-picture",
@@ -296,9 +311,9 @@ function save({
     className: "title"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "part-1"
-  }, "Clients"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, attributes.titlePart1), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "part-2"
-  }, "FeedBack")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, attributes.titlePart2)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "content-container"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "author-picture",
@@ -418,6 +433,16 @@ module.exports = window["wp"]["blocks"];
 
 /***/ }),
 
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -434,7 +459,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""},"quoteAlign":{"type":"string","default":"none"}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""},"quoteAlign":{"type":"string","default":"center"},"titlePart1":{"type":"string","default":"Client"},"titlePart2":{"type":"string","default":"FeedBack"}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
 
 /***/ })
 

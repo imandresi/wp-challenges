@@ -31,7 +31,15 @@
 		},
 		"quoteAlign": {
 			"type": "string",
-			"default": "none"
+			"default": "center"
+		},
+		"titlePart1": {
+			"type": "string",
+			"default": "Client"
+		},
+		"titlePart2": {
+			"type": "string",
+			"default": "FeedBack"
 		}
 	},
 	"styles": [

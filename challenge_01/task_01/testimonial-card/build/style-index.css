@@ -45,6 +45,7 @@
 .wp-block-imandresi-testimonial.is-style-default .title .part-1 {
   font-family: "Montserrat ExtraLight", serif;
   color: #34404c;
+  margin-right: 10px;
 }
 .wp-block-imandresi-testimonial.is-style-default .title .part-2 {
   font-family: "Montserrat Black", serif;
@@ -146,6 +147,7 @@
 .wp-block-imandresi-testimonial.is-style-classic .title .part-1 {
   font-family: "Montserrat ExtraLight", serif;
   color: white;
+  margin-right: 10px;
 }
 .wp-block-imandresi-testimonial.is-style-classic .title .part-2 {
   font-family: "Montserrat Black", serif;
@@ -326,12 +328,14 @@
   color: #f79a0f;
   font-family: "Roboto Bold", sans-serif;
   font-size: 25px;
+  text-transform: uppercase;
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container .content-inner-border .author .author-job {
   color: #34404c;
   margin-top: 0px;
   text-align: left;
   font-size: 15px;
+  text-transform: capitalize;
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container .content-inner-border .quote-text {
   display: inline-block;

@@ -53,8 +53,8 @@ export default function save({attributes}) {
 	return (
 		<div className={className} {...blockProps}>
 			<div className="title">
-				<span className="part-1">Clients</span>
-				<span className="part-2">FeedBack</span>
+				<span className="part-1">{attributes.titlePart1}</span>
+				<span className="part-2">{attributes.titlePart2}</span>
 			</div>
 
 			<div className="content-container">
