@@ -84,9 +84,14 @@ export default function Edit({attributes, setAttributes}) {
 	 * in multiple RichText
 	 */
 	const [activeRichTextControl, setActiveRichTextControl] = useState(null);
-	const customRichTextData = {
-		'quote-text': {
-			attribute: 'quoteAlign'
+	const blockControlData = {
+		alignmentControl: {
+			'quote-text': {
+				value: attributes.quoteAlign,
+				onChange(quoteAlign) {
+					setAttributes({quoteAlign})
+				}
+			}
 		}
 	};
 
@@ -94,33 +99,25 @@ export default function Edit({attributes, setAttributes}) {
 		<>
 			<BlockControls>
 				{
-					activeRichTextControl ?
-						<AlignmentControl
-							value={attributes[customRichTextData[activeRichTextControl].attribute]}
-							onChange={textAlign => {
-								const key = customRichTextData[activeRichTextControl].attribute;
-								setAttributes({
-									[key]: textAlign
-								})
-							}}
-						/>
+					activeRichTextControl && blockControlData.alignmentControl[activeRichTextControl] ?
+						<AlignmentControl {...blockControlData.alignmentControl[activeRichTextControl]} />
 						: null
 				}
 			</BlockControls>
 
 			<InspectorControls>
-					<PanelBody title="Title">
-						<TextControl
-							label="Part 1"
-							value={attributes.titlePart1}
-							onChange={(titlePart1) => setAttributes({titlePart1})}
-						/>
-						<TextControl
-							label="Part 2"
-							value={attributes.titlePart2}
-							onChange={(titlePart2) => setAttributes(titlePart2)}
-						/>
-					</PanelBody>
+				<PanelBody title="Title">
+					<TextControl
+						label="Part 1"
+						value={attributes.titlePart1}
+						onChange={(titlePart1) => setAttributes({titlePart1})}
+					/>
+					<TextControl
+						label="Part 2"
+						value={attributes.titlePart2}
+						onChange={(titlePart2) => setAttributes(titlePart2)}
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div className={className} {...blockProps}>

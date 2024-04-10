@@ -91,19 +91,20 @@ function Edit({
    * in multiple RichText
    */
   const [activeRichTextControl, setActiveRichTextControl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const customRichTextData = {
-    'quote-text': {
-      attribute: 'quoteAlign'
+  const blockControlData = {
+    alignmentControl: {
+      'quote-text': {
+        value: attributes.quoteAlign,
+        onChange(quoteAlign) {
+          setAttributes({
+            quoteAlign
+          });
+        }
+      }
     }
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, activeRichTextControl ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentControl, {
-    value: attributes[customRichTextData[activeRichTextControl].attribute],
-    onChange: textAlign => {
-      const key = customRichTextData[activeRichTextControl].attribute;
-      setAttributes({
-        [key]: textAlign
-      });
-    }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, activeRichTextControl && blockControlData.alignmentControl[activeRichTextControl] ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentControl, {
+    ...blockControlData.alignmentControl[activeRichTextControl]
   }) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: "Title"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
@@ -337,7 +338,10 @@ function save({
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: "div",
     className: "quote-text",
-    value: attributes.quoteText
+    value: attributes.quoteText,
+    style: {
+      textAlign: attributes.quoteAlign
+    }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "footer"
   }));

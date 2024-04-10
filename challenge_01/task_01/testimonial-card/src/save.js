@@ -78,6 +78,7 @@ export default function save({attributes}) {
 						tagName="div"
 						className="quote-text"
 						value={attributes.quoteText}
+						style={{textAlign: attributes.quoteAlign}}
 					/>
 				</div>
 			</div>
