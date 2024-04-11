@@ -23,6 +23,8 @@ import Edit from './edit';
 import save from './save';
 import metadata from './block.json';
 
+import categoryIcon from './assets/images/icon.svg';
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -38,6 +40,7 @@ registerBlockType( metadata.name, {
 	 * @see ./save.js
 	 */
 	save,
+	icon: <img src={categoryIcon}/>
 } );
 
 

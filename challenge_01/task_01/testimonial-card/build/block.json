@@ -51,7 +51,7 @@
     },
     "titlePart1": {
       "type": "string",
-      "default": "Client"
+      "default": "Clients"
     },
     "titlePart2": {
       "type": "string",
