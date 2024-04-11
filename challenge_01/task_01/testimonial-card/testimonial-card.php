@@ -24,7 +24,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
+
+function imandresi_create_custom_block_category($categories) {
+	$category_slug = 'wp_challenge';
+
+	// checks if the slug already exist
+	foreach ($categories as $category) {
+		if ($category['slug'] == $category_slug) {
+			return $categories;
+		}
+	}
+
+	$categories[] = [
+		'slug'  => $category_slug,
+		'title' => 'WordPress Challenge'
+	];
+
+	return $categories;
+
+}
+
 function imandresi_testimonial_block_init() {
+	add_filter('block_categories_all', 'imandresi_create_custom_block_category');
 	register_block_type( __DIR__ . '/build' );
 }
 add_action( 'init', 'imandresi_testimonial_block_init' );

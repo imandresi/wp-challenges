@@ -4,7 +4,7 @@
 	"name": "imandresi/testimonial",
 	"version": "1.0.0",
 	"title": "Testimonial Card",
-	"category": "widgets",
+	"category": "wp_challenge",
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
