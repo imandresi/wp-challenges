@@ -13,6 +13,9 @@
   border: 8px solid #cccccc;
   background-color: white;
 }
+.wp-block-imandresi-testimonial * {
+  box-sizing: border-box;
+}
 .wp-block-imandresi-testimonial .quote::after {
   position: absolute;
   display: block;
@@ -311,12 +314,12 @@
   position: absolute;
   display: block;
   content: "";
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
   border: 2px solid #f79a0f;
   border-radius: 50%;
-  top: -7px;
-  left: -7px;
+  top: -8px;
+  left: -8px;
 }
 .wp-block-imandresi-testimonial.is-style-modern .content-container .content-inner-border {
   position: relative;
