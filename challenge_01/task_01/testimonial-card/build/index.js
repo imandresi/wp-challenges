@@ -21,7 +21,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/images/photo_01.jpg */ "./src/assets/images/photo_01.jpg");
 
 /**
  * Retrieves the translation of text.
@@ -57,7 +56,6 @@ __webpack_require__.r(__webpack_exports__);
  * @return {Element} Element to render.
  */
 
-
 function Edit({
   attributes,
   setAttributes
@@ -70,9 +68,13 @@ function Edit({
   /*
    * Thumbnail
    */
-  const authorPictureStyle = {
-    backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_5__})`
-  };
+  let authorPictureStyle = {};
+  const authorPicture = attributes.authorPicture;
+  if (authorPicture) {
+    authorPictureStyle = {
+      backgroundImage: `url(${authorPicture})`
+    };
+  }
 
   /*
    * Apply default class (is-style-default) to card if no style applied
@@ -128,9 +130,21 @@ function Edit({
     className: "part-2"
   }, attributes.titlePart2)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "content-container"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "author-picture",
-    style: authorPictureStyle
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.MediaUpload, {
+    onSelect: media => {
+      const url = media.url;
+      setAttributes({
+        authorPicture: media.url
+      });
+    },
+    allowedTypes: ['image'],
+    render: ({
+      open
+    }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "author-picture",
+      style: authorPictureStyle,
+      onClick: open
+    })
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "content-inner-border"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -151,7 +165,7 @@ function Edit({
       });
     },
     onFocus: () => {
-      setActiveRichTextControl(null);
+      setActiveRichTextControl('author-name');
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     tagname: "div",
@@ -165,7 +179,7 @@ function Edit({
       });
     },
     onFocus: () => {
-      setActiveRichTextControl(null);
+      setActiveRichTextControl('author-job');
     }
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     tagname: "div",
@@ -290,9 +304,13 @@ function save({
     className,
     ...blockProps
   } = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save();
-  const blockStyle = {
-    backgroundImage: `url(${_assets_images_photo_01_jpg__WEBPACK_IMPORTED_MODULE_2__})`
-  };
+  const authorPicture = attributes.authorPicture;
+  let blockStyle = {};
+  if (authorPicture) {
+    blockStyle = {
+      backgroundImage: `url(${authorPicture})`
+    };
+  }
 
   // Apply default class (is-style-default) if necessary
   if (className) {
@@ -463,7 +481,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"quoteText":{"type":"string","default":""},"quoteAlign":{"type":"string","default":"center"},"titlePart1":{"type":"string","default":"Client"},"titlePart2":{"type":"string","default":"FeedBack"}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/testimonial","version":"1.0.0","title":"Testimonial Card","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"testimonial","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"authorName":{"type":"string","default":""},"authorNameFontFamily":{"type":"string","default":""},"authorJob":{"type":"string","default":""},"authorJobFontFamily":{"type":"string","default":""},"authorPicture":{"type":"string","default":""},"quoteText":{"type":"string","default":""},"quoteTextFontFamily":{"type":"string","default":""},"quoteAlign":{"type":"string","default":"center"},"titlePart1":{"type":"string","default":"Client"},"titlePart2":{"type":"string","default":"FeedBack"}},"styles":[{"name":"default","label":"Default","isDefault":true},{"name":"classic","label":"Classic","isDefault":false},{"name":"modern","label":"Modern","isDefault":false}]}');
 
 /***/ })
 

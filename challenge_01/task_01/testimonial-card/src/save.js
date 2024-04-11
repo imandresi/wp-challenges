@@ -28,8 +28,13 @@ export default function save({attributes}) {
 		...blockProps
 	} = useBlockProps.save();
 
-	const blockStyle = {
-		backgroundImage: `url(${authorPicture})`
+	const authorPicture = attributes.authorPicture;
+	let blockStyle = {};
+
+	if (authorPicture) {
+		blockStyle = {
+			backgroundImage: `url(${authorPicture})`
+		}
 	}
 
 	// Apply default class (is-style-default) if necessary

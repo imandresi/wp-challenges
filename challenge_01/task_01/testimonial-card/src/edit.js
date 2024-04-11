@@ -19,13 +19,18 @@ import {
 	AlignmentControl,
 	BlockControls,
 	InspectorControls,
+	FontFamilyControl,
+	FontSizePicker,
+	MediaUpload,
+	MediaUploadCheck
 } from '@wordpress/block-editor';
 
 import {
 	Panel,
 	PanelBody,
 	PanelRow,
-	TextControl
+	TextControl,
+	ToolbarGroup
 } from '@wordpress/components';
 
 /**
@@ -46,7 +51,6 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 
-import authorPicture from './assets/images/photo_01.jpg';
 
 export default function Edit({attributes, setAttributes}) {
 	let {
@@ -57,9 +61,14 @@ export default function Edit({attributes, setAttributes}) {
 	/*
 	 * Thumbnail
 	 */
-	const authorPictureStyle = {
-		backgroundImage: `url(${authorPicture})`
-	};
+	let authorPictureStyle = {};
+	const authorPicture = attributes.authorPicture;
+
+	if (authorPicture) {
+		authorPictureStyle = {
+			backgroundImage: `url(${authorPicture})`
+		};
+	}
 
 	/*
 	 * Apply default class (is-style-default) to card if no style applied
@@ -97,12 +106,14 @@ export default function Edit({attributes, setAttributes}) {
 
 	return (
 		<>
+
 			<BlockControls>
 				{
 					activeRichTextControl && blockControlData.alignmentControl[activeRichTextControl] ?
 						<AlignmentControl {...blockControlData.alignmentControl[activeRichTextControl]} />
 						: null
 				}
+
 			</BlockControls>
 
 			<InspectorControls>
@@ -117,6 +128,7 @@ export default function Edit({attributes, setAttributes}) {
 						value={attributes.titlePart2}
 						onChange={(titlePart2) => setAttributes(titlePart2)}
 					/>
+
 				</PanelBody>
 			</InspectorControls>
 
@@ -127,7 +139,20 @@ export default function Edit({attributes, setAttributes}) {
 				</div>
 
 				<div className="content-container">
-					<div className="author-picture" style={authorPictureStyle}></div>
+					<MediaUpload
+						onSelect={ ( media ) => {
+							const url = media.url;
+							setAttributes({authorPicture: media.url});
+						}}
+						allowedTypes={ ['image'] }
+						render={ ( { open } ) => (
+							<div className="author-picture"
+								 style={authorPictureStyle}
+								 onClick={open}
+							></div>
+						) }
+					/>
+
 					<div className="content-inner-border">
 						<div className="quote quote-left"></div>
 						<div className="quote quote-right"></div>
@@ -142,9 +167,8 @@ export default function Edit({attributes, setAttributes}) {
 									setAttributes({authorName});
 								}}
 								onFocus={() => {
-									setActiveRichTextControl(null);
+									setActiveRichTextControl('author-name');
 								}}
-
 							/>
 
 							<RichText
@@ -157,7 +181,7 @@ export default function Edit({attributes, setAttributes}) {
 									setAttributes({authorJob});
 								}}
 								onFocus={() => {
-									setActiveRichTextControl(null);
+									setActiveRichTextControl('author-job');
 								}}
 							/>
 

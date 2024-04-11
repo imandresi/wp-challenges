@@ -21,11 +21,27 @@
 			"type": "string",
 			"default": ""
 		},
+		"authorNameFontFamily": {
+			"type": "string",
+			"default": ""
+		},
 		"authorJob": {
 			"type": "string",
 			"default": ""
 		},
+		"authorJobFontFamily": {
+			"type": "string",
+			"default": ""
+		},
+		"authorPicture": {
+			"type": "string",
+			"default": ""
+		},
 		"quoteText": {
+			"type": "string",
+			"default": ""
+		},
+		"quoteTextFontFamily": {
 			"type": "string",
 			"default": ""
 		},
