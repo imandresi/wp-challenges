@@ -12,13 +12,14 @@ const __dirname = path.dirname(__filename);
 const distPath = path.resolve('../dist');
 const pluginName = path.parse(path.basename(__dirname)).name;
 const zipFilename = `${pluginName}.zip`;
-const temporaryFolder = 'tmp'
+const temporaryFolder = 'tmp';
+const outputFolder = 'build';
 const pluginDir = `${distPath}/${temporaryFolder}/${pluginName}`;
 
 const copyBuildFolder = () => {
 	fs.mkdir(pluginDir, {recursive:true}, () => {});
-	return gulp.src(['./build/**/*', '!./build/**/*.map'], {base: './build'})
-		.pipe(gulp.dest(`${pluginDir}/build`));
+	return gulp.src([`./${outputFolder}/**/*`, `!./${outputFolder}**/*.map`], {base: `./${outputFolder}`})
+		.pipe(gulp.dest(`${pluginDir}/${outputFolder}`));
 } ;
 
 const copyRootFolder = () => {
