@@ -25,12 +25,6 @@ Use Editor and Block Styles (editor if fields are displayed inside the block in 
 
 ## MY SOLUTION:
 
-!!! TO BE COMPLETED !!!
-
-- Installation from the ZIP file in the build
-- Functionalities (avatar picture, multiple styles)
-- screen captures
-
 ### Installation
 
 1. [Download](./dist/testimonial-card.zip) the ZIP file of the plugin
