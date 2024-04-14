@@ -50,11 +50,11 @@ Use Editor and Block Styles (editor if fields are displayed inside the block in 
    - classic
    - modern
 
-![Default Style](/docs/card_style_01.png/)
+![Default Style](./docs/card_style_01.png/)
 
-![Classic Style](/docs/card_style_02.png/)
+![Classic Style](./docs/card_style_02.png/)
 
-![Modern Style](/docs/card_style_03.png/)
+![Modern Style](./docs/card_style_03.png/)
 
 ### Credits
 Thank you to **Edmond Dantès** for the photo of the woman in the example demo.
