@@ -40,7 +40,7 @@ Use Editor and Block Styles (editor if fields are displayed inside the block in 
 3. Access the "WordPress Challenge" category
 4. Click on the "Testimonial Card" icon to insert a new testimonial.
 
-![Testimonial Card](/docs/testimonial_card_icon.png/)
+![Testimonial Card](./docs/testimonial_card_icon.png/)
 
 5. Complete the card by indicating the name of the author, his word, his testimony. You can choose to customize the
    alignment of the testimony by clicking on the left/center/right alignment icon on the block toolbar.
