@@ -1,4 +1,3 @@
-import zip from 'gulp-zip';
 import gulp from 'gulp';
 import {series, parallel} from 'gulp';
 import path from 'path';
