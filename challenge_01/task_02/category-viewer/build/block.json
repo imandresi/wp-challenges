@@ -6,7 +6,7 @@
   "title": "Category Viewer",
   "category": "widgets",
   "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "description": "Fetch and display posts from category.",
   "example": {},
   "supports": {
     "html": false
@@ -16,5 +16,11 @@
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "render": "file:./render.php",
-  "viewScript": "file:./view.js"
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "category": {
+      "type": "number",
+      "default": null
+    }
+  }
 }
