@@ -9,7 +9,8 @@ import {
 
 import {
 	PanelBody,
-	SelectControl
+	SelectControl,
+	ToggleControl
 } from '@wordpress/components';
 
 import './editor.scss';
@@ -95,9 +96,15 @@ export default function Edit({attributes, setAttributes}) {
 
 	// loads posts
 	const posts = useSelect(select => {
-		return select('core').getEntityRecords('postType', 'post', {
+		let posts = select('core').getEntityRecords('postType', 'post', {
 			categories: attributes.category
 		});
+
+		if (Array.isArray(posts) && (posts.length === 0)) {
+			posts = null;
+		}
+
+		return posts;
 	});
 
 	// initialize thumbnail styles
@@ -109,7 +116,6 @@ export default function Edit({attributes, setAttributes}) {
 	if (attributes.displayPostThumbnail && attributes.thumbnailImage) {
 		thumbnailStyles.backgroundImage = `url(${attributes.thumbnailImage})`;
 	}
-
 
 	return (
 		<>
@@ -123,6 +129,45 @@ export default function Edit({attributes, setAttributes}) {
 						}}
 						options={categoryOptions}
 					/>
+
+					{
+						posts &&
+						<>
+							<ToggleControl
+								label="Display Title"
+								checked={attributes.displayPostTitle}
+								onChange={displayPostTitle => {
+									setAttributes({displayPostTitle})
+								}}
+							/>
+
+							<ToggleControl
+								label="Display Date"
+								checked={attributes.displayPostDate}
+								onChange={displayPostDate => {
+									setAttributes({displayPostDate})
+								}}
+							/>
+
+							<ToggleControl
+								label="Display Excerpt"
+								checked={attributes.displayPostExcerpt}
+								onChange={displayPostExcerpt => {
+									setAttributes({displayPostExcerpt})
+								}}
+							/>
+
+							<ToggleControl
+								label="Display Thumbnail"
+								checked={attributes.displayPostThumbnail}
+								onChange={displayPostThumbnail => {
+									setAttributes({displayPostThumbnail})
+								}}
+							/>
+
+						</>
+					}
+
 				</PanelBody>
 			</InspectorControls>
 			<div {...useBlockProps()}>
@@ -131,10 +176,18 @@ export default function Edit({attributes, setAttributes}) {
 						return (
 							<div className="category-viewer__post">
 								{
-									attributes.displayPostThumbnail &&
+									(
+										attributes.displayPostThumbnail ||
+										attributes.displayPostTitle ||
+										attributes.displayPostDate ||
+										attributes.displayPostExcerpt
+									) &&
 									<>
-										<div className="category-viewer__thumbnail" style={thumbnailStyles}></div>
-										<div>
+										{
+											attributes.displayPostThumbnail &&
+											<div className="category-viewer__thumbnail" style={thumbnailStyles}></div>
+										}
+										<div className="category-viewer__content">
 											{
 												(attributes.displayPostTitle || attributes.displayPostDate) &&
 												<div className="category-viewer__title">
@@ -164,6 +217,7 @@ export default function Edit({attributes, setAttributes}) {
 													 }
 												></div>
 											}
+
 										</div>
 									</>
 								}

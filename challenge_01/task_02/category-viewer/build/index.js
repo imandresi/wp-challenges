@@ -98,9 +98,13 @@ function Edit({
 
   // loads posts
   const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
-    return select('core').getEntityRecords('postType', 'post', {
+    let posts = select('core').getEntityRecords('postType', 'post', {
       categories: attributes.category
     });
+    if (Array.isArray(posts) && posts.length === 0) {
+      posts = null;
+    }
+    return posts;
   });
 
   // initialize thumbnail styles
@@ -122,15 +126,49 @@ function Edit({
       });
     },
     options: categoryOptions
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), posts && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Display Title",
+    checked: attributes.displayPostTitle,
+    onChange: displayPostTitle => {
+      setAttributes({
+        displayPostTitle
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Display Date",
+    checked: attributes.displayPostDate,
+    onChange: displayPostDate => {
+      setAttributes({
+        displayPostDate
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Display Excerpt",
+    checked: attributes.displayPostExcerpt,
+    onChange: displayPostExcerpt => {
+      setAttributes({
+        displayPostExcerpt
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Display Thumbnail",
+    checked: attributes.displayPostThumbnail,
+    onChange: displayPostThumbnail => {
+      setAttributes({
+        displayPostThumbnail
+      });
+    }
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, posts && posts.map(post => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__post"
-    }, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }, (attributes.displayPostThumbnail || attributes.displayPostTitle || attributes.displayPostDate || attributes.displayPostExcerpt) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__thumbnail",
       style: thumbnailStyles
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "category-viewer__content"
+    }, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__title"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       href: post.link
