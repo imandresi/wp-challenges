@@ -16,35 +16,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 
 
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 
 
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 
 function fetchData(apiUrl, cb) {
   fetch(apiUrl).then(response => {
@@ -57,6 +41,18 @@ function fetchData(apiUrl, cb) {
   }).catch(error => {
     console.error('Fetch error:', error);
   });
+}
+function formatDate(date) {
+  let formattedDate = '';
+  if (date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const formattedMonth = String(month).padStart(2, '0');
+    const formattedDay = String(day).padStart(2, '0');
+    formattedDate = `${formattedMonth}/${formattedDay}/${year}`;
+  }
+  return formattedDate;
 }
 
 /**
@@ -76,7 +72,7 @@ function Edit({
   // load categories
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     const url = '/wp-json/wp/v2/categories';
-    const categoryOptions1 = [{
+    const tmpCategoryOptions = [{
       label: 'Select a category',
       value: 0
     }];
@@ -90,27 +86,65 @@ function Edit({
         name = (_categoryItem$name = categoryItem.name) !== null && _categoryItem$name !== void 0 ? _categoryItem$name : null;
         id = (_categoryItem$id = categoryItem.id) !== null && _categoryItem$id !== void 0 ? _categoryItem$id : null;
         if (name && id) {
-          categoryOptions1.push({
+          tmpCategoryOptions.push({
             label: name,
             value: id
           });
         }
       });
-      setCategoryOptions(categoryOptions1);
+      setCategoryOptions(tmpCategoryOptions);
     });
   }, []);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+
+  // loads posts
+  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
+    return select('core').getEntityRecords('postType', 'post', {
+      categories: attributes.category
+    });
+  });
+
+  // initialize thumbnail styles
+  const thumbnailStyles = {
+    width: attributes.thumbnailSize,
+    height: attributes.thumbnailSize
+  };
+  if (attributes.displayPostThumbnail && attributes.thumbnailImage) {
+    thumbnailStyles.backgroundImage = `url(${attributes.thumbnailImage})`;
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: "Data Configuration"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
     label: "Category",
     value: attributes.category,
     onChange: category => {
-      console.log(category);
+      setAttributes({
+        category
+      });
     },
     options: categoryOptions
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Category Viewer – hello from the editor!', 'category-viewer')));
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
+  }, posts && posts.map(post => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "category-viewer__post"
+    }, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "category-viewer__thumbnail",
+      style: thumbnailStyles
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "category-viewer__title"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: post.link
+    }, attributes.displayPostDate && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "category-viewer__title__date"
+    }, "[", formatDate(new Date(post.date)), "]"), attributes.displayPostTitle && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "category-viewer__title__text"
+    }, post.title.rendered))), attributes.displayPostExcerpt && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "category-viewer__excerpt",
+      dangerouslySetInnerHTML: {
+        __html: post.excerpt.rendered
+      }
+    }))));
+  }) || (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No posts found.")));
 }
 
 /***/ }),
@@ -227,6 +261,16 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -243,7 +287,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150}}}');
 
 /***/ })
 

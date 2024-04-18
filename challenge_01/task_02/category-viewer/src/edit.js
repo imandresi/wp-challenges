@@ -1,17 +1,7 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import {__} from '@wordpress/i18n';
 import {useState, useRef, useEffect} from 'react';
+import {useSelect} from '@wordpress/data';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
 import {
 	useBlockProps,
 	InspectorControls
@@ -22,12 +12,6 @@ import {
 	SelectControl
 } from '@wordpress/components';
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
 import './editor.scss';
 
 function fetchData(apiUrl, cb) {
@@ -46,6 +30,23 @@ function fetchData(apiUrl, cb) {
 		});
 }
 
+function formatDate(date) {
+	let formattedDate = '';
+
+	if (date) {
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1;
+		const day = date.getDate();
+
+		const formattedMonth = String(month).padStart(2, '0');
+		const formattedDay = String(day).padStart(2, '0');
+
+		formattedDate = `${formattedMonth}/${formattedDay}/${year}`;
+	}
+
+	return formattedDate;
+}
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -61,7 +62,7 @@ export default function Edit({attributes, setAttributes}) {
 	// load categories
 	useEffect(function () {
 		const url = '/wp-json/wp/v2/categories';
-		const categoryOptions1 = [
+		const tmpCategoryOptions = [
 			{
 				label: 'Select a category',
 				value: 0
@@ -79,19 +80,36 @@ export default function Edit({attributes, setAttributes}) {
 				name = categoryItem.name ?? null;
 				id = categoryItem.id ?? null;
 				if (name && id) {
-					categoryOptions1.push({
+					tmpCategoryOptions.push({
 						label: name,
 						value: id
 					});
 				}
-			})
+			});
 
-			setCategoryOptions(categoryOptions1);
+			setCategoryOptions(tmpCategoryOptions);
 
 		});
 
-
 	}, []);
+
+	// loads posts
+	const posts = useSelect(select => {
+		return select('core').getEntityRecords('postType', 'post', {
+			categories: attributes.category
+		});
+	});
+
+	// initialize thumbnail styles
+	const thumbnailStyles = {
+		width: attributes.thumbnailSize,
+		height: attributes.thumbnailSize
+	};
+
+	if (attributes.displayPostThumbnail && attributes.thumbnailImage) {
+		thumbnailStyles.backgroundImage = `url(${attributes.thumbnailImage})`;
+	}
+
 
 	return (
 		<>
@@ -101,19 +119,63 @@ export default function Edit({attributes, setAttributes}) {
 						label="Category"
 						value={attributes.category}
 						onChange={category => {
-							console.log(category);
+							setAttributes({category});
 						}}
 						options={categoryOptions}
 					/>
-
 				</PanelBody>
 			</InspectorControls>
-			<p {...useBlockProps()}>
-				{__(
-					'Category Viewer – hello from the editor!',
-					'category-viewer'
-				)}
-			</p>
+			<div {...useBlockProps()}>
+				{
+					posts && posts.map(post => {
+						return (
+							<div className="category-viewer__post">
+								{
+									attributes.displayPostThumbnail &&
+									<>
+										<div className="category-viewer__thumbnail" style={thumbnailStyles}></div>
+										<div>
+											{
+												(attributes.displayPostTitle || attributes.displayPostDate) &&
+												<div className="category-viewer__title">
+													<a href={post.link}>
+														{
+															attributes.displayPostDate &&
+															<span className="category-viewer__title__date">
+															[{formatDate(new Date(post.date))}]
+														</span>
+														}
+
+														{
+															attributes.displayPostTitle &&
+															<span className="category-viewer__title__text">
+															{post.title.rendered}
+														</span>
+														}
+													</a>
+												</div>
+											}
+
+											{
+												attributes.displayPostExcerpt &&
+												<div className="category-viewer__excerpt"
+													 dangerouslySetInnerHTML={
+														 {__html: post.excerpt.rendered}
+													 }
+												></div>
+											}
+										</div>
+									</>
+								}
+							</div>
+
+						);
+					}) ||
+					(
+						<p>No posts found.</p>
+					)
+				}
+			</div>
 		</>
 	);
 }

@@ -21,6 +21,30 @@
 		"category": {
 			"type": "number",
 			"default": null
+		},
+		"displayPostTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayPostDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayPostExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayPostThumbnail": {
+			"type": "boolean",
+			"default": true
+		},
+		"thumbnailImage": {
+			"type": "string",
+			"default": ""
+		},
+		"thumbnailSize": {
+			"type": "number",
+			"default": 150
 		}
 	}
 }
