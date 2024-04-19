@@ -99,7 +99,8 @@ function Edit({
   // loads posts
   const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     let posts = select('core').getEntityRecords('postType', 'post', {
-      categories: attributes.category
+      categories: attributes.category,
+      _embed: true
     });
     if (Array.isArray(posts) && posts.length === 0) {
       posts = null;
@@ -112,9 +113,6 @@ function Edit({
     width: attributes.thumbnailSize,
     height: attributes.thumbnailSize
   };
-  if (attributes.displayPostThumbnail && attributes.thumbnailImage) {
-    thumbnailStyles.backgroundImage = `url(${attributes.thumbnailImage})`;
-  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: "Data Configuration"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
@@ -161,11 +159,22 @@ function Edit({
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
   }, posts && posts.map(post => {
+    const styles = thumbnailStyles;
+    console.log(post);
+
+    // gets post thumbnail
+    if (attributes.displayPostThumbnail) {
+      if (post['_embedded']?.['wp:featuredmedia']) {
+        const postThumbnail = post?.['_embedded']?.['wp:featuredmedia']?.[0]?.['media_details']?.['sizes']?.['medium']?.['source_url'];
+        styles.backgroundImage = `url(${postThumbnail})`;
+        console.log(styles);
+      }
+    }
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__post"
     }, (attributes.displayPostThumbnail || attributes.displayPostTitle || attributes.displayPostDate || attributes.displayPostExcerpt) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__thumbnail",
-      style: thumbnailStyles
+      style: styles
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__content"
     }, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -182,7 +191,7 @@ function Edit({
         __html: post.excerpt.rendered
       }
     }))));
-  }) || (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No posts found.")));
+  }) || (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "No posts found. (Please select a category to display)")));
 }
 
 /***/ }),

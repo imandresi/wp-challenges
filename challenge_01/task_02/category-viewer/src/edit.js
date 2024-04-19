@@ -97,7 +97,8 @@ export default function Edit({attributes, setAttributes}) {
 	// loads posts
 	const posts = useSelect(select => {
 		let posts = select('core').getEntityRecords('postType', 'post', {
-			categories: attributes.category
+			categories: attributes.category,
+			_embed: true
 		});
 
 		if (Array.isArray(posts) && (posts.length === 0)) {
@@ -112,10 +113,6 @@ export default function Edit({attributes, setAttributes}) {
 		width: attributes.thumbnailSize,
 		height: attributes.thumbnailSize
 	};
-
-	if (attributes.displayPostThumbnail && attributes.thumbnailImage) {
-		thumbnailStyles.backgroundImage = `url(${attributes.thumbnailImage})`;
-	}
 
 	return (
 		<>
@@ -173,6 +170,26 @@ export default function Edit({attributes, setAttributes}) {
 			<div {...useBlockProps()}>
 				{
 					posts && posts.map(post => {
+						const styles = thumbnailStyles;
+						console.log(post);
+
+						// gets post thumbnail
+						if (attributes.displayPostThumbnail) {
+							if (post['_embedded']?.['wp:featuredmedia']) {
+								const postThumbnail = post?.
+									['_embedded']?.
+									['wp:featuredmedia']?.
+									[0]?.
+									['media_details']?.
+									['sizes']?.
+									['medium']?.
+									['source_url'];
+
+								styles.backgroundImage = `url(${postThumbnail})`;
+								console.log(styles);
+							}
+						}
+
 						return (
 							<div className="category-viewer__post">
 								{
@@ -185,7 +202,7 @@ export default function Edit({attributes, setAttributes}) {
 									<>
 										{
 											attributes.displayPostThumbnail &&
-											<div className="category-viewer__thumbnail" style={thumbnailStyles}></div>
+											<div className="category-viewer__thumbnail" style={styles}></div>
 										}
 										<div className="category-viewer__content">
 											{
@@ -226,7 +243,7 @@ export default function Edit({attributes, setAttributes}) {
 						);
 					}) ||
 					(
-						<p>No posts found.</p>
+						<p>No posts found. (Please select a category to display)</p>
 					)
 				}
 			</div>
