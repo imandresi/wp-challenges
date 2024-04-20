@@ -1,5 +1,6 @@
 import {__} from '@wordpress/i18n';
 import {useState, useRef, useEffect} from 'react';
+import React from 'react';
 import {useSelect} from '@wordpress/data';
 
 import {
@@ -114,6 +115,12 @@ export default function Edit({attributes, setAttributes}) {
 		height: attributes.thumbnailSize
 	};
 
+	const picture = [
+		'http://www.wordpress.mg/wp-content/uploads/2024/04/816415df-fb52-30a2-9a88-7f9b90855be3-300x200.jpg',
+		'http://www.wordpress.mg/wp-content/uploads/2024/04/185927b3-4ba1-3df1-9ba1-89b4ac1a6cc0-300x239.png',
+		'http://www.wordpress.mg/wp-content/uploads/2024/04/88463cc4-ad1a-3c12-8539-0443c25b0c1a-300x240.png'
+	];
+
 	return (
 		<>
 			<InspectorControls>
@@ -167,11 +174,11 @@ export default function Edit({attributes, setAttributes}) {
 
 				</PanelBody>
 			</InspectorControls>
+
 			<div {...useBlockProps()}>
 				{
-					posts && posts.map(post => {
+					posts && posts.map((post, index) => {
 						const styles = thumbnailStyles;
-						console.log(post);
 
 						// gets post thumbnail
 						if (attributes.displayPostThumbnail) {
@@ -186,12 +193,20 @@ export default function Edit({attributes, setAttributes}) {
 									['source_url'];
 
 								styles.backgroundImage = `url(${postThumbnail})`;
-								console.log(styles);
+
 							}
 						}
 
+						const currentPost = {
+							date: formatDate(new Date(post.date)),
+							title: post.title.rendered,
+							excerpt: post.excerpt.rendered,
+							link: post.link,
+							styles: {...styles}
+						};
+
 						return (
-							<div className="category-viewer__post">
+							<div key={index} className="category-viewer__post">
 								{
 									(
 										attributes.displayPostThumbnail ||
@@ -202,25 +217,25 @@ export default function Edit({attributes, setAttributes}) {
 									<>
 										{
 											attributes.displayPostThumbnail &&
-											<div className="category-viewer__thumbnail" style={styles}></div>
+											<div className="category-viewer__thumbnail" style={currentPost.styles}></div>
 										}
 										<div className="category-viewer__content">
 											{
 												(attributes.displayPostTitle || attributes.displayPostDate) &&
 												<div className="category-viewer__title">
-													<a href={post.link}>
+													<a href={currentPost.link}>
 														{
 															attributes.displayPostDate &&
 															<span className="category-viewer__title__date">
-															[{formatDate(new Date(post.date))}]
-														</span>
+																[{currentPost.date}]
+															</span>
 														}
 
 														{
 															attributes.displayPostTitle &&
 															<span className="category-viewer__title__text">
-															{post.title.rendered}
-														</span>
+																{currentPost.title}
+															</span>
 														}
 													</a>
 												</div>
@@ -229,9 +244,9 @@ export default function Edit({attributes, setAttributes}) {
 											{
 												attributes.displayPostExcerpt &&
 												<div className="category-viewer__excerpt"
-													 dangerouslySetInnerHTML={
-														 {__html: post.excerpt.rendered}
-													 }
+													 dangerouslySetInnerHTML={{
+														 __html: currentPost.excerpt
+													 }}
 												></div>
 											}
 
@@ -239,8 +254,7 @@ export default function Edit({attributes, setAttributes}) {
 									</>
 								}
 							</div>
-
-						);
+						)
 					}) ||
 					(
 						<p>No posts found. (Please select a category to display)</p>
