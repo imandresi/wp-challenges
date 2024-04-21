@@ -102,15 +102,19 @@
 	}
 
 	&.no-excerpt {
+		gap: 15px;
+
 		.category-viewer__post {
 			justify-content: flex-start;
+			background-color: transparent;
 
 			.category-viewer__thumbnail {
-				width: 80px;
-				min-width: 80px;
+				width: 50px;
+				min-width: 50px;
 			}
 
 			.category-viewer__content {
+				padding: 0 20px;
 				.category-viewer__title {
 					.category-viewer__title__text {
 						font-size: 20px;

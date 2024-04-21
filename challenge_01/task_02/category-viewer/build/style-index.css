@@ -138,12 +138,19 @@
     aspect-ratio: 1;
   }
 }
+.wp-block-imandresi-category-viewer.no-excerpt {
+  gap: 15px;
+}
 .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post {
   justify-content: flex-start;
+  background-color: transparent;
 }
 .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__thumbnail {
-  width: 80px;
-  min-width: 80px;
+  width: 50px;
+  min-width: 50px;
+}
+.wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__content {
+  padding: 0 20px;
 }
 .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__content .category-viewer__title .category-viewer__title__text {
   font-size: 20px;
