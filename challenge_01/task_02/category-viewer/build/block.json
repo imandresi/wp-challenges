@@ -45,6 +45,10 @@
     "thumbnailSize": {
       "type": "number",
       "default": 150
+    },
+    "displayLayout": {
+      "type": "string",
+      "default": "row"
     }
   }
 }

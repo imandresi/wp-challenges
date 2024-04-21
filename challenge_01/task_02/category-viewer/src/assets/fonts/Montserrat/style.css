@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Montserrat ExtraLight';
+    src: url('montserrat.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat Regular';
+    src: url('montserrat.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat Black';
+    src: url('montserrat.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}

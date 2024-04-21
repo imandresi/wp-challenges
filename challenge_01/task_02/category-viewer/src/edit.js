@@ -58,8 +58,10 @@ function formatDate(date) {
  * @return {Element} Element to render.
  */
 export default function Edit({attributes, setAttributes}) {
-
 	const [categoryOptions, setCategoryOptions] = useState([]);
+
+	// Get Block props
+	const {className, ...blockProps} = useBlockProps();
 
 	// load categories
 	useEffect(function () {
@@ -110,16 +112,14 @@ export default function Edit({attributes, setAttributes}) {
 	});
 
 	// initialize thumbnail styles
-	const thumbnailStyles = {
-		width: attributes.thumbnailSize,
-		height: attributes.thumbnailSize
-	};
+	const thumbnailStyles = {};
 
-	const picture = [
-		'http://www.wordpress.mg/wp-content/uploads/2024/04/816415df-fb52-30a2-9a88-7f9b90855be3-300x200.jpg',
-		'http://www.wordpress.mg/wp-content/uploads/2024/04/185927b3-4ba1-3df1-9ba1-89b4ac1a6cc0-300x239.png',
-		'http://www.wordpress.mg/wp-content/uploads/2024/04/88463cc4-ad1a-3c12-8539-0443c25b0c1a-300x240.png'
-	];
+	// set class names
+	const newClassName = className +
+		(attributes.displayPostTitle ? '' : ' no-title') +
+		(attributes.displayPostDate ? '' : ' no-date') +
+		(attributes.displayPostExcerpt ? '' : ' no-excerpt') +
+		(attributes.displayPostThumbnail ? '' : ' no-thumbnail');
 
 	return (
 		<>
@@ -175,7 +175,7 @@ export default function Edit({attributes, setAttributes}) {
 				</PanelBody>
 			</InspectorControls>
 
-			<div {...useBlockProps()}>
+			<div className={newClassName} {...blockProps}>
 				{
 					posts && posts.map((post, index) => {
 						const styles = thumbnailStyles;
@@ -217,27 +217,28 @@ export default function Edit({attributes, setAttributes}) {
 									<>
 										{
 											attributes.displayPostThumbnail &&
-											<div className="category-viewer__thumbnail" style={currentPost.styles}></div>
+											<a href={currentPost.link}>
+												<div className="category-viewer__thumbnail" style={currentPost.styles}></div>
+											</a>
 										}
 										<div className="category-viewer__content">
 											{
 												(attributes.displayPostTitle || attributes.displayPostDate) &&
 												<div className="category-viewer__title">
-													<a href={currentPost.link}>
-														{
-															attributes.displayPostDate &&
-															<span className="category-viewer__title__date">
-																[{currentPost.date}]
-															</span>
-														}
+													{
+														attributes.displayPostDate &&
+														<span className="category-viewer__title__date">
+															{currentPost.date}
+														</span>
+													}
 
-														{
-															attributes.displayPostTitle &&
-															<span className="category-viewer__title__text">
-																{currentPost.title}
-															</span>
-														}
-													</a>
+													{
+														attributes.displayPostTitle &&
+														<span className="category-viewer__title__text">
+															<a href={currentPost.link}>{currentPost.title}</a>
+														</span>
+													}
+
 												</div>
 											}
 

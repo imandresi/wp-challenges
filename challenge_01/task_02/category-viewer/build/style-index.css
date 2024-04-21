@@ -1,3 +1,63 @@
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./src/assets/fonts/Montserrat/style.css ***!
+  \*******************************************************************************************************************************************************************************************/
+@font-face {
+    font-family: 'Montserrat ExtraLight';
+    src: url(fonts/montserrat.92976211.woff2) format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat Regular';
+    src: url(fonts/montserrat.92976211.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat Black';
+    src: url(fonts/montserrat.92976211.woff2) format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./src/assets/fonts/Roboto/style.css ***!
+  \***************************************************************************************************************************************************************************************/
+@font-face {
+    font-family: 'Roboto Light';
+    src: url(fonts/Roboto-Light.81c7589f.woff2) format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url(fonts/Roboto-Regular.9429985b.woff2) format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Medium';
+    src: url(fonts/Roboto-Medium.70ace387.woff2) format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Bold';
+    src: url(fonts/Roboto-Bold.002079d8.woff2) format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto Black';
+    src: url(fonts/Roboto-Black.a04aceec.woff2) format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
@@ -7,11 +67,113 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__thumbnail {
+.wp-block-imandresi-category-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: #eee;
+  padding: 30px;
+  line-height: 1.5;
+}
+.wp-block-imandresi-category-viewer .category-viewer__thumbnail {
   background-image: url("data:image/svg+xml,<svg class=\"svg-icon\" style=\"width: 1em;height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M829.866667 917.333333H194.133333C145.066667 917.333333 106.666667 878.933333 106.666667 829.866667V194.133333C106.666667 145.066667 145.066667 106.666667 194.133333 106.666667H832c46.933333 0 85.333333 38.4 85.333333 87.466666V832c0 46.933333-38.4 85.333333-87.466666 85.333333z\" fill=\"%2308979C\" /><path d=\"M746.666667 298.666667m-85.333334 0a85.333333 85.333333 0 1 0 170.666667 0 85.333333 85.333333 0 1 0-170.666667 0Z\" fill=\"%23FFFFFF\" /><path d=\"M746.666667 917.333333l-183.466667-317.866666L379.733333 917.333333z\" fill=\"%23FFFFFF\" /><path d=\"M108.8 842.666667c6.4 42.666667 40.533333 74.666667 85.333333 74.666666h369.066667L313.6 486.4 108.8 842.666667z\" fill=\"%23FFFFFF\" /></svg>");
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  background-color: white;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content {
+  padding: 20px;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content .category-viewer__title .category-viewer__title__date {
+  display: block;
+  font-family: "Roboto Light", serif;
+  font-size: 14px;
+  color: #888;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content .category-viewer__title .category-viewer__title__text {
+  display: block;
+  font-family: "Roboto Bold", serif;
+  font-size: 26px;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content .category-viewer__excerpt {
+  font-family: "Roboto Regular", serif;
+  font-size: 20px;
+  color: #5D5D5D;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content .category-viewer__excerpt .link-more {
+  display: none;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__content .category-viewer__excerpt * {
+  font-size: inherit;
+}
+.wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__thumbnail {
+  min-width: 250px;
+  max-width: 250px;
+  aspect-ratio: 1;
+}
+@media only screen and (max-width: 750px) {
+  .wp-block-imandresi-category-viewer .category-viewer__post {
+    flex-direction: column;
+  }
+  .wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__thumbnail {
+    aspect-ratio: 1.7777777778;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .wp-block-imandresi-category-viewer .category-viewer__post {
+    flex-direction: column;
+  }
+  .wp-block-imandresi-category-viewer .category-viewer__post .category-viewer__thumbnail {
+    min-width: initial;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+}
+.wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post {
+  justify-content: flex-start;
+}
+.wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__thumbnail {
+  width: 80px;
+  min-width: 80px;
+}
+.wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__content .category-viewer__title .category-viewer__title__text {
+  font-size: 20px;
+}
+.wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__content .category-viewer__excerpt {
+  display: none;
+}
+@media only screen and (max-width: 750px) {
+  .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__thumbnail {
+    width: inherit;
+    min-width: inherit;
+  }
+}
+.wp-block-imandresi-category-viewer.no-thumbnail .category-viewer__thumbnail {
+  display: none;
+}
+.wp-block-imandresi-category-viewer.no-title.no-date.no-excerpt {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.wp-block-imandresi-category-viewer.no-title.no-date.no-excerpt .category-viewer__post {
+  flex-wrap: wrap;
+}
+.wp-block-imandresi-category-viewer.no-title.no-date.no-excerpt .category-viewer__post .category-viewer__content {
+  display: none;
+}
+.wp-block-imandresi-category-viewer.no-title.no-date.no-excerpt .category-viewer__post .category-viewer__thumbnail {
+  min-width: 250px;
+  max-width: 250px;
+  aspect-ratio: 1.7777777778;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

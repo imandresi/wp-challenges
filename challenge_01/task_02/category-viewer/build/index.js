@@ -70,6 +70,12 @@ function Edit({
 }) {
   const [categoryOptions, setCategoryOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
 
+  // Get Block props
+  const {
+    className,
+    ...blockProps
+  } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)();
+
   // load categories
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     const url = '/wp-json/wp/v2/categories';
@@ -110,11 +116,10 @@ function Edit({
   });
 
   // initialize thumbnail styles
-  const thumbnailStyles = {
-    width: attributes.thumbnailSize,
-    height: attributes.thumbnailSize
-  };
-  const picture = ['http://www.wordpress.mg/wp-content/uploads/2024/04/816415df-fb52-30a2-9a88-7f9b90855be3-300x200.jpg', 'http://www.wordpress.mg/wp-content/uploads/2024/04/185927b3-4ba1-3df1-9ba1-89b4ac1a6cc0-300x239.png', 'http://www.wordpress.mg/wp-content/uploads/2024/04/88463cc4-ad1a-3c12-8539-0443c25b0c1a-300x240.png'];
+  const thumbnailStyles = {};
+
+  // set class names
+  const newClassName = className + (attributes.displayPostTitle ? '' : ' no-title') + (attributes.displayPostDate ? '' : ' no-date') + (attributes.displayPostExcerpt ? '' : ' no-excerpt') + (attributes.displayPostThumbnail ? '' : ' no-thumbnail');
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: "Data Configuration"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
@@ -159,7 +164,8 @@ function Edit({
       });
     }
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)()
+    className: newClassName,
+    ...blockProps
   }, posts && posts.map((post, index) => {
     const styles = thumbnailStyles;
 
@@ -182,19 +188,21 @@ function Edit({
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       key: index,
       className: "category-viewer__post"
-    }, (attributes.displayPostThumbnail || attributes.displayPostTitle || attributes.displayPostDate || attributes.displayPostExcerpt) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }, (attributes.displayPostThumbnail || attributes.displayPostTitle || attributes.displayPostDate || attributes.displayPostExcerpt) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: currentPost.link
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__thumbnail",
       style: currentPost.styles
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__content"
     }, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__title"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: currentPost.link
     }, attributes.displayPostDate && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "category-viewer__title__date"
-    }, "[", currentPost.date, "]"), attributes.displayPostTitle && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    }, currentPost.date), attributes.displayPostTitle && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "category-viewer__title__text"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: currentPost.link
     }, currentPost.title))), attributes.displayPostExcerpt && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__excerpt",
       dangerouslySetInnerHTML: {
@@ -344,7 +352,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayLayout":{"type":"string","default":"row"}}}');
 
 /***/ })
 
