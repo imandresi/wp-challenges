@@ -143,6 +143,7 @@
 }
 .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post {
   justify-content: flex-start;
+  align-items: center;
   background-color: transparent;
 }
 .wp-block-imandresi-category-viewer.no-excerpt .category-viewer__post .category-viewer__thumbnail {
