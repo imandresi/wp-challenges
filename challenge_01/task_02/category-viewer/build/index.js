@@ -131,7 +131,7 @@ function Edit({
       });
     },
     options: categoryOptions
-  }), posts && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+  }), posts && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalDivider, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
     label: "Display Title",
     checked: attributes.displayPostTitle,
     onChange: displayPostTitle => {
@@ -163,6 +163,44 @@ function Edit({
         displayPostThumbnail
       });
     }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalDivider, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: "Display all posts",
+    checked: attributes.displayAllPosts,
+    onChange: displayAllPosts => {
+      setAttributes({
+        displayAllPosts
+      });
+    }
+  }), !attributes.displayAllPosts && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+    label: "Number of posts to display",
+    value: attributes.displayedPosts,
+    onKeyDown: e => {
+      const key = e.key;
+      const counter = new Array(10).keys();
+      if (![...new Array(10).keys()].map(v => v.toString()).concat('Backspace').includes(key)) {
+        e.preventDefault();
+      }
+    },
+    onChange: displayedPosts => {
+      setAttributes({
+        displayedPosts
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
+    label: "Posts sorting order",
+    value: attributes.sortOrder,
+    onChange: sortOrder => {
+      setAttributes({
+        sortOrder
+      });
+    },
+    options: [{
+      label: 'Ascending',
+      value: 'ASC'
+    }, {
+      label: 'Descending',
+      value: 'DESC'
+    }]
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: newClassName,
     ...blockProps
@@ -172,7 +210,7 @@ function Edit({
     // gets post thumbnail
     if (attributes.displayPostThumbnail) {
       if (post['_embedded']?.['wp:featuredmedia']) {
-        const postThumbnail = post?.['_embedded']?.['wp:featuredmedia']?.[0]?.['media_details']?.['sizes']?.['medium']?.['source_url'];
+        const postThumbnail = post?.['_embedded']?.['wp:featuredmedia']?.[0]?.['media_details']?.['sizes']?.['full']?.['source_url'];
         styles.backgroundImage = `url(${postThumbnail})`;
       }
     }
@@ -189,11 +227,10 @@ function Edit({
       key: index,
       className: "category-viewer__post"
     }, (attributes.displayPostThumbnail || attributes.displayPostTitle || attributes.displayPostDate || attributes.displayPostExcerpt) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, attributes.displayPostThumbnail && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-      href: currentPost.link
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__thumbnail",
+      href: currentPost.link,
       style: currentPost.styles
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__content"
     }, (attributes.displayPostTitle || attributes.displayPostDate) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "category-viewer__title"
@@ -352,7 +389,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayLayout":{"type":"string","default":"row"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"DESC"}}}');
 
 /***/ })
 

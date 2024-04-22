@@ -11,8 +11,12 @@ import {
 import {
 	PanelBody,
 	SelectControl,
-	ToggleControl
+	ToggleControl,
+	TextControl,
+	__experimentalDivider as Divider,
+	__experimentalNumberControl as NumberControl
 } from '@wordpress/components';
+
 
 import './editor.scss';
 
@@ -137,6 +141,8 @@ export default function Edit({attributes, setAttributes}) {
 					{
 						posts &&
 						<>
+							<Divider/>
+
 							<ToggleControl
 								label="Display Title"
 								checked={attributes.displayPostTitle}
@@ -169,6 +175,50 @@ export default function Edit({attributes, setAttributes}) {
 								}}
 							/>
 
+							<Divider/>
+
+							<ToggleControl
+								label="Display all posts"
+								checked={attributes.displayAllPosts}
+								onChange={displayAllPosts => {
+									setAttributes({displayAllPosts})
+								}}
+							/>
+
+							{
+								!attributes.displayAllPosts &&
+								<TextControl
+									label="Number of posts to display"
+									value={attributes.displayedPosts}
+									onKeyDown={e => {
+										const key = e.key;
+										const counter = new Array(10).keys()
+										if (
+											![...new Array(10).keys()].map(v => v.toString())
+												.concat('Backspace')
+												.includes(key)
+										) {
+											e.preventDefault();
+										}
+									}}
+									onChange={displayedPosts => {
+										setAttributes({displayedPosts});
+									}}
+								/>
+							}
+
+							<SelectControl
+								label="Posts sorting order"
+								value={attributes.sortOrder}
+								onChange={sortOrder => {
+									setAttributes({sortOrder});
+								}}
+								options={[
+									{label: 'Ascending', value: 'ASC'},
+									{label: 'Descending', value: 'DESC'},
+								]}
+							/>
+
 						</>
 					}
 
@@ -189,7 +239,7 @@ export default function Edit({attributes, setAttributes}) {
 									[0]?.
 									['media_details']?.
 									['sizes']?.
-									['medium']?.
+									['full']?.
 									['source_url'];
 
 								styles.backgroundImage = `url(${postThumbnail})`;
@@ -217,9 +267,9 @@ export default function Edit({attributes, setAttributes}) {
 									<>
 										{
 											attributes.displayPostThumbnail &&
-											<a href={currentPost.link}>
-												<div className="category-viewer__thumbnail" style={currentPost.styles}></div>
-											</a>
+											<a className="category-viewer__thumbnail"
+											   href={currentPost.link}
+											   style={currentPost.styles}></a>
 										}
 										<div className="category-viewer__content">
 											{

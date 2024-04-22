@@ -46,9 +46,17 @@
 			"type": "number",
 			"default": 150
 		},
-		"displayLayout": {
+		"displayAllPosts": {
+			"type": "boolean",
+			"default": true
+		},
+		"displayedPosts": {
 			"type": "string",
-			"default": "row"
+			"default": "10"
+		},
+		"sortOrder": {
+			"type": "string",
+			"default": "DESC"
 		}
 	}
 }
