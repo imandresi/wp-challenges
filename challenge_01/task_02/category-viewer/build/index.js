@@ -104,11 +104,25 @@ function Edit({
   }, []);
 
   // loads posts
-  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
-    let posts = select('core').getEntityRecords('postType', 'post', {
+  const posts = attributes.category && (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
+    const postParams = {
       categories: attributes.category,
+      filter: {
+        orderby: 'date',
+        order: attributes.sortOrder
+      },
       _embed: true
-    });
+    };
+
+    // Sets limit to displayed posts
+    if (!attributes.displayAllPosts) {
+      const postsPerPage = parseInt(attributes.displayedPosts);
+      if (postsPerPage) {
+        postParams.per_page = postsPerPage;
+        postParams.page = 1;
+      }
+    }
+    let posts = select('core').getEntityRecords('postType', 'post', postParams);
     if (Array.isArray(posts) && posts.length === 0) {
       posts = null;
     }

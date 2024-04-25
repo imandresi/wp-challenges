@@ -102,7 +102,7 @@ export default function Edit({attributes, setAttributes}) {
 	}, []);
 
 	// loads posts
-	const posts = useSelect(select => {
+	const posts = attributes.category && useSelect(select => {
 		const postParams = {
 			categories: attributes.category,
 			filter: {
@@ -111,16 +111,16 @@ export default function Edit({attributes, setAttributes}) {
 			},
 			_embed: true
 		};
-		
+
 		// Sets limit to displayed posts
 		if (!attributes.displayAllPosts) {
 			const postsPerPage = parseInt(attributes.displayedPosts);
-			if (postPerPage) {
+			if (postsPerPage) {
 				postParams.per_page = postsPerPage;
 				postParams.page = 1;
 			}
 		}
-		
+
 		let posts = select('core').getEntityRecords('postType', 'post', postParams);
 
 		if (Array.isArray(posts) && (posts.length === 0)) {
