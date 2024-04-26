@@ -63,7 +63,6 @@ function formatDate(date) {
  */
 export default function Edit({attributes, setAttributes}) {
 	const [categoryOptions, setCategoryOptions] = useState([]);
-	console.log('attributes:', {...attributes});
 
 	// Get Block props
 	const {className, ...blockProps} = useBlockProps();

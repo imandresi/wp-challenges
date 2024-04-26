@@ -25,6 +25,25 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function imandresi_category_viewer_block_init() {
+	add_filter('block_categories_all', function ($categories) {
+		$category_slug = 'wp_challenge';
+
+		// checks if the slug already exist
+		foreach ($categories as $category) {
+			if ($category['slug'] == $category_slug) {
+				return $categories;
+			}
+		}
+
+		$categories[] = [
+			'slug'  => $category_slug,
+			'title' => 'WordPress Challenge'
+		];
+
+		return $categories;
+
+	});
+
 	register_block_type( __DIR__ . '/build' );
 }
 add_action( 'init', 'imandresi_category_viewer_block_init' );

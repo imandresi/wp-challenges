@@ -2,6 +2,43 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/assets/images/icon.svg":
+/*!************************************!*\
+  !*** ./src/assets/images/icon.svg ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgIcon),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path;
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var SvgIcon = function SvgIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    className: "icon_svg__svg-icon",
+    style: {
+      width: "1em",
+      height: "1em",
+      verticalAlign: "middle",
+      fill: "currentColor",
+      overflow: "hidden"
+    },
+    viewBox: "0 0 1024 1024"
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M967.923 816.207 820.507 623.723c52.293-49.884 85.147-119.722 85.147-197.472 0-150.684-122.99-273.33-274.018-273.33-151.2 0-274.019 122.646-274.019 273.33s122.99 273.33 274.019 273.33c48.68 0 94.264-12.9 133.999-35.09l147.932 193.171c6.708 8.773 16.857 13.417 27.35 13.417 7.225 0 14.621-2.236 20.642-7.052 14.965-11.525 17.89-32.855 6.364-47.82M421.091 426.251c0-115.766 94.435-209.857 210.545-209.857S842.18 310.485 842.18 426.25s-94.436 209.857-210.545 209.857S421.09 542.016 421.09 426.251zm-132.623-137.44H83.255c-18.922 0-34.231-15.309-34.231-34.058s15.31-34.059 34.23-34.059h205.214c18.921 0 34.23 15.31 34.23 34.059 0 18.75-15.309 34.059-34.23 34.059zm-8.257 337.32H83.255c-18.922 0-34.231-15.309-34.231-34.058s15.31-34.06 34.23-34.06h196.957c18.922 0 34.23 15.31 34.23 34.06s-15.308 34.058-34.23 34.058m-40.423-169.09H83.255c-18.922 0-34.231-15.309-34.231-34.23 0-18.922 15.31-34.231 34.23-34.231h156.534c18.921 0 34.23 15.31 34.23 34.23-.172 18.922-15.48 34.231-34.23 34.231m220.35 344.2H83.255c-18.922 0-34.231-15.309-34.231-34.23s15.31-34.23 34.23-34.23h376.884c18.921 0 34.23 15.308 34.23 34.23s-15.309 34.23-34.23 34.23"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24iIHN0eWxlPSJ3aWR0aDogMWVtO2hlaWdodDogMWVtO3ZlcnRpY2FsLWFsaWduOiBtaWRkbGU7ZmlsbDogY3VycmVudENvbG9yO292ZXJmbG93OiBoaWRkZW47IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTk2Ny45MjMgODE2LjIwN0w4MjAuNTA3IDYyMy43MjNjNTIuMjkzLTQ5Ljg4NCA4NS4xNDctMTE5LjcyMiA4NS4xNDctMTk3LjQ3MiAwLTE1MC42ODQtMTIyLjk5LTI3My4zMy0yNzQuMDE4LTI3My4zMy0xNTEuMiAwLTI3NC4wMTkgMTIyLjY0Ni0yNzQuMDE5IDI3My4zM3MxMjIuOTkgMjczLjMzIDI3NC4wMTkgMjczLjMzYzQ4LjY4IDAgOTQuMjY0LTEyLjkgMTMzLjk5OS0zNS4wOWwxNDcuOTMyIDE5My4xNzFjNi43MDggOC43NzMgMTYuODU3IDEzLjQxNyAyNy4zNSAxMy40MTcgNy4yMjUgMCAxNC42MjEtMi4yMzYgMjAuNjQyLTcuMDUyIDE0Ljk2NS0xMS41MjUgMTcuODktMzIuODU1IDYuMzY0LTQ3Ljgyek00MjEuMDkxIDQyNi4yNTFjMC0xMTUuNzY2IDk0LjQzNS0yMDkuODU3IDIxMC41NDUtMjA5Ljg1N1M4NDIuMTggMzEwLjQ4NSA4NDIuMTggNDI2LjI1cy05NC40MzYgMjA5Ljg1Ny0yMTAuNTQ1IDIwOS44NTdTNDIxLjA5IDU0Mi4wMTYgNDIxLjA5IDQyNi4yNTF6IG0tMTMyLjYyMy0xMzcuNDRIODMuMjU1Yy0xOC45MjIgMC0zNC4yMzEtMTUuMzA5LTM0LjIzMS0zNC4wNThzMTUuMzEtMzQuMDU5IDM0LjIzLTM0LjA1OWgyMDUuMjE0YzE4LjkyMSAwIDM0LjIzIDE1LjMxIDM0LjIzIDM0LjA1OSAwIDE4Ljc1LTE1LjMwOSAzNC4wNTktMzQuMjMgMzQuMDU5eiBtLTguMjU3IDMzNy4zMkg4My4yNTVjLTE4LjkyMiAwLTM0LjIzMS0xNS4zMDktMzQuMjMxLTM0LjA1OHMxNS4zMS0zNC4wNiAzNC4yMy0zNC4wNmgxOTYuOTU3YzE4LjkyMiAwIDM0LjIzIDE1LjMxIDM0LjIzIDM0LjA2cy0xNS4zMDggMzQuMDU4LTM0LjIzIDM0LjA1OHogbS00MC40MjMtMTY5LjA5SDgzLjI1NWMtMTguOTIyIDAtMzQuMjMxLTE1LjMwOS0zNC4yMzEtMzQuMjMgMC0xOC45MjIgMTUuMzEtMzQuMjMxIDM0LjIzLTM0LjIzMWgxNTYuNTM0YzE4LjkyMSAwIDM0LjIzIDE1LjMxIDM0LjIzIDM0LjIzLTAuMTcyIDE4LjkyMi0xNS40OCAzNC4yMzEtMzQuMjMgMzQuMjMxeiBtMjIwLjM1IDM0NC4ySDgzLjI1NWMtMTguOTIyIDAtMzQuMjMxLTE1LjMwOS0zNC4yMzEtMzQuMjNzMTUuMzEtMzQuMjMgMzQuMjMtMzQuMjNoMzc2Ljg4NGMxOC45MjEgMCAzNC4yMyAxNS4zMDggMzQuMjMgMzQuMjMgMCAxOC45MjEtMTUuMzA5IDM0LjIzLTM0LjIzIDM0LjIzeiIgIC8+PC9zdmc+");
+
+/***/ }),
+
 /***/ "./src/edit.js":
 /*!*********************!*\
   !*** ./src/edit.js ***!
@@ -69,9 +106,6 @@ function Edit({
   setAttributes
 }) {
   const [categoryOptions, setCategoryOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  console.log('attributes:', {
-    ...attributes
-  });
 
   // Get Block props
   const {
@@ -276,11 +310,15 @@ function Edit({
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _assets_images_icon_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/images/icon.svg */ "./src/assets/images/icon.svg");
+
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -303,16 +341,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"],
+  icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _assets_images_icon_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+  })
 });
 
 /***/ }),
@@ -407,7 +449,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"string","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"desc"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"wp_challenge","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"string","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"desc"}}}');
 
 /***/ })
 
