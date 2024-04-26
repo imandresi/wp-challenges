@@ -19,10 +19,8 @@
 			'order'          => $attributes['sortOrder'],
 		);
 
-		$query = new WP_Query( $args ); ?>
+		$query = new WP_Query( $args );
 
-
-		<?php
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
@@ -31,12 +29,12 @@
 				$post_title   = esc_html( $post->post_title );
 				$post_link    = get_permalink( $post );
 				$post_date    = date( 'm/d/Y', strtotime( $post->post_date ) );
-				$post_excerpt = $post->post_excerpt;
+				$post_excerpt = get_the_excerpt($post);
 
 				$thumbnail_style = '';
 				if ( has_post_thumbnail( $post->ID ) ) {
 					$image           = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-					$thumbnail_style = "background-image(url:{$image});";
+					$thumbnail_style = "background-image: url({$image[0]});";
 				}
 
 				?>

@@ -69,6 +69,9 @@ function Edit({
   setAttributes
 }) {
   const [categoryOptions, setCategoryOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  console.log('attributes:', {
+    ...attributes
+  });
 
   // Get Block props
   const {
@@ -404,7 +407,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"desc"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"string","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"desc"}}}');
 
 /***/ })
 

@@ -19,7 +19,7 @@
 	"viewScript": "file:./view.js",
 	"attributes": {
 		"category": {
-			"type": "number",
+			"type": "string",
 			"default": null
 		},
 		"displayPostTitle": {
