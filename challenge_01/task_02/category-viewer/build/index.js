@@ -78,6 +78,7 @@ function Edit({
 
   // load categories
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // console.log('attributes:', attributes);
     const url = '/wp-json/wp/v2/categories';
     const tmpCategoryOptions = [{
       label: 'Select a category',
@@ -104,13 +105,11 @@ function Edit({
   }, []);
 
   // loads posts
-  const posts = attributes.category && (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
+  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
     const postParams = {
       categories: attributes.category,
-      filter: {
-        orderby: 'date',
-        order: attributes.sortOrder
-      },
+      orderby: 'date',
+      order: attributes.sortOrder,
       _embed: true
     };
 
@@ -122,6 +121,9 @@ function Edit({
         postParams.page = 1;
       }
     }
+    console.log({
+      ...postParams
+    });
     let posts = select('core').getEntityRecords('postType', 'post', postParams);
     if (Array.isArray(posts) && posts.length === 0) {
       posts = null;
@@ -210,10 +212,10 @@ function Edit({
     },
     options: [{
       label: 'Ascending',
-      value: 'ASC'
+      value: 'asc'
     }, {
       label: 'Descending',
-      value: 'DESC'
+      value: 'desc'
     }]
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: newClassName,
@@ -403,7 +405,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"DESC"}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/category-viewer","version":"0.1.0","title":"Category Viewer","category":"widgets","icon":"smiley","description":"Fetch and display posts from category.","example":{},"supports":{"html":false},"textdomain":"category-viewer","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"category":{"type":"number","default":null},"displayPostTitle":{"type":"boolean","default":true},"displayPostDate":{"type":"boolean","default":true},"displayPostExcerpt":{"type":"boolean","default":true},"displayPostThumbnail":{"type":"boolean","default":true},"thumbnailImage":{"type":"string","default":""},"thumbnailSize":{"type":"number","default":150},"displayAllPosts":{"type":"boolean","default":true},"displayedPosts":{"type":"string","default":"10"},"sortOrder":{"type":"string","default":"desc"}}}');
 
 /***/ })
 

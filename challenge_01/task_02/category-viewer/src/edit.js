@@ -69,6 +69,7 @@ export default function Edit({attributes, setAttributes}) {
 
 	// load categories
 	useEffect(function () {
+		// console.log('attributes:', attributes);
 		const url = '/wp-json/wp/v2/categories';
 		const tmpCategoryOptions = [
 			{
@@ -102,13 +103,11 @@ export default function Edit({attributes, setAttributes}) {
 	}, []);
 
 	// loads posts
-	const posts = attributes.category && useSelect(select => {
+	const posts = useSelect(select => {
 		const postParams = {
 			categories: attributes.category,
-			filter: {
-				orderby: 'date',
-				order: attributes.sortOrder
-			},
+			orderby: 'date',
+			order: attributes.sortOrder,
 			_embed: true
 		};
 
@@ -120,6 +119,8 @@ export default function Edit({attributes, setAttributes}) {
 				postParams.page = 1;
 			}
 		}
+
+		console.log({...postParams});
 
 		let posts = select('core').getEntityRecords('postType', 'post', postParams);
 
@@ -229,8 +230,8 @@ export default function Edit({attributes, setAttributes}) {
 									setAttributes({sortOrder});
 								}}
 								options={[
-									{label: 'Ascending', value: 'ASC'},
-									{label: 'Descending', value: 'DESC'},
+									{label: 'Ascending', value: 'asc'},
+									{label: 'Descending', value: 'desc'},
 								]}
 							/>
 

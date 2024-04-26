@@ -56,7 +56,7 @@
 		},
 		"sortOrder": {
 			"type": "string",
-			"default": "DESC"
+			"default": "desc"
 		}
 	}
 }
