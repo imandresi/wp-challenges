@@ -78,7 +78,6 @@ function Edit({
 
   // load categories
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // console.log('attributes:', attributes);
     const url = '/wp-json/wp/v2/categories';
     const tmpCategoryOptions = [{
       label: 'Select a category',
@@ -106,6 +105,9 @@ function Edit({
 
   // loads posts
   const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
+    if (!attributes.category) {
+      return null;
+    }
     const postParams = {
       categories: attributes.category,
       orderby: 'date',
@@ -121,9 +123,6 @@ function Edit({
         postParams.page = 1;
       }
     }
-    console.log({
-      ...postParams
-    });
     let posts = select('core').getEntityRecords('postType', 'post', postParams);
     if (Array.isArray(posts) && posts.length === 0) {
       posts = null;

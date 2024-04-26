@@ -69,7 +69,6 @@ export default function Edit({attributes, setAttributes}) {
 
 	// load categories
 	useEffect(function () {
-		// console.log('attributes:', attributes);
 		const url = '/wp-json/wp/v2/categories';
 		const tmpCategoryOptions = [
 			{
@@ -104,6 +103,11 @@ export default function Edit({attributes, setAttributes}) {
 
 	// loads posts
 	const posts = useSelect(select => {
+
+		if (!attributes.category) {
+			return null;
+		}
+
 		const postParams = {
 			categories: attributes.category,
 			orderby: 'date',
@@ -119,8 +123,6 @@ export default function Edit({attributes, setAttributes}) {
 				postParams.page = 1;
 			}
 		}
-
-		console.log({...postParams});
 
 		let posts = select('core').getEntityRecords('postType', 'post', postParams);
 
