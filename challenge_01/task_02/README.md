@@ -25,7 +25,7 @@ Display fetched posts within the block (It can be only a linked title or more in
 
 ### Installation
 
-1. [Download](./dist/testimonial-card.zip) the ZIP file of the plugin from the `./dist` folder
+1. [Download](./dist/category-viewer.zip) the ZIP file of the plugin from the `./dist` folder
 2. Log in to your WordPress admin dashboard
 3. Go to `Plugins > Add New Plugin` and click on the "Upload Plugin" button
 4. Choose the downloaded ZIP file from your computer and click "Install Now"
