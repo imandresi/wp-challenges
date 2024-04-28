@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "imandresi/blockordion",
+	"version": "0.1.0",
+	"title": "Accordion Block",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "An accordion block where you can add multiple items that can be toggled.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "blockordion",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js"
+}
