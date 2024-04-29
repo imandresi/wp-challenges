@@ -2,6 +2,56 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/components/BlockordionItem.js":
+/*!*******************************************!*\
+  !*** ./src/components/BlockordionItem.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function BlockordionItem() {
+  const refArticle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const blockordionToggle = e => {
+    const btnExpandableEl = e.target;
+    const articleHeight = refArticle.current.clientHeight + 50 + 'px';
+    if (btnExpandableEl.classList.contains('blockordion__expanded')) {
+      btnExpandableEl.classList.remove('blockordion__expanded');
+      refBlockordionContent.current.style.height = '';
+    } else {
+      btnExpandableEl.classList.add('blockordion__expanded');
+      refBlockordionContent.current.style.height = articleHeight;
+    }
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+    className: "blockordion__item"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__title"
+  }, "How Computer Science Works Behind Your Favorite Apps"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__navbar"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__button blockordion__expandable",
+    onClick: blockordionToggle
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__button blockordion__dots"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__content",
+    ref: refBlockordionContent
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", {
+    ref: refArticle
+  }, "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages \u2013 the building blocks that make your apps tick!")));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockordionItem);
+
+/***/ }),
+
 /***/ "./src/edit.js":
 /*!*********************!*\
   !*** ./src/edit.js ***!
@@ -19,6 +69,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/BlockordionItem */ "./src/components/BlockordionItem.js");
 
 /**
  * Retrieves the translation of text.
@@ -43,6 +94,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -54,7 +106,7 @@ __webpack_require__.r(__webpack_exports__);
 function Edit() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     className: "blockordion__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__title"

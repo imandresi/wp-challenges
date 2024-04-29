@@ -21,6 +21,8 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import BlockordionItem from "./components/BlockordionItem";
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -32,6 +34,8 @@ import './editor.scss';
 export default function Edit() {
 	return (
 		<section { ...useBlockProps() }>
+			<BlockordionItem/>
+
 			<section className="blockordion__item">
 				<header>
 					<div className="blockordion__title">How Computer Science Works Behind Your Favorite Apps</div>
