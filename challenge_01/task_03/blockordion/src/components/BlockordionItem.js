@@ -1,9 +1,18 @@
 import {useRef} from "react";
+import {RichText} from "@wordpress/block-editor";
+import {TextControl} from "@wordpress/components";
 
-
-function BlockordionItem({title, children: content}) {
+function BlockordionItem(props) {
 	const refArticle = useRef();
+	const refTitle = useRef();
 	const refBlockordionContent = useRef();
+
+	const {
+		itemId,
+		title,
+		children: content,
+		saveItemAttributes
+	} = props;
 
 	/**
 	 * Manage expand/collapse of each accordion item
@@ -27,7 +36,22 @@ function BlockordionItem({title, children: content}) {
 	return (
 		<section className="blockordion__item">
 			<header>
-				<div className="blockordion__title">{title}</div>
+				<RichText
+					tagName="div"
+					ref={refTitle}
+					className="blockordion__title"
+					placeholder="Title of the item"
+					allowedFormats={[]}
+					value={title}
+					onChange={title => {
+						saveItemAttributes({
+							itemId,
+							title,
+							content: refArticle.current.innerHTML
+						});
+					}}
+				/>
+
 				<div className="blockordion__navbar">
 					<div className="blockordion__button blockordion__expandable"
 						 onClick={blockordionToggle}></div>
@@ -37,9 +61,20 @@ function BlockordionItem({title, children: content}) {
 			<div className="blockordion__content"
 				 ref={refBlockordionContent}>
 
-				<article ref={refArticle}>
-					{content}
-				</article>
+				<RichText
+					tagName="article"
+					ref={refArticle}
+					placeholder="Please type the content of the item here..."
+					value={content}
+					onChange={content => {
+						saveItemAttributes({
+							itemId,
+							title: refTitle.current.innerText,
+							content
+						});
+
+					}}
+				/>
 
 			</div>
 		</section>

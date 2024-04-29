@@ -31,27 +31,43 @@ import BlockordionItem from "./components/BlockordionItem";
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({attributes, setAttributes}) {
+	const data = attributes.data;
+
+	function saveItemAttributes(itemAttributes) {
+		const blockordionAttributes = {...data};
+		blockordionAttributes[itemAttributes.itemId] = {
+			title: itemAttributes.title,
+			content: itemAttributes.content
+		};
+
+		setAttributes({
+			data: blockordionAttributes
+		})
+	}
+
 	return (
 		<section {...useBlockProps()}>
-			<BlockordionItem
-				title="How Computer Science Works Behind Your Favorite Apps"
-			>
-				We use apps for everything from social media to banking, but have you ever wondered how they
-				actually function? This blog post dives into the core concepts of computer science that power these
-				applications. Explore algorithms, data structures, and programming languages – the building blocks that
-				make your apps tick!
-			</BlockordionItem>
+			{
+				(function () {
+					const blockordionItems = [];
+					for (const itemId in data) {
+						blockordionItems.push(
+							<BlockordionItem
+								itemId={itemId}
+								title={data[itemId].title}
+								key={itemId}
+								saveItemAttributes={saveItemAttributes}
+							>
+								{data[itemId].content}
+							</BlockordionItem>
+						);
+					}
+					return blockordionItems;
 
-			<BlockordionItem
-				title="The Rise of the Machines"
-			>
-				Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software
-				to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities,
-				potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and
-				how we can ensure this technology is used responsibly.
-			</BlockordionItem>
-
+				})()
+			}
 		</section>
-	);
+	)
+		;
 }

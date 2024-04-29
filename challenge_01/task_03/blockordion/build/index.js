@@ -14,14 +14,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 
 
-function BlockordionItem({
-  title,
-  children: content
-}) {
+
+
+function BlockordionItem(props) {
   const refArticle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const {
+    itemId,
+    title,
+    children: content,
+    saveItemAttributes
+  } = props;
 
   /**
    * Manage expand/collapse of each accordion item
@@ -41,9 +51,21 @@ function BlockordionItem({
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     className: "blockordion__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__title"
-  }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    tagName: "div",
+    ref: refTitle,
+    className: "blockordion__title",
+    placeholder: "Title of the item",
+    allowedFormats: [],
+    value: title,
+    onChange: title => {
+      saveItemAttributes({
+        itemId,
+        title,
+        content: refArticle.current.innerHTML
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__navbar"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__button blockordion__expandable",
@@ -53,9 +75,19 @@ function BlockordionItem({
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__content",
     ref: refBlockordionContent
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", {
-    ref: refArticle
-  }, content)));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+    tagName: "article",
+    ref: refArticle,
+    placeholder: "Please type the content of the item here...",
+    value: content,
+    onChange: content => {
+      saveItemAttributes({
+        itemId,
+        title: refTitle.current.innerText,
+        content
+      });
+    }
+  })));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockordionItem);
 
@@ -112,14 +144,37 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
-function Edit() {
+function Edit({
+  attributes,
+  setAttributes
+}) {
+  const data = attributes.data;
+  function saveItemAttributes(itemAttributes) {
+    const blockordionAttributes = {
+      ...data
+    };
+    blockordionAttributes[itemAttributes.itemId] = {
+      title: itemAttributes.title,
+      content: itemAttributes.content
+    };
+    setAttributes({
+      data: blockordionAttributes
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    title: "How Computer Science Works Behind Your Favorite Apps"
-  }, "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages \u2013 the building blocks that make your apps tick!"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    title: "The Rise of the Machines"
-  }, "Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."));
+  }, function () {
+    const blockordionItems = [];
+    for (const itemId in data) {
+      blockordionItems.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        itemId: itemId,
+        title: data[itemId].title,
+        key: itemId,
+        saveItemAttributes: saveItemAttributes
+      }, data[itemId].content));
+    }
+    return blockordionItems;
+  }());
 }
 
 /***/ }),
@@ -226,6 +281,16 @@ module.exports = window["wp"]["blocks"];
 
 /***/ }),
 
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -242,7 +307,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!"},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."}}}}}');
 
 /***/ })
 
