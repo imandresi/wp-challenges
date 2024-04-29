@@ -1,11 +1,13 @@
-import {useRef} from "react";
+import {useRef, useEffect} from "react";
 import {RichText} from "@wordpress/block-editor";
-import {TextControl} from "@wordpress/components";
+import useUpdate from "../hooks/useUpdate";
 
 function BlockordionItem(props) {
 	const refArticle = useRef();
 	const refTitle = useRef();
 	const refBlockordionContent = useRef();
+	const refBtnExpandable = useRef();
+	const doUpdate = useUpdate();
 
 	const {
 		itemId,
@@ -14,24 +16,34 @@ function BlockordionItem(props) {
 		saveItemAttributes
 	} = props;
 
+	function adjustContentHeight() {
+		const isExpanded = refBtnExpandable.current.classList.contains('blockordion__expanded');
+		const articleHeight = isExpanded ? (refArticle.current.clientHeight + 50) + 'px' : "";
+		refBlockordionContent.current.style.height = articleHeight;
+	}
+
 	/**
 	 * Manage expand/collapse of each accordion item
 	 *
 	 * @param e
 	 */
-	const blockordionToggle = e => {
+	function blockordionToggle(e) {
 		const btnExpandableEl = e.target;
-		const articleHeight = (refArticle.current.clientHeight + 50) + 'px';
 
 		if (btnExpandableEl.classList.contains('blockordion__expanded')) {
 			btnExpandableEl.classList.remove('blockordion__expanded');
-			refBlockordionContent.current.style.height = '';
 		} else {
 			btnExpandableEl.classList.add('blockordion__expanded');
-			refBlockordionContent.current.style.height = articleHeight;
 		}
 
+		// This will allow the Height adjustment
+		doUpdate();
+
 	}
+
+	useEffect(() => {
+		adjustContentHeight();
+	});
 
 	return (
 		<section className="blockordion__item">
@@ -54,7 +66,9 @@ function BlockordionItem(props) {
 
 				<div className="blockordion__navbar">
 					<div className="blockordion__button blockordion__expandable"
-						 onClick={blockordionToggle}></div>
+						 onClick={blockordionToggle}
+						 ref={refBtnExpandable}
+					></div>
 					<div className="blockordion__button blockordion__dots"></div>
 				</div>
 			</header>

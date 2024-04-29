@@ -16,8 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _hooks_useUpdate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../hooks/useUpdate */ "./src/hooks/useUpdate.js");
 
 
 
@@ -26,29 +25,39 @@ function BlockordionItem(props) {
   const refArticle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const doUpdate = (0,_hooks_useUpdate__WEBPACK_IMPORTED_MODULE_2__["default"])();
   const {
     itemId,
     title,
     children: content,
     saveItemAttributes
   } = props;
+  function adjustContentHeight() {
+    const isExpanded = refBtnExpandable.current.classList.contains('blockordion__expanded');
+    const articleHeight = isExpanded ? refArticle.current.clientHeight + 50 + 'px' : "";
+    refBlockordionContent.current.style.height = articleHeight;
+  }
 
   /**
    * Manage expand/collapse of each accordion item
    *
    * @param e
    */
-  const blockordionToggle = e => {
+  function blockordionToggle(e) {
     const btnExpandableEl = e.target;
-    const articleHeight = refArticle.current.clientHeight + 50 + 'px';
     if (btnExpandableEl.classList.contains('blockordion__expanded')) {
       btnExpandableEl.classList.remove('blockordion__expanded');
-      refBlockordionContent.current.style.height = '';
     } else {
       btnExpandableEl.classList.add('blockordion__expanded');
-      refBlockordionContent.current.style.height = articleHeight;
     }
-  };
+
+    // This will allow the Height adjustment
+    doUpdate();
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    adjustContentHeight();
+  });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     className: "blockordion__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
@@ -69,7 +78,8 @@ function BlockordionItem(props) {
     className: "blockordion__navbar"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__button blockordion__expandable",
-    onClick: blockordionToggle
+    onClick: blockordionToggle,
+    ref: refBtnExpandable
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__button blockordion__dots"
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -179,6 +189,29 @@ function Edit({
 
 /***/ }),
 
+/***/ "./src/hooks/useUpdate.js":
+/*!********************************!*\
+  !*** ./src/hooks/useUpdate.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function useUpdate() {
+  const [flag, setFlag] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  return function () {
+    setFlag(!flag);
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useUpdate);
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -278,16 +311,6 @@ module.exports = window["wp"]["blockEditor"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
-
-/***/ }),
-
-/***/ "@wordpress/components":
-/*!************************************!*\
-  !*** external ["wp","components"] ***!
-  \************************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["components"];
 
 /***/ }),
 
