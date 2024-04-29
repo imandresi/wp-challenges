@@ -16,9 +16,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function BlockordionItem() {
+function BlockordionItem({
+  title,
+  children: content
+}) {
   const refArticle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  /**
+   * Manage expand/collapse of each accordion item
+   *
+   * @param e
+   */
   const blockordionToggle = e => {
     const btnExpandableEl = e.target;
     const articleHeight = refArticle.current.clientHeight + 50 + 'px';
@@ -34,7 +43,7 @@ function BlockordionItem() {
     className: "blockordion__item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__title"
-  }, "How Computer Science Works Behind Your Favorite Apps"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__navbar"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__button blockordion__expandable",
@@ -46,7 +55,7 @@ function BlockordionItem() {
     ref: refBlockordionContent
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", {
     ref: refArticle
-  }, "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages \u2013 the building blocks that make your apps tick!")));
+  }, content)));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockordionItem);
 
@@ -106,31 +115,11 @@ __webpack_require__.r(__webpack_exports__);
 function Edit() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "blockordion__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__title"
-  }, "How Computer Science Works Behind Your Favorite Apps"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__navbar"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__button blockordion__expandable"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__button blockordion__dots"
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", null, "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages \u2013 the building blocks that make your apps tick!"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "blockordion__item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__title"
-  }, "The Rise of the Machines"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__navbar"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__button blockordion__expandable"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__button blockordion__dots"
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("article", null, "Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    title: "How Computer Science Works Behind Your Favorite Apps"
+  }, "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages \u2013 the building blocks that make your apps tick!"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    title: "The Rise of the Machines"
+  }, "Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."));
 }
 
 /***/ }),

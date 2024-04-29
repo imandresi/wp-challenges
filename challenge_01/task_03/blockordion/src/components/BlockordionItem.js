@@ -1,10 +1,15 @@
 import {useRef} from "react";
 
 
-function BlockordionItem() {
+function BlockordionItem({title, children: content}) {
 	const refArticle = useRef();
 	const refBlockordionContent = useRef();
 
+	/**
+	 * Manage expand/collapse of each accordion item
+	 *
+	 * @param e
+	 */
 	const blockordionToggle = e => {
 		const btnExpandableEl = e.target;
 		const articleHeight = (refArticle.current.clientHeight + 50) + 'px';
@@ -22,7 +27,7 @@ function BlockordionItem() {
 	return (
 		<section className="blockordion__item">
 			<header>
-				<div className="blockordion__title">How Computer Science Works Behind Your Favorite Apps</div>
+				<div className="blockordion__title">{title}</div>
 				<div className="blockordion__navbar">
 					<div className="blockordion__button blockordion__expandable"
 						 onClick={blockordionToggle}></div>
@@ -33,13 +38,7 @@ function BlockordionItem() {
 				 ref={refBlockordionContent}>
 
 				<article ref={refArticle}>
-					We use apps for everything from social media to banking, but have you ever wondered how they
-					actually
-					function? This blog post dives into the core concepts of computer science that power these
-					applications.
-					Explore algorithms, data structures, and programming languages – the building blocks that make your
-					apps
-					tick!
+					{content}
 				</article>
 
 			</div>
