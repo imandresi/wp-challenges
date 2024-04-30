@@ -36,6 +36,7 @@ export default function Edit({attributes, setAttributes}) {
 
 	const {
 		data,
+		activeItem
 	} = attributes;
 
 	/**
@@ -88,13 +89,21 @@ export default function Edit({attributes, setAttributes}) {
 				}
 
 			}
-		}
-		else {
+		} else {
 			newData[newItemId] = newItem;
 		}
 
 		setAttributes({data: newData})
 
+	}
+
+	/**
+	 * Sets the item as active or deactivate all
+	 *
+	 * @param itemId
+	 */
+	function setActiveItem(itemId = null) {
+		setAttributes({activeItem: itemId})
 	}
 
 	return (
@@ -108,15 +117,19 @@ export default function Edit({attributes, setAttributes}) {
 								itemId={itemId}
 								title={data[itemId].title}
 								isExpanded={data[itemId].isExpanded}
+								isActive={activeItem === itemId}
 								key={itemId}
 								saveItemAttributes={saveItemAttributes}
-								addItemAbove = {() => {
+								activateItem={() => {
+									setActiveItem(itemId);
+								}}
+								addItemAbove={() => {
 									addNewItem(itemId, -1);
 								}}
-								addItemBelow = {() => {
+								addItemBelow={() => {
 									addNewItem(itemId, 1);
 								}}
-								deleteItem = {() => {
+								deleteItem={() => {
 									console.log('Item deleted');
 								}}
 							>

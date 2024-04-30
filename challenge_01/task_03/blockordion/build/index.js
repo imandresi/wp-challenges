@@ -156,7 +156,9 @@ function BlockordionItem(props) {
     title,
     children: content,
     isExpanded,
+    isActive,
     saveItemAttributes,
+    activateItem,
     addItemAbove,
     addItemBelow,
     deleteItem
@@ -193,7 +195,10 @@ function BlockordionItem(props) {
     adjustContentHeight();
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "blockordion__item"
+    className: "blockordion__item" + (isActive ? " blockordion__active" : ""),
+    onClick: () => {
+      activateItem();
+    }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "div",
     ref: refTitle,
@@ -349,7 +354,8 @@ function Edit({
   setAttributes
 }) {
   const {
-    data
+    data,
+    activeItem
   } = attributes;
 
   /**
@@ -407,6 +413,17 @@ function Edit({
       data: newData
     });
   }
+
+  /**
+   * Sets the item as active or deactivate all
+   *
+   * @param itemId
+   */
+  function setActiveItem(itemId = null) {
+    setAttributes({
+      activeItem: itemId
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, function () {
@@ -416,8 +433,12 @@ function Edit({
         itemId: itemId,
         title: data[itemId].title,
         isExpanded: data[itemId].isExpanded,
+        isActive: activeItem === itemId,
         key: itemId,
         saveItemAttributes: saveItemAttributes,
+        activateItem: () => {
+          setActiveItem(itemId);
+        },
         addItemAbove: () => {
           addNewItem(itemId, -1);
         },
@@ -597,7 +618,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!","isExpanded":false},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly.","isExpanded":false}}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"activeItem":{"type":"string","default":null},"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!","isExpanded":false},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly.","isExpanded":false}}}}}');
 
 /***/ })
 

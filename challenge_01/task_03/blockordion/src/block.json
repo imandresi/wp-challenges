@@ -18,6 +18,10 @@
 	"render": "file:./render.php",
 	"viewScript": "file:./view.js",
 	"attributes": {
+		"activeItem": {
+			"type": "string",
+			"default": null
+		},
 		"data": {
 			"type": "object",
 			"default": {

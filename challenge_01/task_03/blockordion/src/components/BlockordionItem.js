@@ -14,7 +14,9 @@ function BlockordionItem(props) {
 		title,
 		children: content,
 		isExpanded,
+		isActive,
 		saveItemAttributes,
+		activateItem,
 		addItemAbove,
 		addItemBelow,
 		deleteItem
@@ -56,7 +58,12 @@ function BlockordionItem(props) {
 	});
 
 	return (
-		<section className="blockordion__item">
+		<section className={"blockordion__item" +
+			(isActive ? " blockordion__active" : "")}
+				 onClick={() => {
+					 activateItem();
+				 }}
+		>
 			<header>
 				<RichText
 					tagName="div"
