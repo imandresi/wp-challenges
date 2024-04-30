@@ -61,7 +61,12 @@ function BlockordionItem(props) {
 		adjustContentHeight();
 
 		// give focus to RichText if item is active
-		if (isActive && (!refItem.current.contains(document.activeElement))) {
+		let activeElement = document.activeElement;
+		if (activeElement.nodeName === "IFRAME") {
+			activeElement = activeElement.contentDocument.activeElement;
+		}
+
+		if (isActive && (!refItem.current.contains(activeElement))) {
 			refTitle.current.focus();
 		}
 
@@ -71,7 +76,7 @@ function BlockordionItem(props) {
 		<section
 			className={"blockordion__item" + (isActive ? " blockordion__active" : "")}
 			ref={refItem}
-			onClick={() => {
+			onClick={e => {
 				activateItem();
 			}}
 		>
