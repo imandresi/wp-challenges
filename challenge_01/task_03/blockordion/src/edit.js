@@ -93,7 +93,10 @@ export default function Edit({attributes, setAttributes}) {
 			newData[newItemId] = newItem;
 		}
 
-		setAttributes({data: newData})
+		setAttributes({
+			activeItem: newItemId,
+			data: newData
+		});
 
 	}
 

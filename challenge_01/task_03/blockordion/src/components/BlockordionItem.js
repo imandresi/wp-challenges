@@ -4,6 +4,7 @@ import {DropdownMenu} from "@wordpress/components";
 import {ItemSubmenu} from "./ItemSubmenu";
 
 function BlockordionItem(props) {
+	const refItem = useRef();
 	const refArticle = useRef();
 	const refTitle = useRef();
 	const refBlockordionContent = useRef();
@@ -22,6 +23,9 @@ function BlockordionItem(props) {
 		deleteItem
 	} = props;
 
+	/**
+	 * Adjust the item height if it is expanded
+	 */
 	function adjustContentHeight() {
 		const isExpanded = refBtnExpandable.current.classList.contains('blockordion__expanded');
 		const articleHeight = isExpanded ? (refArticle.current.clientHeight + 50) + 'px' : "";
@@ -55,14 +59,21 @@ function BlockordionItem(props) {
 
 	useEffect(() => {
 		adjustContentHeight();
+
+		// give focus to RichText if item is active
+		if (isActive && (!refItem.current.contains(document.activeElement))) {
+			refTitle.current.focus();
+		}
+
 	});
 
 	return (
-		<section className={"blockordion__item" +
-			(isActive ? " blockordion__active" : "")}
-				 onClick={() => {
-					 activateItem();
-				 }}
+		<section
+			className={"blockordion__item" + (isActive ? " blockordion__active" : "")}
+			ref={refItem}
+			onClick={() => {
+				activateItem();
+			}}
 		>
 			<header>
 				<RichText

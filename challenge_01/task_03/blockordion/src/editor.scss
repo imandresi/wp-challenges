@@ -5,6 +5,8 @@
  */
 
 .wp-block-imandresi-blockordion {
+	$active_color: #e5f3ff;
+
 	.blockordion__item {
 
 		header {
@@ -18,10 +20,10 @@
 		}
 
 		&.blockordion__active {
-			background-color: #e5f3ff;
+			background-color: $active_color;
 
 			header {
-				background-color: #e5f3ff;
+				background-color: $active_color;
 			}
 
 		}

@@ -147,6 +147,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function BlockordionItem(props) {
+  const refItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refArticle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -163,6 +164,10 @@ function BlockordionItem(props) {
     addItemBelow,
     deleteItem
   } = props;
+
+  /**
+   * Adjust the item height if it is expanded
+   */
   function adjustContentHeight() {
     const isExpanded = refBtnExpandable.current.classList.contains('blockordion__expanded');
     const articleHeight = isExpanded ? refArticle.current.clientHeight + 50 + 'px' : "";
@@ -193,9 +198,15 @@ function BlockordionItem(props) {
   }
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     adjustContentHeight();
+
+    // give focus to RichText if item is active
+    if (isActive && !refItem.current.contains(document.activeElement)) {
+      refTitle.current.focus();
+    }
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     className: "blockordion__item" + (isActive ? " blockordion__active" : ""),
+    ref: refItem,
     onClick: () => {
       activateItem();
     }
@@ -410,6 +421,7 @@ function Edit({
       newData[newItemId] = newItem;
     }
     setAttributes({
+      activeItem: newItemId,
       data: newData
     });
   }
