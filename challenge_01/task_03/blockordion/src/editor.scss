@@ -5,5 +5,19 @@
  */
 
 .wp-block-imandresi-blockordion {
-	border: 1px dotted #f00;
+	.blockordion__item {
+		header {
+			.blockordion__navbar {
+				.blockordion__button {
+					width: 36px;
+					height: 36px;
+					background-size: 20px;
+				}
+			}
+		}
+	}
+
+	.components-dropdown {
+		font-family: sans-serif;
+	}
 }

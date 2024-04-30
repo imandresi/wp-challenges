@@ -22,6 +22,7 @@ import {useBlockProps} from '@wordpress/block-editor';
 import './editor.scss';
 
 import BlockordionItem from "./components/BlockordionItem";
+import {convertToLetters} from "./tools";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -32,8 +33,14 @@ import BlockordionItem from "./components/BlockordionItem";
  * @return {Element} Element to render.
  */
 export default function Edit({attributes, setAttributes}) {
+
 	const data = attributes.data;
 
+	/**
+	 * Saves changes
+	 *
+	 * @param itemAttributes
+	 */
 	function saveItemAttributes(itemAttributes) {
 		const blockordionAttributes = {...data};
 		blockordionAttributes[itemAttributes.itemId] = {
@@ -44,6 +51,45 @@ export default function Edit({attributes, setAttributes}) {
 		setAttributes({
 			data: blockordionAttributes
 		})
+	}
+
+	/**
+	 * Adds a new item relative to the current item
+	 *
+	 * @param currentItemId
+	 * @param position
+	 */
+	function addNewItem(currentItemId = null, position = null) {
+		const newData = {};
+		const newItemId = convertToLetters(Date.now());
+		const newItem = {
+			title: "",
+			content: ""
+		};
+
+		if (currentItemId) {
+			for (const itemId in data) {
+				// insert new item above
+				if ((itemId === currentItemId) && (position === -1)) {
+					newData[newItemId] = newItem;
+				}
+
+				// insert item
+				newData[itemId] = data[itemId];
+
+				// insert new item below
+				if ((itemId === currentItemId) && (position === 1)) {
+					newData[newItemId] = newItem;
+				}
+
+			}
+		}
+		else {
+			newData[newItemId] = newItem;
+		}
+
+		setAttributes({data: newData})
+
 	}
 
 	return (
@@ -58,6 +104,15 @@ export default function Edit({attributes, setAttributes}) {
 								title={data[itemId].title}
 								key={itemId}
 								saveItemAttributes={saveItemAttributes}
+								addItemAbove = {() => {
+									addNewItem(itemId, -1);
+								}}
+								addItemBelow = {() => {
+									addNewItem(itemId, 1);
+								}}
+								deleteItem = {() => {
+									console.log('Item deleted');
+								}}
 							>
 								{data[itemId].content}
 							</BlockordionItem>

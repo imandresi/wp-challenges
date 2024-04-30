@@ -1,6 +1,8 @@
 import {useRef, useEffect} from "react";
 import {RichText} from "@wordpress/block-editor";
+import {DropdownMenu} from "@wordpress/components";
 import useUpdate from "../hooks/useUpdate";
+import {ItemSubmenu} from "./ItemSubmenu";
 
 function BlockordionItem(props) {
 	const refArticle = useRef();
@@ -13,7 +15,10 @@ function BlockordionItem(props) {
 		itemId,
 		title,
 		children: content,
-		saveItemAttributes
+		saveItemAttributes,
+		addItemAbove,
+		addItemBelow,
+		deleteItem
 	} = props;
 
 	function adjustContentHeight() {
@@ -69,7 +74,13 @@ function BlockordionItem(props) {
 						 onClick={blockordionToggle}
 						 ref={refBtnExpandable}
 					></div>
-					<div className="blockordion__button blockordion__dots"></div>
+
+					<ItemSubmenu
+						addItemAbove={addItemAbove}
+						addItemBelow={addItemBelow}
+						deleteItem={deleteItem}
+					/>
+
 				</div>
 			</header>
 			<div className="blockordion__content"
