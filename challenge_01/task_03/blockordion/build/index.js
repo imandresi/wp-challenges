@@ -140,9 +140,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _hooks_useUpdate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks/useUpdate */ "./src/hooks/useUpdate.js");
-/* harmony import */ var _ItemSubmenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ItemSubmenu */ "./src/components/ItemSubmenu.js");
-
+/* harmony import */ var _ItemSubmenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemSubmenu */ "./src/components/ItemSubmenu.js");
 
 
 
@@ -153,11 +151,11 @@ function BlockordionItem(props) {
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  const doUpdate = (0,_hooks_useUpdate__WEBPACK_IMPORTED_MODULE_3__["default"])();
   const {
     itemId,
     title,
     children: content,
+    isExpanded,
     saveItemAttributes,
     addItemAbove,
     addItemBelow,
@@ -176,14 +174,20 @@ function BlockordionItem(props) {
    */
   function blockordionToggle(e) {
     const btnExpandableEl = e.target;
-    if (btnExpandableEl.classList.contains('blockordion__expanded')) {
+    let expanded = btnExpandableEl.classList.contains('blockordion__expanded');
+    if (expanded) {
       btnExpandableEl.classList.remove('blockordion__expanded');
     } else {
       btnExpandableEl.classList.add('blockordion__expanded');
     }
 
     // This will allow the Height adjustment
-    doUpdate();
+    saveItemAttributes({
+      itemId,
+      title,
+      content,
+      isExpanded: !expanded
+    });
   }
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     adjustContentHeight();
@@ -201,16 +205,17 @@ function BlockordionItem(props) {
       saveItemAttributes({
         itemId,
         title,
+        isExpanded,
         content: refArticle.current.innerHTML
       });
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "blockordion__navbar"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__button blockordion__expandable",
+    className: "blockordion__button blockordion__expandable" + (isExpanded ? " blockordion__expanded" : ""),
     onClick: blockordionToggle,
     ref: refBtnExpandable
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ItemSubmenu__WEBPACK_IMPORTED_MODULE_4__.ItemSubmenu, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ItemSubmenu__WEBPACK_IMPORTED_MODULE_3__.ItemSubmenu, {
     addItemAbove: addItemAbove,
     addItemBelow: addItemBelow,
     deleteItem: deleteItem
@@ -226,7 +231,8 @@ function BlockordionItem(props) {
       saveItemAttributes({
         itemId,
         title: refTitle.current.innerText,
-        content
+        content,
+        isExpanded
       });
     }
   })));
@@ -342,7 +348,9 @@ function Edit({
   attributes,
   setAttributes
 }) {
-  const data = attributes.data;
+  const {
+    data
+  } = attributes;
 
   /**
    * Saves changes
@@ -355,7 +363,8 @@ function Edit({
     };
     blockordionAttributes[itemAttributes.itemId] = {
       title: itemAttributes.title,
-      content: itemAttributes.content
+      content: itemAttributes.content,
+      isExpanded: itemAttributes.isExpanded
     };
     setAttributes({
       data: blockordionAttributes
@@ -373,7 +382,8 @@ function Edit({
     const newItemId = (0,_tools__WEBPACK_IMPORTED_MODULE_5__.convertToLetters)(Date.now());
     const newItem = {
       title: "",
-      content: ""
+      content: "",
+      isExpanded: true
     };
     if (currentItemId) {
       for (const itemId in data) {
@@ -405,6 +415,7 @@ function Edit({
       blockordionItems.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_BlockordionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
         itemId: itemId,
         title: data[itemId].title,
+        isExpanded: data[itemId].isExpanded,
         key: itemId,
         saveItemAttributes: saveItemAttributes,
         addItemAbove: () => {
@@ -421,29 +432,6 @@ function Edit({
     return blockordionItems;
   }());
 }
-
-/***/ }),
-
-/***/ "./src/hooks/useUpdate.js":
-/*!********************************!*\
-  !*** ./src/hooks/useUpdate.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-function useUpdate() {
-  const [flag, setFlag] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  return function () {
-    setFlag(!flag);
-  };
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useUpdate);
 
 /***/ }),
 
@@ -609,7 +597,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!"},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."}}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!","isExpanded":false},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly.","isExpanded":false}}}}}');
 
 /***/ })
 

@@ -34,7 +34,9 @@ import {convertToLetters} from "./tools";
  */
 export default function Edit({attributes, setAttributes}) {
 
-	const data = attributes.data;
+	const {
+		data,
+	} = attributes;
 
 	/**
 	 * Saves changes
@@ -43,9 +45,11 @@ export default function Edit({attributes, setAttributes}) {
 	 */
 	function saveItemAttributes(itemAttributes) {
 		const blockordionAttributes = {...data};
+
 		blockordionAttributes[itemAttributes.itemId] = {
 			title: itemAttributes.title,
-			content: itemAttributes.content
+			content: itemAttributes.content,
+			isExpanded: itemAttributes.isExpanded
 		};
 
 		setAttributes({
@@ -64,7 +68,8 @@ export default function Edit({attributes, setAttributes}) {
 		const newItemId = convertToLetters(Date.now());
 		const newItem = {
 			title: "",
-			content: ""
+			content: "",
+			isExpanded: true
 		};
 
 		if (currentItemId) {
@@ -102,6 +107,7 @@ export default function Edit({attributes, setAttributes}) {
 							<BlockordionItem
 								itemId={itemId}
 								title={data[itemId].title}
+								isExpanded={data[itemId].isExpanded}
 								key={itemId}
 								saveItemAttributes={saveItemAttributes}
 								addItemAbove = {() => {

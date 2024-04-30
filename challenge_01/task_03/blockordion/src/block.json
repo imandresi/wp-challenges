@@ -23,11 +23,14 @@
 			"default": {
 				"abc": {
 					"title": "How Computer Science Works Behind Your Favorite Apps",
-					"content": "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!"
+					"content": "We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!",
+					"isExpanded": false
+
 				},
 				"def": {
 					"title": "The Rise of the Machines",
-					"content": "Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly."
+					"content": "Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly.",
+					"isExpanded": false
 				}
 			}
 		}

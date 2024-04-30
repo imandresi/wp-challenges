@@ -1,7 +1,6 @@
 import {useRef, useEffect} from "react";
 import {RichText} from "@wordpress/block-editor";
 import {DropdownMenu} from "@wordpress/components";
-import useUpdate from "../hooks/useUpdate";
 import {ItemSubmenu} from "./ItemSubmenu";
 
 function BlockordionItem(props) {
@@ -9,12 +8,12 @@ function BlockordionItem(props) {
 	const refTitle = useRef();
 	const refBlockordionContent = useRef();
 	const refBtnExpandable = useRef();
-	const doUpdate = useUpdate();
 
 	const {
 		itemId,
 		title,
 		children: content,
+		isExpanded,
 		saveItemAttributes,
 		addItemAbove,
 		addItemBelow,
@@ -34,15 +33,21 @@ function BlockordionItem(props) {
 	 */
 	function blockordionToggle(e) {
 		const btnExpandableEl = e.target;
+		let expanded = btnExpandableEl.classList.contains('blockordion__expanded');
 
-		if (btnExpandableEl.classList.contains('blockordion__expanded')) {
+		if (expanded) {
 			btnExpandableEl.classList.remove('blockordion__expanded');
 		} else {
 			btnExpandableEl.classList.add('blockordion__expanded');
 		}
 
 		// This will allow the Height adjustment
-		doUpdate();
+		saveItemAttributes({
+			itemId,
+			title,
+			content,
+			isExpanded: !expanded
+		});
 
 	}
 
@@ -64,13 +69,16 @@ function BlockordionItem(props) {
 						saveItemAttributes({
 							itemId,
 							title,
+							isExpanded,
 							content: refArticle.current.innerHTML
 						});
 					}}
 				/>
 
 				<div className="blockordion__navbar">
-					<div className="blockordion__button blockordion__expandable"
+					<div className={
+						"blockordion__button blockordion__expandable" +
+						(isExpanded ? " blockordion__expanded" : "")}
 						 onClick={blockordionToggle}
 						 ref={refBtnExpandable}
 					></div>
@@ -95,7 +103,8 @@ function BlockordionItem(props) {
 						saveItemAttributes({
 							itemId,
 							title: refTitle.current.innerText,
-							content
+							content,
+							isExpanded
 						});
 
 					}}

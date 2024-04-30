@@ -6,6 +6,7 @@
 
 .wp-block-imandresi-blockordion {
 	.blockordion__item {
+
 		header {
 			.blockordion__navbar {
 				.blockordion__button {
@@ -15,6 +16,16 @@
 				}
 			}
 		}
+
+		&.blockordion__active {
+			background-color: #e5f3ff;
+
+			header {
+				background-color: #e5f3ff;
+			}
+
+		}
+
 	}
 
 	.components-dropdown {
