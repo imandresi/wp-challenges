@@ -138,9 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ItemSubmenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemSubmenu */ "./src/components/ItemSubmenu.js");
+/* harmony import */ var _ItemSubmenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemSubmenu */ "./src/components/ItemSubmenu.js");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../edit */ "./src/edit.js");
+/* harmony import */ var _tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tools */ "./src/tools.js");
+
 
 
 
@@ -152,18 +153,21 @@ function BlockordionItem(props) {
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const [draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
   const {
     itemId,
     title,
     children: content,
     isExpanded,
     isActive,
+    isDropAreaActive,
     saveItemAttributes,
     activateItem,
     addItemAbove,
     addItemBelow,
     deleteItem
   } = props;
+  const [draggedOver, setDraggedOver] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
   /**
    * Adjust the item height if it is expanded
@@ -196,6 +200,75 @@ function BlockordionItem(props) {
       isExpanded: !expanded
     });
   }
+
+  /**
+   * Drag and Drop Management
+   *
+   * Emulates drag and drop because Gutenberg seems to block
+   * native drag and drop inside custom blocks.
+   */
+  const dragAndDrop = function () {
+    const editorWindowEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorWindowEl)();
+    const editorDocumentEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorDocumentEl)();
+    const editorBodyEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorBodyEl)();
+    const dndContainerId = 'blockordion-drag-drop';
+    let dndContainer;
+    function handleMouseMove(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+      const offsetY = editorWindowEl.scrollY;
+      dndContainer.style.left = `${x - 15}px`;
+      dndContainer.style.top = `${y + offsetY - 15}px`;
+    }
+    function handleMouseOver(e) {
+      if (draggedItem && draggedItem !== itemId) {
+        setDraggedOver(true);
+      }
+    }
+    function handleMouseOut(e) {
+      setDraggedOver(false);
+    }
+    function handleMouseUp(e) {
+      setDraggedItem(null);
+      setDropAreaActive(false);
+      if (dndContainer) dndContainer.parentElement.removeChild(dndContainer);
+      editorDocumentEl.removeEventListener('mousemove', handleMouseMove);
+      editorDocumentEl.removeEventListener('mouseup', handleMouseUp);
+      (0,_tools__WEBPACK_IMPORTED_MODULE_4__.setCursor)(null);
+    }
+    function handleDragStart(e, id) {
+      setDraggedItem(itemId);
+      setDropAreaActive(true);
+
+      // clone the item
+      dndContainer = editorDocumentEl.getElementById(dndContainerId);
+      if (!dndContainer) {
+        dndContainer = document.createElement('div');
+        dndContainer.id = dndContainerId;
+      } else {
+        dndContainer.innerHTML = '';
+      }
+
+      // set container size
+      dndContainer.style.width = refItem.current.parentElement.clientWidth - 20 + 'px';
+      dndContainer.appendChild(refItem.current.cloneNode(true));
+      editorBodyEl.appendChild(dndContainer);
+
+      // set mouse listeners
+      editorDocumentEl.addEventListener('mousemove', handleMouseMove);
+      editorDocumentEl.addEventListener('mouseup', handleMouseUp);
+      (0,_tools__WEBPACK_IMPORTED_MODULE_4__.setCursor)('grab');
+    }
+    return {
+      handleDragStart,
+      handleMouseOver,
+      handleMouseOut
+    };
+  }();
+
+  /**
+   * Various Initializations
+   */
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     adjustContentHeight();
 
@@ -208,13 +281,21 @@ function BlockordionItem(props) {
       refTitle.current.focus();
     }
   });
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "blockordion__item" + (isActive ? " blockordion__active" : ""),
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(React.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+    className: "blockordion__item" + (isActive ? " blockordion__active" : "") + (draggedOver ? " blockordion__drag-over" : ""),
     ref: refItem,
     onClick: e => {
       activateItem();
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__mouseover_area" + (dropAreaActive ? " blockordion__mouseover_area--active" : ""),
+    onMouseOver: dragAndDrop.handleMouseOver,
+    onMouseOut: dragAndDrop.handleMouseOut
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__drag-handle",
+    draggable: true,
+    onDragStart: dragAndDrop.handleDragStart
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "div",
     ref: refTitle,
     className: "blockordion__title",
@@ -235,7 +316,7 @@ function BlockordionItem(props) {
     className: "blockordion__button blockordion__expandable" + (isExpanded ? " blockordion__expanded" : ""),
     onClick: blockordionToggle,
     ref: refBtnExpandable
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ItemSubmenu__WEBPACK_IMPORTED_MODULE_3__.ItemSubmenu, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ItemSubmenu__WEBPACK_IMPORTED_MODULE_2__.ItemSubmenu, {
     addItemAbove: addItemAbove,
     addItemBelow: addItemBelow,
     deleteItem: deleteItem
@@ -255,7 +336,7 @@ function BlockordionItem(props) {
         isExpanded
       });
     }
-  })));
+  }))));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockordionItem);
 
@@ -319,7 +400,8 @@ function ItemSubmenu(props) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Edit)
+/* harmony export */   DragAndDropContext: () => (/* binding */ DragAndDropContext),
+/* harmony export */   Edit: () => (/* binding */ Edit)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -356,6 +438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -364,6 +447,8 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {Element} Element to render.
  */
+
+const DragAndDropContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 function Edit({
   attributes,
   setAttributes
@@ -372,6 +457,8 @@ function Edit({
     data,
     activeItem
   } = attributes;
+  const [draggedItem, setDraggedItem] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
   /**
    * Saves changes
@@ -440,7 +527,12 @@ function Edit({
       activeItem: itemId
     });
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+  function activateDropArea(status) {
+    for (const itemKey in data) {}
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DragAndDropContext.Provider, {
+    value: [draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive]
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, function () {
     const blockordionItems = [];
@@ -450,6 +542,7 @@ function Edit({
         title: data[itemId].title,
         isExpanded: data[itemId].isExpanded,
         isActive: activeItem === itemId,
+        isDropAreaActive: dropAreaActive,
         key: itemId,
         saveItemAttributes: saveItemAttributes,
         activateItem: () => {
@@ -467,8 +560,9 @@ function Edit({
       }, data[itemId].content));
     }
     return blockordionItems;
-  }());
+  }())));
 }
+
 
 /***/ }),
 
@@ -515,7 +609,7 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"]
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__.Edit
 });
 
 /***/ }),
@@ -528,7 +622,11 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   convertToLetters: () => (/* binding */ convertToLetters)
+/* harmony export */   convertToLetters: () => (/* binding */ convertToLetters),
+/* harmony export */   getEditorBodyEl: () => (/* binding */ getEditorBodyEl),
+/* harmony export */   getEditorDocumentEl: () => (/* binding */ getEditorDocumentEl),
+/* harmony export */   getEditorWindowEl: () => (/* binding */ getEditorWindowEl),
+/* harmony export */   setCursor: () => (/* binding */ setCursor)
 /* harmony export */ });
 function convertToLetters(number) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -539,6 +637,36 @@ function convertToLetters(number) {
     number = Math.floor((number - 1) / 26);
   }
   return result;
+}
+function getEditorWindowEl() {
+  var _document$querySelect;
+  return (_document$querySelect = document.querySelector('iframe')?.contentWindow) !== null && _document$querySelect !== void 0 ? _document$querySelect : window;
+}
+function getEditorDocumentEl() {
+  var _document$querySelect2;
+  return (_document$querySelect2 = document.querySelector('iframe')?.contentDocument) !== null && _document$querySelect2 !== void 0 ? _document$querySelect2 : document;
+}
+function getEditorBodyEl() {
+  return getEditorDocumentEl().body;
+}
+function setCursor(cursorStyle = null) {
+  const el = getEditorBodyEl();
+  if (!el) {
+    return;
+  }
+
+  // remove all cursor styles
+  el.classList.forEach(className => {
+    if (className.startsWith('cursor__')) {
+      el.classList.remove(className);
+    }
+  });
+
+  // add the new cursor style
+  if (cursorStyle) {
+    const cursorNewClassName = `cursor__${cursorStyle}`;
+    el.classList.add(cursorNewClassName);
+  }
 }
 
 

@@ -21,8 +21,10 @@ import {useBlockProps} from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import {createContext, useState} from "react";
 import BlockordionItem from "./components/BlockordionItem";
 import {convertToLetters} from "./tools";
+
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -32,12 +34,19 @@ import {convertToLetters} from "./tools";
  *
  * @return {Element} Element to render.
  */
-export default function Edit({attributes, setAttributes}) {
+
+const DragAndDropContext = createContext();
+
+function Edit({attributes, setAttributes}) {
 
 	const {
 		data,
 		activeItem
 	} = attributes;
+
+	const [draggedItem, setDraggedItem] = useState(null)
+	const [dropAreaActive, setDropAreaActive] = useState(false);
+
 
 	/**
 	 * Saves changes
@@ -109,42 +118,57 @@ export default function Edit({attributes, setAttributes}) {
 		setAttributes({activeItem: itemId})
 	}
 
-	return (
-		<section {...useBlockProps()}>
-			{
-				(function () {
-					const blockordionItems = [];
-					for (const itemId in data) {
-						blockordionItems.push(
-							<BlockordionItem
-								itemId={itemId}
-								title={data[itemId].title}
-								isExpanded={data[itemId].isExpanded}
-								isActive={activeItem === itemId}
-								key={itemId}
-								saveItemAttributes={saveItemAttributes}
-								activateItem={() => {
-									setActiveItem(itemId);
-								}}
-								addItemAbove={() => {
-									addNewItem(itemId, -1);
-								}}
-								addItemBelow={() => {
-									addNewItem(itemId, 1);
-								}}
-								deleteItem={() => {
-									console.log('Item deleted');
-								}}
-							>
-								{data[itemId].content}
-							</BlockordionItem>
-						);
-					}
-					return blockordionItems;
+	function activateDropArea(status) {
+		for (const itemKey in data) {
 
-				})()
-			}
-		</section>
-	)
-		;
+
+		}
+	}
+
+	return (
+		<>
+			<DragAndDropContext.Provider value={[draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive]}>
+				<section {...useBlockProps()}>
+					{
+						(function () {
+							const blockordionItems = [];
+							for (const itemId in data) {
+								blockordionItems.push(
+									<BlockordionItem
+										itemId={itemId}
+										title={data[itemId].title}
+										isExpanded={data[itemId].isExpanded}
+										isActive={activeItem === itemId}
+										isDropAreaActive={dropAreaActive}
+										key={itemId}
+										saveItemAttributes={saveItemAttributes}
+										activateItem={() => {
+											setActiveItem(itemId);
+										}}
+										addItemAbove={() => {
+											addNewItem(itemId, -1);
+										}}
+										addItemBelow={() => {
+											addNewItem(itemId, 1);
+										}}
+										deleteItem={() => {
+											console.log('Item deleted');
+										}}
+									>
+										{data[itemId].content}
+									</BlockordionItem>
+								);
+							}
+							return blockordionItems;
+
+						})()
+					}
+
+				</section>
+			</DragAndDropContext.Provider>
+		</>
+	);
 }
+
+
+export {Edit, DragAndDropContext};
