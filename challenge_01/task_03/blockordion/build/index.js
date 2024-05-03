@@ -153,14 +153,13 @@ function BlockordionItem(props) {
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  const [draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
+  const [draggedItem, setDraggedItem, blockordionEl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
   const {
     itemId,
     title,
     children: content,
     isExpanded,
     isActive,
-    isDropAreaActive,
     saveItemAttributes,
     activateItem,
     addItemAbove,
@@ -203,66 +202,35 @@ function BlockordionItem(props) {
 
   /**
    * Drag and Drop Management
-   *
-   * Emulates drag and drop because Gutenberg seems to block
-   * native drag and drop inside custom blocks.
    */
   const dragAndDrop = function () {
-    const editorWindowEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorWindowEl)();
-    const editorDocumentEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorDocumentEl)();
-    const editorBodyEl = (0,_tools__WEBPACK_IMPORTED_MODULE_4__.getEditorBodyEl)();
-    const dndContainerId = 'blockordion-drag-drop';
-    let dndContainer;
-    function handleMouseMove(e) {
-      const x = e.clientX;
-      const y = e.clientY;
-      const offsetY = editorWindowEl.scrollY;
-      dndContainer.style.left = `${x - 15}px`;
-      dndContainer.style.top = `${y + offsetY - 15}px`;
+    function handleDragStart(e) {
+      setDraggedItem(itemId);
     }
-    function handleMouseOver(e) {
-      if (draggedItem && draggedItem !== itemId) {
+    function handleDragEnter(e) {
+      const el = e.target.closest('.blockordion__item');
+      if (draggedItem !== el.id) {
         setDraggedOver(true);
       }
+      e.preventDefault();
     }
-    function handleMouseOut(e) {
-      setDraggedOver(false);
-    }
-    function handleMouseUp(e) {
-      setDraggedItem(null);
-      setDropAreaActive(false);
-      if (dndContainer) dndContainer.parentElement.removeChild(dndContainer);
-      editorDocumentEl.removeEventListener('mousemove', handleMouseMove);
-      editorDocumentEl.removeEventListener('mouseup', handleMouseUp);
-      (0,_tools__WEBPACK_IMPORTED_MODULE_4__.setCursor)(null);
-    }
-    function handleDragStart(e, id) {
-      setDraggedItem(itemId);
-      setDropAreaActive(true);
-
-      // clone the item
-      dndContainer = editorDocumentEl.getElementById(dndContainerId);
-      if (!dndContainer) {
-        dndContainer = document.createElement('div');
-        dndContainer.id = dndContainerId;
-      } else {
-        dndContainer.innerHTML = '';
+    function handleDragExit(e) {
+      const el = e.target.closest('.blockordion__item');
+      if (draggedItem !== el.id) {
+        setDraggedOver(false);
       }
-
-      // set container size
-      dndContainer.style.width = refItem.current.parentElement.clientWidth - 20 + 'px';
-      dndContainer.appendChild(refItem.current.cloneNode(true));
-      editorBodyEl.appendChild(dndContainer);
-
-      // set mouse listeners
-      editorDocumentEl.addEventListener('mousemove', handleMouseMove);
-      editorDocumentEl.addEventListener('mouseup', handleMouseUp);
-      (0,_tools__WEBPACK_IMPORTED_MODULE_4__.setCursor)('grab');
+      e.preventDefault();
+    }
+    function handleDrop(e) {
+      setDraggedOver(false);
+      console.log('Dragged Item:', draggedItem);
+      console.log('Drop on:', itemId);
     }
     return {
       handleDragStart,
-      handleMouseOver,
-      handleMouseOut
+      handleDragEnter,
+      handleDragExit,
+      handleDrop
     };
   }();
 
@@ -282,19 +250,19 @@ function BlockordionItem(props) {
     }
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(React.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+    draggable: true,
+    id: itemId,
     className: "blockordion__item" + (isActive ? " blockordion__active" : "") + (draggedOver ? " blockordion__drag-over" : ""),
     ref: refItem,
+    onDragStart: dragAndDrop.handleDragStart,
+    onDragEnter: dragAndDrop.handleDragEnter,
+    onDragExit: dragAndDrop.handleDragExit,
+    onDrop: dragAndDrop.handleDrop,
     onClick: e => {
       activateItem();
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__mouseover_area" + (dropAreaActive ? " blockordion__mouseover_area--active" : ""),
-    onMouseOver: dragAndDrop.handleMouseOver,
-    onMouseOut: dragAndDrop.handleMouseOut
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__drag-handle",
-    draggable: true,
-    onDragStart: dragAndDrop.handleDragStart
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__drag-handle"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "div",
     ref: refTitle,
@@ -458,7 +426,7 @@ function Edit({
     activeItem
   } = attributes;
   const [draggedItem, setDraggedItem] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const [dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const blockordionEl = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
 
   /**
    * Saves changes
@@ -527,13 +495,11 @@ function Edit({
       activeItem: itemId
     });
   }
-  function activateDropArea(status) {
-    for (const itemKey in data) {}
-  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DragAndDropContext.Provider, {
-    value: [draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive]
+    value: [draggedItem, setDraggedItem, blockordionEl]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+    ref: blockordionEl // mainly used to allow drag and drop
   }, function () {
     const blockordionItems = [];
     for (const itemId in data) {
@@ -542,7 +508,6 @@ function Edit({
         title: data[itemId].title,
         isExpanded: data[itemId].isExpanded,
         isActive: activeItem === itemId,
-        isDropAreaActive: dropAreaActive,
         key: itemId,
         saveItemAttributes: saveItemAttributes,
         activateItem: () => {

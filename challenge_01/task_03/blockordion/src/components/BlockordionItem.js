@@ -3,10 +3,7 @@ import {RichText} from "@wordpress/block-editor";
 import {ItemSubmenu} from "./ItemSubmenu";
 import {DragAndDropContext} from "../edit";
 import {
-	setCursor,
-	getEditorWindowEl,
-	getEditorDocumentEl,
-	getEditorBodyEl
+	setCursor
 } from "../tools";
 
 function BlockordionItem(props) {
@@ -16,7 +13,10 @@ function BlockordionItem(props) {
 	const refBlockordionContent = useRef();
 	const refBtnExpandable = useRef();
 
-	const [draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive] = useContext(DragAndDropContext);
+	const [
+		draggedItem, setDraggedItem,
+		blockordionEl
+	] = useContext(DragAndDropContext);
 
 	const {
 		itemId,
@@ -24,7 +24,6 @@ function BlockordionItem(props) {
 		children: content,
 		isExpanded,
 		isActive,
-		isDropAreaActive,
 		saveItemAttributes,
 		activateItem,
 		addItemAbove,
@@ -70,80 +69,44 @@ function BlockordionItem(props) {
 
 	/**
 	 * Drag and Drop Management
-	 *
-	 * Emulates drag and drop because Gutenberg seems to block
-	 * native drag and drop inside custom blocks.
 	 */
 	const dragAndDrop = (function () {
-		const editorWindowEl = getEditorWindowEl();
-		const editorDocumentEl = getEditorDocumentEl();
-		const editorBodyEl = getEditorBodyEl();
-		const dndContainerId = 'blockordion-drag-drop';
-		let dndContainer;
-
-		function handleMouseMove(e) {
-			const x = e.clientX;
-			const y = e.clientY
-			const offsetY = editorWindowEl.scrollY;
-
-			dndContainer.style.left = `${x - 15}px`;
-			dndContainer.style.top = `${y + offsetY - 15}px`;
-
+		function handleDragStart(e) {
+			setDraggedItem(itemId);
 		}
 
-		function handleMouseOver(e) {
-			if (draggedItem && (draggedItem !== itemId)) {
+		function handleDragEnter(e) {
+			const el = e.target.closest('.blockordion__item');
+
+			if (draggedItem !== el.id) {
 				setDraggedOver(true);
 			}
-		}
 
-		function handleMouseOut(e) {
-			setDraggedOver(false);
-		}
-
-		function handleMouseUp(e) {
-			setDraggedItem(null);
-			setDropAreaActive(false);
-
-			if (dndContainer) dndContainer.parentElement.removeChild(dndContainer);
-			editorDocumentEl.removeEventListener('mousemove', handleMouseMove);
-			editorDocumentEl.removeEventListener('mouseup', handleMouseUp);
-			setCursor(null);
+			e.preventDefault();
 
 		}
 
-		function handleDragStart(e, id) {
+		function handleDragExit(e) {
+			const el = e.target.closest('.blockordion__item');
 
-			setDraggedItem(itemId);
-			setDropAreaActive(true);
-
-			// clone the item
-			dndContainer = editorDocumentEl.getElementById(dndContainerId);
-			if (!dndContainer) {
-				dndContainer = document.createElement('div');
-				dndContainer.id = dndContainerId;
-			} else {
-				dndContainer.innerHTML = '';
+			if (draggedItem !== el.id) {
+				setDraggedOver(false);
 			}
 
-			// set container size
-			dndContainer.style.width = (refItem.current.parentElement.clientWidth - 20) + 'px';
+			e.preventDefault();
+		}
 
-			dndContainer.appendChild(refItem.current.cloneNode(true));
-			editorBodyEl.appendChild(dndContainer);
-
-			// set mouse listeners
-			editorDocumentEl.addEventListener('mousemove', handleMouseMove);
-			editorDocumentEl.addEventListener('mouseup', handleMouseUp);
-
-			setCursor('grab');
-
+		function handleDrop(e) {
+			setDraggedOver(false);
+			console.log('Dragged Item:', draggedItem);
+			console.log('Drop on:', itemId);
 		}
 
 		return {
 			handleDragStart,
-			handleMouseOver,
-			handleMouseOut
+			handleDragEnter,
+			handleDragExit,
+			handleDrop,
 		};
 
 	})();
@@ -167,11 +130,12 @@ function BlockordionItem(props) {
 
 	});
 
-
 	return (
 		<React.Fragment>
 
 			<section
+				draggable
+				id={itemId}
 				className=
 					{
 						"blockordion__item" +
@@ -179,24 +143,19 @@ function BlockordionItem(props) {
 						(draggedOver ? " blockordion__drag-over" : "")
 					}
 				ref={refItem}
+
+				onDragStart={dragAndDrop.handleDragStart}
+				onDragEnter={dragAndDrop.handleDragEnter}
+				onDragExit={dragAndDrop.handleDragExit}
+				onDrop={dragAndDrop.handleDrop}
+
 				onClick={e => {
 					activateItem();
 				}}
 			>
-				<div className=
-						 {
-							 "blockordion__mouseover_area" +
-							 (dropAreaActive ? " blockordion__mouseover_area--active" : "")
-						 }
-					 onMouseOver={dragAndDrop.handleMouseOver}
-					 onMouseOut={dragAndDrop.handleMouseOut}
-				></div>
 
 				<header>
-					<div className="blockordion__drag-handle"
-						 draggable
-						 onDragStart={dragAndDrop.handleDragStart}
-					></div>
+					<div className="blockordion__drag-handle"></div>
 
 					<RichText
 						tagName="div"

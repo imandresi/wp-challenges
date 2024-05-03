@@ -21,7 +21,7 @@ import {useBlockProps} from '@wordpress/block-editor';
  */
 import './editor.scss';
 
-import {createContext, useState} from "react";
+import {createContext, useState, useRef} from "react";
 import BlockordionItem from "./components/BlockordionItem";
 import {convertToLetters} from "./tools";
 
@@ -45,8 +45,7 @@ function Edit({attributes, setAttributes}) {
 	} = attributes;
 
 	const [draggedItem, setDraggedItem] = useState(null)
-	const [dropAreaActive, setDropAreaActive] = useState(false);
-
+	const blockordionEl = useRef();
 
 	/**
 	 * Saves changes
@@ -118,17 +117,15 @@ function Edit({attributes, setAttributes}) {
 		setAttributes({activeItem: itemId})
 	}
 
-	function activateDropArea(status) {
-		for (const itemKey in data) {
-
-
-		}
-	}
-
 	return (
 		<>
-			<DragAndDropContext.Provider value={[draggedItem, setDraggedItem, dropAreaActive, setDropAreaActive]}>
-				<section {...useBlockProps()}>
+			<DragAndDropContext.Provider value={[
+				draggedItem, setDraggedItem,
+				blockordionEl
+			]}>
+				<section {...useBlockProps()}
+						 ref={blockordionEl} // mainly used to allow drag and drop
+				>
 					{
 						(function () {
 							const blockordionItems = [];
@@ -139,7 +136,6 @@ function Edit({attributes, setAttributes}) {
 										title={data[itemId].title}
 										isExpanded={data[itemId].isExpanded}
 										isActive={activeItem === itemId}
-										isDropAreaActive={dropAreaActive}
 										key={itemId}
 										saveItemAttributes={saveItemAttributes}
 										activateItem={() => {
@@ -163,9 +159,12 @@ function Edit({attributes, setAttributes}) {
 
 						})()
 					}
-
 				</section>
 			</DragAndDropContext.Provider>
+
+
+
+
 		</>
 	);
 }
