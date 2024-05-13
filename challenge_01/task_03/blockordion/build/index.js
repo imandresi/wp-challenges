@@ -455,6 +455,9 @@ function Edit({
   }
   function moveDataItem(itemId, toItemId) {
     const blockordionData = {};
+    if (itemId === toItemId) {
+      return;
+    }
     for (const currentItemId in data) {
       if (currentItemId === itemId) continue;
       if (currentItemId === toItemId) {
