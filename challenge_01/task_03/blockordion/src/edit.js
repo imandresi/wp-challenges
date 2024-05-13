@@ -53,36 +53,54 @@ function Edit({attributes, setAttributes}) {
 	 * @param itemAttributes
 	 */
 	function saveDataItem(itemAttributes) {
-		const blockordionAttributes = {...data};
+		const blockordionData = {...data};
 
-		blockordionAttributes[itemAttributes.itemId] = {
+		blockordionData[itemAttributes.itemId] = {
 			title: itemAttributes.title,
 			content: itemAttributes.content,
 			isExpanded: itemAttributes.isExpanded
 		};
 
 		setAttributes({
-			data: blockordionAttributes
+			data: blockordionData
 		})
 	}
 
 	function moveDataItem(itemId, toItemId) {
-		const blockordionAttributes = {};
+		const blockordionData = {};
 
 		for (const currentItemId in data) {
 			if (currentItemId === itemId) continue;
 
 			if (currentItemId === toItemId) {
-				blockordionAttributes[itemId] = data[itemId];
+				blockordionData[itemId] = data[itemId];
 			}
 
-			blockordionAttributes[currentItemId] = data[currentItemId];
+			blockordionData[currentItemId] = data[currentItemId];
 		}
 
 		setAttributes({
-			data: blockordionAttributes
+			data: blockordionData
 		})
 
+	}
+
+	function deleteItem(itemId) {
+		const blockordionData = {};
+
+		for (const currentItemId in data) {
+			if (currentItemId === itemId) continue;
+			blockordionData[currentItemId] = data[currentItemId];
+		}
+
+		setAttributes({
+			data: blockordionData
+		})
+
+	}
+
+	function showDeleteItemSubmenu() {
+		return Object.keys({...data}).length > 1;
 	}
 
 	/**
@@ -143,7 +161,9 @@ function Edit({attributes, setAttributes}) {
 				blockordionEl
 			]}>
 				<section {...useBlockProps()}
-						 ref={blockordionEl} // mainly used to allow drag and drop
+
+					// Without the following line, native drag and drop seems to be blocked
+						 ref={blockordionEl}
 				>
 					{
 						(function () {
@@ -167,9 +187,9 @@ function Edit({attributes, setAttributes}) {
 										addItemBelow={() => {
 											addNewItem(itemId, 1);
 										}}
-										deleteItem={() => {
-											console.log('Item deleted');
-										}}
+										deleteItem={showDeleteItemSubmenu() ? () => {
+											deleteItem(itemId);
+										} : null}
 									>
 										{data[itemId].content}
 									</BlockordionItem>
@@ -181,8 +201,6 @@ function Edit({attributes, setAttributes}) {
 					}
 				</section>
 			</DragAndDropContext.Provider>
-
-
 
 
 		</>

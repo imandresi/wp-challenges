@@ -200,7 +200,6 @@ function BlockordionItem(props) {
       isExpanded: !expanded
     });
   }
-  function moveItem() {}
 
   /**
    * Drag and Drop Management
@@ -328,10 +327,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-up.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-down.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/trash.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-up.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/arrow-down.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/trash.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/more-vertical.js");
 
 
 
@@ -341,23 +340,27 @@ function ItemSubmenu(props) {
     addItemBelow,
     deleteItem
   } = props;
+  const menuControls = [{
+    title: 'Add New Item Above',
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__["default"],
+    onClick: addItemAbove
+  }, {
+    title: 'Add New Item Below',
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"],
+    onClick: addItemBelow
+  }];
+  if (deleteItem) {
+    menuControls.push({
+      title: 'Delete Current Item',
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
+      onClick: deleteItem
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.DropdownMenu, {
     className: "",
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_2__["default"],
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"],
     label: "Settings",
-    controls: [{
-      title: 'Add New Item Above',
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_3__["default"],
-      onClick: addItemAbove
-    }, {
-      title: 'Add New Item Below',
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"],
-      onClick: addItemBelow
-    }, {
-      title: 'Delete Current Item',
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"],
-      onClick: deleteItem
-    }]
+    controls: menuControls
   });
 }
 
@@ -438,30 +441,45 @@ function Edit({
    * @param itemAttributes
    */
   function saveDataItem(itemAttributes) {
-    const blockordionAttributes = {
+    const blockordionData = {
       ...data
     };
-    blockordionAttributes[itemAttributes.itemId] = {
+    blockordionData[itemAttributes.itemId] = {
       title: itemAttributes.title,
       content: itemAttributes.content,
       isExpanded: itemAttributes.isExpanded
     };
     setAttributes({
-      data: blockordionAttributes
+      data: blockordionData
     });
   }
   function moveDataItem(itemId, toItemId) {
-    const blockordionAttributes = {};
+    const blockordionData = {};
     for (const currentItemId in data) {
       if (currentItemId === itemId) continue;
       if (currentItemId === toItemId) {
-        blockordionAttributes[itemId] = data[itemId];
+        blockordionData[itemId] = data[itemId];
       }
-      blockordionAttributes[currentItemId] = data[currentItemId];
+      blockordionData[currentItemId] = data[currentItemId];
     }
     setAttributes({
-      data: blockordionAttributes
+      data: blockordionData
     });
+  }
+  function deleteItem(itemId) {
+    const blockordionData = {};
+    for (const currentItemId in data) {
+      if (currentItemId === itemId) continue;
+      blockordionData[currentItemId] = data[currentItemId];
+    }
+    setAttributes({
+      data: blockordionData
+    });
+  }
+  function showDeleteItemSubmenu() {
+    return Object.keys({
+      ...data
+    }).length > 1;
   }
 
   /**
@@ -516,7 +534,8 @@ function Edit({
     value: [draggedItem, setDraggedItem, blockordionEl]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
-    ref: blockordionEl // mainly used to allow drag and drop
+    // Without the following line, native drag and drop seems to be blocked
+    ref: blockordionEl
   }, function () {
     const blockordionItems = [];
     for (const itemId in data) {
@@ -537,9 +556,9 @@ function Edit({
         addItemBelow: () => {
           addNewItem(itemId, 1);
         },
-        deleteItem: () => {
-          console.log('Item deleted');
-        }
+        deleteItem: showDeleteItemSubmenu() ? () => {
+          deleteItem(itemId);
+        } : null
       }, data[itemId].content));
     }
     return blockordionItems;

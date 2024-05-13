@@ -68,10 +68,6 @@ function BlockordionItem(props) {
 
 	}
 
-	function moveItem() {
-
-	}
-
 	/**
 	 * Drag and Drop Management
 	 */

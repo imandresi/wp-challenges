@@ -13,28 +13,33 @@ function ItemSubmenu(props) {
 		deleteItem
 	} = props;
 
+	const menuControls = [
+		{
+			title: 'Add New Item Above',
+			icon: arrowUp,
+			onClick: addItemAbove,
+		},
+		{
+			title: 'Add New Item Below',
+			icon: arrowDown,
+			onClick: addItemBelow,
+		}
+	];
+
+	if (deleteItem) {
+		menuControls.push({
+			title: 'Delete Current Item',
+			icon: trash,
+			onClick: deleteItem,
+		})
+	}
+
 	return (
 		<DropdownMenu
 			className=""
 			icon={moreVertical}
 			label="Settings"
-			controls={[
-				{
-					title: 'Add New Item Above',
-					icon: arrowUp,
-					onClick: addItemAbove,
-				},
-				{
-					title: 'Add New Item Below',
-					icon: arrowDown,
-					onClick: addItemBelow,
-				},
-				{
-					title: 'Delete Current Item',
-					icon: trash,
-					onClick: deleteItem,
-				}
-			]}
+			controls={menuControls}
 		/>
 	);
 }
