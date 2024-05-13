@@ -52,7 +52,7 @@ function Edit({attributes, setAttributes}) {
 	 *
 	 * @param itemAttributes
 	 */
-	function saveItemAttributes(itemAttributes) {
+	function saveDataItem(itemAttributes) {
 		const blockordionAttributes = {...data};
 
 		blockordionAttributes[itemAttributes.itemId] = {
@@ -64,6 +64,25 @@ function Edit({attributes, setAttributes}) {
 		setAttributes({
 			data: blockordionAttributes
 		})
+	}
+
+	function moveDataItem(itemId, toItemId) {
+		const blockordionAttributes = {};
+
+		for (const currentItemId in data) {
+			if (currentItemId === itemId) continue;
+
+			if (currentItemId === toItemId) {
+				blockordionAttributes[itemId] = data[itemId];
+			}
+
+			blockordionAttributes[currentItemId] = data[currentItemId];
+		}
+
+		setAttributes({
+			data: blockordionAttributes
+		})
+
 	}
 
 	/**
@@ -137,7 +156,8 @@ function Edit({attributes, setAttributes}) {
 										isExpanded={data[itemId].isExpanded}
 										isActive={activeItem === itemId}
 										key={itemId}
-										saveItemAttributes={saveItemAttributes}
+										saveDataItem={saveDataItem}
+										moveDataItem={moveDataItem}
 										activateItem={() => {
 											setActiveItem(itemId);
 										}}

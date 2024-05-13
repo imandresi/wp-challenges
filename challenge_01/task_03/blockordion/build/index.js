@@ -160,7 +160,8 @@ function BlockordionItem(props) {
     children: content,
     isExpanded,
     isActive,
-    saveItemAttributes,
+    saveDataItem,
+    moveDataItem,
     activateItem,
     addItemAbove,
     addItemBelow,
@@ -192,13 +193,14 @@ function BlockordionItem(props) {
     }
 
     // This will allow the Height adjustment
-    saveItemAttributes({
+    saveDataItem({
       itemId,
       title,
       content,
       isExpanded: !expanded
     });
   }
+  function moveItem() {}
 
   /**
    * Drag and Drop Management
@@ -223,8 +225,10 @@ function BlockordionItem(props) {
     }
     function handleDrop(e) {
       setDraggedOver(false);
-      console.log('Dragged Item:', draggedItem);
-      console.log('Drop on:', itemId);
+      if (draggedItem && itemId) {
+        moveDataItem(draggedItem, itemId);
+      }
+      e.preventDefault();
     }
     return {
       handleDragStart,
@@ -271,7 +275,7 @@ function BlockordionItem(props) {
     allowedFormats: [],
     value: title,
     onChange: title => {
-      saveItemAttributes({
+      saveDataItem({
         itemId,
         title,
         isExpanded,
@@ -297,7 +301,7 @@ function BlockordionItem(props) {
     placeholder: "Please type the content of the item here...",
     value: content,
     onChange: content => {
-      saveItemAttributes({
+      saveDataItem({
         itemId,
         title: refTitle.current.innerText,
         content,
@@ -433,7 +437,7 @@ function Edit({
    *
    * @param itemAttributes
    */
-  function saveItemAttributes(itemAttributes) {
+  function saveDataItem(itemAttributes) {
     const blockordionAttributes = {
       ...data
     };
@@ -442,6 +446,19 @@ function Edit({
       content: itemAttributes.content,
       isExpanded: itemAttributes.isExpanded
     };
+    setAttributes({
+      data: blockordionAttributes
+    });
+  }
+  function moveDataItem(itemId, toItemId) {
+    const blockordionAttributes = {};
+    for (const currentItemId in data) {
+      if (currentItemId === itemId) continue;
+      if (currentItemId === toItemId) {
+        blockordionAttributes[itemId] = data[itemId];
+      }
+      blockordionAttributes[currentItemId] = data[currentItemId];
+    }
     setAttributes({
       data: blockordionAttributes
     });
@@ -509,7 +526,8 @@ function Edit({
         isExpanded: data[itemId].isExpanded,
         isActive: activeItem === itemId,
         key: itemId,
-        saveItemAttributes: saveItemAttributes,
+        saveDataItem: saveDataItem,
+        moveDataItem: moveDataItem,
         activateItem: () => {
           setActiveItem(itemId);
         },

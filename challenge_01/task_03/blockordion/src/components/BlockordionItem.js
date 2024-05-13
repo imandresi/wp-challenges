@@ -24,7 +24,8 @@ function BlockordionItem(props) {
 		children: content,
 		isExpanded,
 		isActive,
-		saveItemAttributes,
+		saveDataItem,
+		moveDataItem,
 		activateItem,
 		addItemAbove,
 		addItemBelow,
@@ -58,12 +59,16 @@ function BlockordionItem(props) {
 		}
 
 		// This will allow the Height adjustment
-		saveItemAttributes({
+		saveDataItem({
 			itemId,
 			title,
 			content,
 			isExpanded: !expanded
 		});
+
+	}
+
+	function moveItem() {
 
 	}
 
@@ -98,8 +103,12 @@ function BlockordionItem(props) {
 
 		function handleDrop(e) {
 			setDraggedOver(false);
-			console.log('Dragged Item:', draggedItem);
-			console.log('Drop on:', itemId);
+
+			if (draggedItem && itemId) {
+				moveDataItem(draggedItem, itemId);
+			}
+
+			e.preventDefault();
 		}
 
 		return {
@@ -165,7 +174,7 @@ function BlockordionItem(props) {
 						allowedFormats={[]}
 						value={title}
 						onChange={title => {
-							saveItemAttributes({
+							saveDataItem({
 								itemId,
 								title,
 								isExpanded,
@@ -199,7 +208,7 @@ function BlockordionItem(props) {
 						placeholder="Please type the content of the item here..."
 						value={content}
 						onChange={content => {
-							saveItemAttributes({
+							saveDataItem({
 								itemId,
 								title: refTitle.current.innerText,
 								content,
