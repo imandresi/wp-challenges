@@ -44,8 +44,11 @@ function Edit({attributes, setAttributes}) {
 		activeItem
 	} = attributes;
 
-	const [draggedItem, setDraggedItem] = useState(null)
-	const blockordionEl = useRef();
+	const [draggedItem, setDraggedItem] = useState(null);
+	const [dropAreaActive, setDropAreaActive] = useState(false);
+	const draggedItemRef = useRef(null);
+	const draggedOverRef = useRef(null);
+
 
 	/**
 	 * Saves changes
@@ -161,14 +164,10 @@ function Edit({attributes, setAttributes}) {
 	return (
 		<>
 			<DragAndDropContext.Provider value={[
-				draggedItem, setDraggedItem,
-				blockordionEl
+				dropAreaActive, setDropAreaActive,
+				draggedItemRef, draggedOverRef
 			]}>
-				<section {...useBlockProps()}
-
-					// Without the following line, native drag and drop seems to be blocked
-						 ref={blockordionEl}
-				>
+				<section {...useBlockProps()}>
 					{
 						(function () {
 							const blockordionItems = [];
@@ -179,6 +178,7 @@ function Edit({attributes, setAttributes}) {
 										title={data[itemId].title}
 										isExpanded={data[itemId].isExpanded}
 										isActive={activeItem === itemId}
+										isDropAreaActive={dropAreaActive}
 										key={itemId}
 										saveDataItem={saveDataItem}
 										moveDataItem={moveDataItem}

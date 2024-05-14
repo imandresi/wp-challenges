@@ -140,7 +140,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ItemSubmenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemSubmenu */ "./src/components/ItemSubmenu.js");
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../edit */ "./src/edit.js");
-/* harmony import */ var _tools__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tools */ "./src/tools.js");
+/* harmony import */ var _hooks_useUpdate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useUpdate */ "./src/hooks/useUpdate.js");
+/* harmony import */ var _tools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tools */ "./src/tools.js");
+
 
 
 
@@ -153,7 +155,8 @@ function BlockordionItem(props) {
   const refTitle = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  const [draggedItem, setDraggedItem, blockordionEl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
+  const doUpdate = (0,_hooks_useUpdate__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  const [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
   const {
     itemId,
     title,
@@ -167,7 +170,6 @@ function BlockordionItem(props) {
     addItemBelow,
     deleteItem
   } = props;
-  const [draggedOver, setDraggedOver] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
   /**
    * Adjust the item height if it is expanded
@@ -203,37 +205,76 @@ function BlockordionItem(props) {
 
   /**
    * Drag and Drop Management
+   *
+   * Emulates drag and drop because Gutenberg seems to block
+   * native drag and drop inside custom blocks.
    */
   const dragAndDrop = function () {
-    function handleDragStart(e) {
-      setDraggedItem(itemId);
+    const editorWindowEl = (0,_tools__WEBPACK_IMPORTED_MODULE_5__.getEditorWindowEl)();
+    const editorDocumentEl = (0,_tools__WEBPACK_IMPORTED_MODULE_5__.getEditorDocumentEl)();
+    const editorBodyEl = (0,_tools__WEBPACK_IMPORTED_MODULE_5__.getEditorBodyEl)();
+    const dndPreviewId = 'blockordion-drag-drop';
+    let dndPreviewEl;
+    function handleMouseMove(e) {
+      const x = e.clientX;
+      const y = e.clientY;
+      const offsetY = editorWindowEl.scrollY;
+      dndPreviewEl.style.left = `${x - 15}px`;
+      dndPreviewEl.style.top = `${y + offsetY - 15}px`;
     }
-    function handleDragEnter(e) {
-      const el = e.target.closest('.blockordion__item');
-      if (draggedItem !== el.id) {
-        setDraggedOver(true);
+    function handleMouseOver(e) {
+      if (draggedItemRef.current && draggedItemRef.current !== itemId) {
+        draggedOverRef.current = itemId;
+        doUpdate();
       }
-      e.preventDefault();
     }
-    function handleDragExit(e) {
-      const el = e.target.closest('.blockordion__item');
-      if (draggedItem !== el.id) {
-        setDraggedOver(false);
+    function handleMouseOut(e) {
+      if (draggedOverRef.current) {
+        draggedOverRef.current = null;
+        doUpdate();
       }
-      e.preventDefault();
     }
-    function handleDrop(e) {
-      setDraggedOver(false);
-      if (draggedItem && itemId) {
-        moveDataItem(draggedItem, itemId);
+    function handleMouseUp(e) {
+      // check if dropped
+      if (draggedOverRef.current) {
+        moveDataItem(draggedItemRef.current, draggedOverRef.current);
       }
-      e.preventDefault();
+
+      // cancel drag
+      draggedItemRef.current = null;
+      setDropAreaActive(false);
+      if (dndPreviewEl) dndPreviewEl.parentElement.removeChild(dndPreviewEl);
+      editorDocumentEl.removeEventListener('mousemove', handleMouseMove);
+      editorDocumentEl.removeEventListener('mouseup', handleMouseUp);
+      (0,_tools__WEBPACK_IMPORTED_MODULE_5__.setCursor)(null);
+    }
+    function handleDragStart(e, id) {
+      draggedItemRef.current = itemId;
+      setDropAreaActive(true);
+
+      // clone the item to make preview
+      dndPreviewEl = editorDocumentEl.getElementById(dndPreviewId);
+      if (!dndPreviewEl) {
+        dndPreviewEl = document.createElement('div');
+        dndPreviewEl.id = dndPreviewId;
+      } else {
+        dndPreviewEl.innerHTML = '';
+      }
+
+      // set container size
+      dndPreviewEl.style.width = refItem.current.parentElement.clientWidth - 20 + 'px';
+      dndPreviewEl.appendChild(refItem.current.cloneNode(true));
+      editorBodyEl.appendChild(dndPreviewEl);
+
+      // set mouse listeners
+      editorDocumentEl.addEventListener('mousemove', handleMouseMove);
+      editorDocumentEl.addEventListener('mouseup', handleMouseUp);
+      (0,_tools__WEBPACK_IMPORTED_MODULE_5__.setCursor)('grab');
     }
     return {
       handleDragStart,
-      handleDragEnter,
-      handleDragExit,
-      handleDrop
+      handleMouseOver,
+      handleMouseOut
     };
   }();
 
@@ -253,19 +294,19 @@ function BlockordionItem(props) {
     }
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(React.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    draggable: true,
-    id: itemId,
-    className: "blockordion__item" + (isActive ? " blockordion__active" : "") + (draggedOver ? " blockordion__drag-over" : ""),
+    className: "blockordion__item" + (isActive ? " blockordion__active" : "") + (draggedOverRef.current === itemId ? " blockordion__drag-over" : ""),
     ref: refItem,
-    onDragStart: dragAndDrop.handleDragStart,
-    onDragEnter: dragAndDrop.handleDragEnter,
-    onDragExit: dragAndDrop.handleDragExit,
-    onDrop: dragAndDrop.handleDrop,
     onClick: e => {
       activateItem();
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "blockordion__drag-handle"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__mouseover_area" + (dropAreaActive ? " blockordion__mouseover_area--active" : ""),
+    onMouseOver: dragAndDrop.handleMouseOver,
+    onMouseOut: dragAndDrop.handleMouseOut
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "blockordion__drag-handle",
+    draggable: true,
+    onDragStart: dragAndDrop.handleDragStart
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     tagName: "div",
     ref: refTitle,
@@ -433,7 +474,9 @@ function Edit({
     activeItem
   } = attributes;
   const [draggedItem, setDraggedItem] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-  const blockordionEl = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  const [dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const draggedItemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const draggedOverRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   /**
    * Saves changes
@@ -534,11 +577,9 @@ function Edit({
     });
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DragAndDropContext.Provider, {
-    value: [draggedItem, setDraggedItem, blockordionEl]
+    value: [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
-    // Without the following line, native drag and drop seems to be blocked
-    ref: blockordionEl
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
   }, function () {
     const blockordionItems = [];
     for (const itemId in data) {
@@ -547,6 +588,7 @@ function Edit({
         title: data[itemId].title,
         isExpanded: data[itemId].isExpanded,
         isActive: activeItem === itemId,
+        isDropAreaActive: dropAreaActive,
         key: itemId,
         saveDataItem: saveDataItem,
         moveDataItem: moveDataItem,
@@ -568,6 +610,29 @@ function Edit({
   }())));
 }
 
+
+/***/ }),
+
+/***/ "./src/hooks/useUpdate.js":
+/*!********************************!*\
+  !*** ./src/hooks/useUpdate.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function useUpdate() {
+  const [flag, setFlag] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  return function () {
+    setFlag(!flag);
+  };
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useUpdate);
 
 /***/ }),
 
