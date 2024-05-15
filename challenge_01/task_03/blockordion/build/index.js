@@ -242,6 +242,7 @@ function BlockordionItem(props) {
 
       // cancel drag
       draggedItemRef.current = null;
+      draggedOverRef.current = null;
       setDropAreaActive(false);
       if (dndPreviewEl) dndPreviewEl.parentElement.removeChild(dndPreviewEl);
       editorDocumentEl.removeEventListener('mousemove', handleMouseMove);
