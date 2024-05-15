@@ -22,4 +22,12 @@ For an additional 2 points, you can allow entering more content types for each i
 
 1. Check Gutenberg Accordion discussion in the repository
 
-2. Check code from https://wordpress.org/plugins/lightweight-accordion/ for inspiration 
+2. Check code from https://wordpress.org/plugins/lightweight-accordion/ for inspiration
+
+
+## MY SOLUTION
+
+I've divided the solution into two projects:
+
+- **[Blockordion](./blockordion/README.md)** : This plugin exclusively utilizes rich text for body content.
+- **[Blockordion Plus]()** : This plugin offers support for various content types beyond rich text.
