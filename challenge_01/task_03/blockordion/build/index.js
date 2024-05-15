@@ -2,6 +2,40 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/assets/images/icon.svg":
+/*!************************************!*\
+  !*** ./src/assets/images/icon.svg ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ReactComponent: () => (/* binding */ SvgIcon),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _path, _path2, _path3;
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var SvgIcon = function SvgIcon(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    xmlSpace: "preserve",
+    viewBox: "0 0 1024 1024"
+  }, props), _path || (_path = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M110 153.4h824c19.8 0 35.8 16 35.8 35.8S953.8 225 934 225H110c-19.8 0-35.8-16-35.8-35.8s16-35.8 35.8-35.8m0 143.4h824c19.8 0 35.8 16 35.8 35.8s-16 35.8-35.8 35.8H110c-19.8 0-35.8-16-35.8-35.8s16-35.8 35.8-35.8m29.2 143.3h765.6c35.8 0 65 29.3 65 65v299.8c0 35.8-29.3 65-65 65H139.2c-35.8 0-65-29.3-65-65V505.1c0-35.8 29.3-65 65-65m6.7 120.3v189.3c0 26.8 21.9 48.7 48.7 48.7h655c26.8 0 48.7-21.9 48.7-48.7V560.4c0-26.8-21.9-48.7-48.7-48.7h-655c-26.8 0-48.7 21.9-48.7 48.7"
+  })), _path2 || (_path2 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "m555.2 718.4 76-76c14-14 14-36.7 0-50.7s-36.7-14-50.7 0l-76 76c-14 14-14 36.7 0 50.7 14.1 14 36.8 14 50.7 0"
+  })), _path3 || (_path3 = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "m463.5 591.7 76 76c14 14 14 36.7 0 50.7s-36.7 14-50.7 0l-76-76c-14-14-14-36.7 0-50.7s36.7-14 50.7 0"
+  })));
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEwMjQgMTAyNDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZD0iTTExMCwxNTMuNGg4MjRjMTkuOCwwLDM1LjgsMTYsMzUuOCwzNS44cy0xNiwzNS44LTM1LjgsMzUuOEgxMTBjLTE5LjgsMC0zNS44LTE2LTM1LjgtMzUuOFM5MC4yLDE1My40LDExMCwxNTMuNEwxMTAsMTUzLjQNCgl6IE0xMTAsMjk2LjhoODI0YzE5LjgsMCwzNS44LDE2LDM1LjgsMzUuOHMtMTYsMzUuOC0zNS44LDM1LjhIMTEwYy0xOS44LDAtMzUuOC0xNi0zNS44LTM1LjhTOTAuMiwyOTYuOCwxMTAsMjk2LjhMMTEwLDI5Ni44eg0KCSBNMTM5LjIsNDQwLjFoNzY1LjZjMzUuOCwwLDY1LDI5LjMsNjUsNjV2Mjk5LjhjMCwzNS44LTI5LjMsNjUtNjUsNjVIMTM5LjJjLTM1LjgsMC02NS0yOS4zLTY1LTY1VjUwNS4xDQoJQzc0LjIsNDY5LjMsMTAzLjUsNDQwLjEsMTM5LjIsNDQwLjF6IE0xNDUuOSw1NjAuNHYxODkuM2MwLDI2LjgsMjEuOSw0OC43LDQ4LjcsNDguN2g2NTVjMjYuOCwwLDQ4LjctMjEuOSw0OC43LTQ4LjdWNTYwLjQNCgljMC0yNi44LTIxLjktNDguNy00OC43LTQ4LjdoLTY1NUMxNjcuOCw1MTEuNywxNDUuOSw1MzMuNiwxNDUuOSw1NjAuNEwxNDUuOSw1NjAuNHoiLz4NCjxwYXRoIGQ9Ik01NTUuMiw3MTguNGw3Ni03NmMxNC0xNCwxNC0zNi43LDAtNTAuN3MtMzYuNy0xNC01MC43LDBsLTc2LDc2Yy0xNCwxNC0xNCwzNi43LDAsNTAuNw0KCUM1MTguNiw3MzIuNCw1NDEuMyw3MzIuNCw1NTUuMiw3MTguNHoiLz4NCjxwYXRoIGQ9Ik00NjMuNSw1OTEuN2w3Niw3NmMxNCwxNCwxNCwzNi43LDAsNTAuN3MtMzYuNywxNC01MC43LDBsLTc2LTc2Yy0xNC0xNC0xNC0zNi43LDAtNTAuN1M0NDkuNSw1NzcuNyw0NjMuNSw1OTEuN3oiLz4NCjwvc3ZnPg0K");
+
+/***/ }),
+
 /***/ "./node_modules/@wordpress/icons/build-module/library/arrow-down.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@wordpress/icons/build-module/library/arrow-down.js ***!
@@ -644,11 +678,15 @@ function useUpdate() {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
-/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+/* harmony import */ var _assets_images_icon_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/images/icon.svg */ "./src/assets/images/icon.svg");
+
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
@@ -671,16 +709,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
   /**
    * @see ./edit.js
    */
-  edit: _edit__WEBPACK_IMPORTED_MODULE_2__.Edit
+  edit: _edit__WEBPACK_IMPORTED_MODULE_3__.Edit,
+  icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _assets_images_icon_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+  })
 });
 
 /***/ }),
@@ -833,7 +875,7 @@ module.exports = window["wp"]["primitives"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Accordion Block","category":"widgets","icon":"smiley","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"activeItem":{"type":"string","default":null},"data":{"type":"object","default":{"abc":{"title":"How Computer Science Works Behind Your Favorite Apps","content":"We use apps for everything from social media to banking, but have you ever wondered how they actually function? This blog post dives into the core concepts of computer science that power these applications. Explore algorithms, data structures, and programming languages – the building blocks that make your apps tick!","isExpanded":false},"def":{"title":"The Rise of the Machines","content":"Artificial Intelligence (AI) is rapidly transforming our world, from facial recognition software to chatbots. This blog post delves into the fascinating world of AI, exploring its capabilities, potential benefits, and ethical considerations. Learn about different types of AI, machine learning, and how we can ensure this technology is used responsibly.","isExpanded":false}}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion","version":"0.1.0","title":"Blockordion","category":"wp_challenge","description":"An accordion block where you can add multiple items that can be toggled.","example":{},"supports":{"html":false},"textdomain":"blockordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"activeItem":{"type":"string","default":null},"data":{"type":"object","default":{"first":{"title":"","content":"","isExpanded":true}}}}}');
 
 /***/ })
 
