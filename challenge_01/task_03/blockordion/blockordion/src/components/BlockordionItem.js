@@ -1,14 +1,14 @@
 import {useRef, useEffect, useContext, useState} from "react";
 import {RichText} from "@wordpress/block-editor";
-import {ItemSubmenu} from "./ItemSubmenu";
-import {DragAndDropContext} from "../edit"
-import useUpdate from "../hooks/useUpdate";
+import {ItemSubmenu} from "./ItemSubmenu.js";
+import {DragAndDropContext} from "../edit.js"
+import useUpdate from "../hooks/useUpdate.js";
 import {
 	setCursor,
 	getEditorWindowEl,
 	getEditorDocumentEl,
 	getEditorBodyEl
-} from "../tools";
+} from "../tools.js";
 
 function BlockordionItem(props) {
 	const refItem = useRef();

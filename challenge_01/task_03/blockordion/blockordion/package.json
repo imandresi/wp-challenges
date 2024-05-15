@@ -1,12 +1,14 @@
 {
 	"name": "blockordion",
+	"type": "module",
 	"version": "0.1.0",
 	"description": "An accordion block where you can add multiple items that can be toggled.",
-	"author": "The WordPress Contributors",
+	"author": "Tanjaka Mandresi",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build --webpack-copy-php",
+		"gulp": "gulp",
+		"build": "wp-scripts build --webpack-copy-php && gulp",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
@@ -18,6 +20,9 @@
 		"@wordpress/scripts": "^27.7.0"
 	},
 	"dependencies": {
-		"@wordpress/icons": "^9.47.0"
+		"@wordpress/icons": "^9.47.0",
+		"archiver": "^7.0.1",
+		"del": "^7.1.0",
+		"gulp": "^5.0.0"
 	}
 }

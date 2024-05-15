@@ -22,8 +22,8 @@ import {useBlockProps} from '@wordpress/block-editor';
 import './editor.scss';
 
 import {createContext, useState, useRef} from "react";
-import BlockordionItem from "./components/BlockordionItem";
-import {convertToLetters} from "./tools";
+import BlockordionItem from "./components/BlockordionItem.js";
+import {convertToLetters} from "./tools.js";
 
 
 /**
