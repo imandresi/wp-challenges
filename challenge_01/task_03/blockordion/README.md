@@ -22,7 +22,7 @@ types.
 
 ## Installation
 
-1. Obtain the plugin zip file located at `../dist/blockordion.zip`
+1. Obtain the plugin zip file located at `./dist/blockordion.zip`
 2. Upload the zip file through the WordPress admin interface (`Plugins > Add New > Upload Plugin`).
 3. Activate the plugin.
 
