@@ -6,19 +6,22 @@
 /**
  * @var $attributes
  */
-function display_blockordion_item( $item_data ) { ?>
-	<section class="blockordion__item">
-		<header>
-			<div class="blockordion__title"><?php print $item_data['title']; ?></div>
-			<div class="blockordion__navbar">
-				<div class="blockordion__button blockordion__expandable"></div>
+
+if ( ! function_exists( 'display_blockordion_item' ) ) {
+	function display_blockordion_item( $item_data ) { ?>
+		<section class="blockordion__item">
+			<header>
+				<div class="blockordion__title"><?php print $item_data['title']; ?></div>
+				<div class="blockordion__navbar">
+					<div class="blockordion__button blockordion__expandable"></div>
+				</div>
+			</header>
+			<div class="blockordion__content">
+				<article><?php print $item_data['content']; ?></article>
 			</div>
-		</header>
-		<div class="blockordion__content">
-			<article><?php print $item_data['content']; ?></article>
-		</div>
-	</section>
-	<?php
+		</section>
+		<?php
+	}
 }
 
 ?>
