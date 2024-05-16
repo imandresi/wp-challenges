@@ -30,4 +30,4 @@ For an additional 2 points, you can allow entering more content types for each i
 I've divided the solution into two projects:
 
 - **[Blockordion](./blockordion/README.md)** : This plugin exclusively utilizes rich text for body content.
-- **[Blockordion Plus]()** : This plugin offers support for various content types beyond rich text.
+- **[Blockordion Plus](./blockordion-plus/README.md)** : This plugin offers support for various content types beyond rich text.
