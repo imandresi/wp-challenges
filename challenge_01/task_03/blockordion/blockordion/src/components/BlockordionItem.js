@@ -171,17 +171,6 @@ function BlockordionItem(props) {
 	 */
 	useEffect(() => {
 		adjustContentHeight();
-
-		// give focus to RichText if item is active
-		let activeElement = document.activeElement;
-		if (activeElement.nodeName === "IFRAME") {
-			activeElement = activeElement.contentDocument.activeElement;
-		}
-
-		if (isActive && (!refItem.current.contains(activeElement))) {
-			refTitle.current.focus();
-		}
-
 	});
 
 	return (
