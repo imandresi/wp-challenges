@@ -44,11 +44,9 @@ function Edit({attributes, setAttributes}) {
 		activeItem
 	} = attributes;
 
-	const [draggedItem, setDraggedItem] = useState(null);
 	const [dropAreaActive, setDropAreaActive] = useState(false);
 	const draggedItemRef = useRef(null);
 	const draggedOverRef = useRef(null);
-
 
 	/**
 	 * Saves changes
