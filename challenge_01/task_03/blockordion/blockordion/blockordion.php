@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Accordion Block
+ * Plugin Name:       Blockordion
  * Description:       An accordion block where you can add multiple items that can be toggled.
  * Requires at least: 6.1
  * Requires PHP:      7.0
