@@ -272,7 +272,7 @@ function BlockordionItem(props) {
   const refBlockordionContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const refBtnExpandable = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   const doUpdate = (0,_hooks_useUpdate_js__WEBPACK_IMPORTED_MODULE_4__["default"])();
-  const [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit_js__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
+  const [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef, blockordionFocused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_edit_js__WEBPACK_IMPORTED_MODULE_3__.DragAndDropContext);
   const {
     itemId,
     title,
@@ -402,7 +402,7 @@ function BlockordionItem(props) {
     adjustContentHeight();
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(React.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "blockordion__item" + (isActive ? " blockordion__active" : "") + (draggedOverRef.current === itemId ? " blockordion__drag-over" : ""),
+    className: "blockordion__item" + (blockordionFocused && isActive ? " blockordion__active" : "") + (draggedOverRef.current === itemId ? " blockordion__drag-over" : ""),
     ref: refItem,
     onClick: e => {
       activateItem();
@@ -577,6 +577,7 @@ function Edit({
     activeItem
   } = attributes;
   const [dropAreaActive, setDropAreaActive] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [blockordionFocused, setBlockordionFocused] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const draggedItemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const draggedOverRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
@@ -679,9 +680,15 @@ function Edit({
     });
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DragAndDropContext.Provider, {
-    value: [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef]
+    value: [dropAreaActive, setDropAreaActive, draggedItemRef, draggedOverRef, blockordionFocused]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(),
+    onFocus: () => {
+      setBlockordionFocused(true);
+    },
+    onBlur: () => {
+      setBlockordionFocused(false);
+    }
   }, function () {
     const blockordionItems = [];
     for (const itemId in data) {

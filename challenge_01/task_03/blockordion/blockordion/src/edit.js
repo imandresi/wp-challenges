@@ -45,6 +45,7 @@ function Edit({attributes, setAttributes}) {
 	} = attributes;
 
 	const [dropAreaActive, setDropAreaActive] = useState(false);
+	const [blockordionFocused, setBlockordionFocused] = useState(false);
 	const draggedItemRef = useRef(null);
 	const draggedOverRef = useRef(null);
 
@@ -163,9 +164,17 @@ function Edit({attributes, setAttributes}) {
 		<>
 			<DragAndDropContext.Provider value={[
 				dropAreaActive, setDropAreaActive,
-				draggedItemRef, draggedOverRef
+				draggedItemRef, draggedOverRef,
+				blockordionFocused
 			]}>
-				<section {...useBlockProps()}>
+				<section {...useBlockProps()}
+					onFocus={() => {
+						setBlockordionFocused(true);
+					}}
+					onBlur={() => {
+						setBlockordionFocused(false);
+					}}
+				>
 					{
 						(function () {
 							const blockordionItems = [];

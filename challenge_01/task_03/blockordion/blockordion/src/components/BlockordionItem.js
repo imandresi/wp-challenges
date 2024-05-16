@@ -21,7 +21,8 @@ function BlockordionItem(props) {
 
 	const [
 		dropAreaActive, setDropAreaActive,
-		draggedItemRef, draggedOverRef
+		draggedItemRef, draggedOverRef,
+		blockordionFocused
 	] = useContext(DragAndDropContext);
 
 	const {
@@ -180,7 +181,7 @@ function BlockordionItem(props) {
 				className=
 					{
 						"blockordion__item" +
-						(isActive ? " blockordion__active" : "") +
+						(blockordionFocused && isActive ? " blockordion__active" : "") +
 						(draggedOverRef.current === itemId ? " blockordion__drag-over" : "")
 					}
 				ref={refItem}
