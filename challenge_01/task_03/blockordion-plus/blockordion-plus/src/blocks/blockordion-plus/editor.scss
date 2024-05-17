@@ -1,0 +1,17 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-imandresi-blockordion-plus {
+	$main_padding: 2px;
+
+	padding-left: $main_padding;
+	padding-right: $main_padding;
+	padding-bottom: $main_padding;
+
+	.components-dropdown {
+		font-family: sans-serif;
+	}
+}

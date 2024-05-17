@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "imandresi/blockordion-plus",
+	"name": "imandresi/blockordion-plus-itemcontent",
 	"version": "0.1.0",
-	"title": "Blockordion Plus",
+	"title": "Blockordion Plus - Item Content",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "An accordion block allowing toggled multiple items and various types of body content.",
+	"description": "Inner Blocks content part of Blockordion Plus",
 	"example": {},
 	"supports": {
 		"html": false

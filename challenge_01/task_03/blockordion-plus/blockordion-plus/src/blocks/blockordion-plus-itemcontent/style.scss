@@ -5,8 +5,17 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-imandresi-blockordion-plus {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.blockordion__item {
+	.blockordion__content {
+		margin-bottom: 2px;
+		overflow-y: hidden;
+		height: 0;
+
+		transition: height 0.5s;
+
+		article {
+			margin: 20px;
+		}
+
+	}
 }

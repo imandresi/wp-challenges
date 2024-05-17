@@ -1,5 +1,6 @@
 {
 	"name": "blockordion-plus",
+	"type": "module",
 	"version": "0.1.0",
 	"description": "An accordion block allowing toggled multiple items and various types of body content.",
 	"author": "The WordPress Contributors",

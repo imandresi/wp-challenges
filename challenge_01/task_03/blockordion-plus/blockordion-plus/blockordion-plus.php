@@ -25,6 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function imandresi_blockordion_plus_block_init() {
-	register_block_type( __DIR__ . '/build' );
+	register_block_type( __DIR__ . '/build/blocks/blockordion-plus-itemcontent' );
 }
 add_action( 'init', 'imandresi_blockordion_plus_block_init' );
