@@ -83,48 +83,42 @@ export default function Edit({attributes, setAttributes}) {
 	});
 
 	return (
-		<div className="wp-block-imandresi-blockordion-plus">
-			<section className={className} {...blockProps}>
-				<header>
-					<div className="blockordion__drag-handle"></div>
-					<RichText
-						tagName="div"
-						className="blockordion__title"
-						placeholder="Title of the item"
-						allowedFormats={[]}
-						value={attributes.title}
-						onChange={title => {
-							setAttributes({title})
-						}}
-					/>
-					<div className="blockordion__navbar">
-						<div className={
-							"blockordion__button blockordion__expandable" +
-							(isExpanded ? " blockordion__expanded" : "")}
-							 onClick={blockordionToggle}
-							 ref={refBtnExpandable}
-						></div>
+		<section className={className} {...blockProps}>
+			<header>
+				<div className="blockordion__drag-handle"></div>
+				<RichText
+					tagName="div"
+					className="blockordion__title"
+					placeholder="Title of the item"
+					allowedFormats={[]}
+					value={attributes.title}
+					onChange={title => {
+						setAttributes({title})
+					}}
+				/>
+				<div className="blockordion__navbar">
+					<div className={
+						"blockordion__button blockordion__expandable" +
+						(isExpanded ? " blockordion__expanded" : "")}
+						 onClick={blockordionToggle}
+						 ref={refBtnExpandable}
+					></div>
 
-					</div>
-
-				</header>
-				<div className="blockordion__content"
-					 ref={refBlockordionContent}>
-
-					<article ref={refArticle}>
-						<InnerBlocks
-							template={[
-								['core/paragraph', {placeholder: 'Please type the content of the item here...'}]
-							]}
-							onChange={() => {
-								console.log('changed..');
-							}}
-						/>
-					</article>
 				</div>
 
+			</header>
+			<div className="blockordion__content"
+				 ref={refBlockordionContent}>
 
-			</section>
-		</div>
+				<article ref={refArticle}>
+					<InnerBlocks
+						template={[
+							['core/paragraph', {placeholder: 'Please type the content of the item here...'}]
+						]}
+					/>
+				</article>
+			</div>
+
+		</section>
 	);
 }

@@ -27,6 +27,8 @@ body.cursor__grab {
 }
 .wp-block-imandresi-blockordion-plus .blockordion__item {
   position: relative;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 .wp-block-imandresi-blockordion-plus .blockordion__item::before {
   display: block;

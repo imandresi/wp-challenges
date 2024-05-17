@@ -163,9 +163,7 @@ function Edit({
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     adjustContentHeight();
   });
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "wp-block-imandresi-blockordion-plus"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
     className: className,
     ...blockProps
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -195,11 +193,8 @@ function Edit({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
     template: [['core/paragraph', {
       placeholder: 'Please type the content of the item here...'
-    }]],
-    onChange: () => {
-      console.log('changed..');
-    }
-  })))));
+    }]]
+  }))));
 }
 
 /***/ }),
