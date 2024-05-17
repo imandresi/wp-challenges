@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "imandresi/blockordion-plus-itemcontent",
+	"name": "imandresi/blockordion-plus-blockitem",
 	"version": "0.1.0",
-	"title": "Blockordion Plus - Item Content",
+	"title": "Blockordion Plus - Block Item",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Inner Blocks content part of Blockordion Plus",
+	"description": "Item instance of a Blockordion block",
 	"example": {},
 	"supports": {
 		"html": false
@@ -16,5 +16,15 @@
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
 	"render": "file:./render.php",
-	"viewScript": "file:./view.js"
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"isExpanded": {
+			"type": "boolean",
+			"default": true
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		}
+	}
 }

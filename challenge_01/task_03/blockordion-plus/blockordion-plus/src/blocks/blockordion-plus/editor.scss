@@ -4,6 +4,19 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+body {
+	&.cursor__grab {
+		cursor: grab;
+	}
+}
+
+#blockordion-drag-drop {
+	position: absolute;
+	background-color: white;
+	border: 3px solid #ddd;
+	opacity: 0.6;
+}
+
 .wp-block-imandresi-blockordion-plus {
 	$main_padding: 2px;
 
@@ -14,4 +27,108 @@
 	.components-dropdown {
 		font-family: sans-serif;
 	}
+
+	.blockordion__item {
+		position: relative;
+		$active_color: #e5f3ff;
+
+		&::before {
+			display: block;
+			content: "";
+			width: 0;
+			height: 0;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #d06002;
+			transition: width 0.5s;
+		}
+
+		&.blockordion__drag-over {
+			&::before {
+				width: 100%;
+				height: 8px;
+				margin-top: 4px;
+				margin-bottom: 4px;
+			}
+		}
+
+		.blockordion__mouseover_area {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 0;
+			height: 0;
+			background-color: transparent;
+			//background-color: yellow;
+			z-index: 20;
+
+			&.blockordion__mouseover_area--active {
+				width: 100%;
+				height: 100%;
+			}
+
+		}
+
+		header {
+			justify-content: flex-start;
+			align-items: center;
+			padding-left: 5px;
+
+			.blockordion__drag-handle {
+				display: block;
+				content: "";
+				width: 24px;
+				height: 24px;
+				margin-right: 5px;
+				cursor: grab;
+
+				background-image: url('data:image/svg+xml,<svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M634.311111 0c-34.133333 0-59.733333 25.6-59.733333 59.733333s28.444444 59.733333 59.733333 59.733334c34.133333 0 59.733333-25.6 59.733333-59.733334 2.844444-34.133333-25.6-59.733333-59.733333-59.733333z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733333s28.444444 59.733333 59.733333 59.733334c34.133333 0 59.733333-25.6 59.733333-59.733334 2.844444-34.133333-25.6-59.733333-59.733333-59.733333z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733334s28.444444 59.733333 59.733333 59.733333c34.133333 0 59.733333-25.6 59.733333-59.733333 2.844444-34.133333-25.6-59.733333-59.733333-59.733334-31.288889 0 0 0 0 0z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733334 0 34.133333 28.444444 59.733333 59.733333 59.733333 34.133333 0 59.733333-25.6 59.733333-59.733333 2.844444-34.133333-25.6-59.733333-59.733333-59.733334-31.288889 0 0 0 0 0zM372.622222 0C341.333333 0 312.888889 25.6 312.888889 59.733333s28.444444 59.733333 59.733333 59.733334c34.133333 0 59.733333-25.6 59.733334-59.733334 2.844444-34.133333-25.6-59.733333-59.733334-59.733333z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733333s28.444444 59.733333 59.733333 59.733334c34.133333 0 59.733333-25.6 59.733334-59.733334 2.844444-34.133333-25.6-59.733333-59.733334-59.733333z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733334s28.444444 59.733333 59.733333 59.733333c34.133333 0 59.733333-25.6 59.733334-59.733333 2.844444-34.133333-25.6-59.733333-59.733334-59.733334z m0 301.511111c-34.133333 0-59.733333 25.6-59.733333 59.733334 0 34.133333 28.444444 59.733333 59.733333 59.733333 34.133333 0 59.733333-25.6 59.733334-59.733333 2.844444-34.133333-25.6-59.733333-59.733334-59.733334z" fill="%23666666" /></svg>');
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.blockordion__navbar {
+				flex-grow: 1;
+
+				.blockordion__button {
+					width: 36px;
+					height: 36px;
+					background-size: 20px;
+				}
+			}
+		}
+
+		&.blockordion__active {
+			background-color: $active_color;
+
+			header {
+				background-color: $active_color;
+			}
+
+		}
+
+	}
+
+
+	#test-container {
+		display: flex;
+		flex-direction: row;
+
+		#test-box-1 {
+			width: 100px;
+			height: 100px;
+			background-color: yellow;
+			margin: 40px;
+
+		}
+
+		#test-box-2 {
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			margin: 40px;
+
+		}
+	}
+
 }

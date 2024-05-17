@@ -13,5 +13,52 @@
   padding: 2px 2px 0 2px;
   color: #606060;
 }
+.wp-block-imandresi-blockordion-plus .blockordion__item header {
+  border: 1px solid #707070;
+  border-radius: 5px;
+  padding: 10px 15px 10px 20px;
+  background-color: #eee;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__title {
+  font-weight: bold;
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__navbar .blockordion__button {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* collapsed by default */
+  background-image: url("data:image/svg+xml,<svg id=\"Layer_1\" data-name=\"Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 682.67 426.67\"><title>arrow-up</title><path d=\"M768,725.33l-256-256-256,256L170.67,640,512,298.67,853.33,640Z\" transform=\"translate%28-170.67 -298.67%29\"/></svg>");
+  transition: transform 0.5s;
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__navbar .blockordion__button.blockordion__expanded {
+  transform: rotate(180deg);
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__navbar .blockordion__button.blockordion__dots {
+  background-image: url("data:image/svg+xml,<svg id=\"Layer_1\" data-name=\"Layer 1\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 233.9 938.67\"><title>dots</title><path d=\"M395.05,512A117,117,0,1,0,512,395.05,116.95,116.95,0,0,0,395.05,512Z\" transform=\"translate%28-395.05 -42.67%29\"/><path d=\"M395.05,159.62A117,117,0,1,0,512,42.67,116.95,116.95,0,0,0,395.05,159.62Z\" transform=\"translate%28-395.05 -42.67%29\"/><path d=\"M395.05,864.38a116.95,116.95,0,0,0,233.9,0h0a117,117,0,0,0-233.9,0Z\" transform=\"translate%28-395.05 -42.67%29\"/></svg>");
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item .blockordion__content {
+  margin-bottom: 2px;
+  overflow-y: hidden;
+  height: 0;
+  transition: height 0.5s;
+}
+.wp-block-imandresi-blockordion-plus .blockordion__item .blockordion__content article {
+  margin: 20px;
+}
 
 /*# sourceMappingURL=style-index.css.map*/
