@@ -41,7 +41,9 @@ function blockordionToggle(e) {
 }
 
 function initAllBtnExpandables() {
-	const btnExpandableList = Array.from(document.querySelectorAll('.blockordion__button.blockordion__expandable'));
+	const btnExpandableList = Array.from(document.querySelectorAll(
+		'.wp-block-imandresi-blockordion .blockordion__button.blockordion__expandable'
+	));
 
 	btnExpandableList.forEach(btnEl => {
 		btnEl.addEventListener('click', blockordionToggle);
