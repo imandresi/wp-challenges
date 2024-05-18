@@ -1,7 +1,17 @@
 import {__} from '@wordpress/i18n';
 import {useRef, useEffect, useContext, useState} from "react";
-import {RichText, InnerBlocks, useBlockProps} from '@wordpress/block-editor';
-import useUpdate from '../../hooks/useUpdate.js'
+import {RichText, InnerBlocks, useBlockProps, BlockControls} from '@wordpress/block-editor';
+import {DropdownMenu, ToolbarGroup} from "@wordpress/components";
+import {blockEditor} from "../../lib/tools.js";
+import iconAdd from "../../assets/images/add-item.svg";
+
+import {
+	arrowUp,
+	arrowDown,
+	moreVertical,
+	trash
+} from '@wordpress/icons';
+
 import './editor.scss';
 
 /**
@@ -12,7 +22,7 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit({attributes, setAttributes}) {
+export default function Edit(props) {
 	const {className, ...blockProps} = useBlockProps({
 		className: "blockordion__item"
 	})
@@ -23,13 +33,21 @@ export default function Edit({attributes, setAttributes}) {
 	const refBlockordionContent = useRef();
 	const refBtnExpandable = useRef();
 
-	const doUpdate = useUpdate();
-
 	const {
-		title,
-		isExpanded
-	} = attributes;
+		clientId,
+		insertBlocksAfter,
+		attributes,
+		setAttributes
+	} = props;
 
+	const {isExpanded} = attributes;
+
+	const ALLOWED_BLOCKS = wp.blocks.getBlockTypes()
+		.map(block => block.name)
+		.filter(blockName => {
+			return (blockName !== 'imandresi/blockordion-plus') &&
+				(blockName !== 'imandresi/blockordion-plus-blockitem');
+		});
 
 	/**
 	 * Adjust the item height if it is expanded
@@ -82,10 +100,53 @@ export default function Edit({attributes, setAttributes}) {
 		adjustContentHeight();
 	});
 
+	/**
+	 * Toolbar Dropdown item menu
+	 */
+	function addItemAbove() {
+		const rootClientId = blockEditor().getBlockHierarchyRootClientId(clientId);
+		const clientIndex = blockEditor().getBlockIndex(clientId);
+		const block = wp.blocks.createBlock(
+			'imandresi/blockordion-plus-blockitem', {}
+		);
+
+		blockEditor().insertBlocks(block, clientIndex, rootClientId);
+	}
+
+	function addItemBelow() {
+		const block = wp.blocks.createBlock(
+			'imandresi/blockordion-plus-blockitem', {}
+		);
+		insertBlocksAfter(block);
+	}
+
+	const dropdownMenuControls = [
+		{
+			title: 'Add New Item Above',
+			icon: arrowUp,
+			onClick: addItemAbove
+		},
+		{
+			title: 'Add New Item Below',
+			icon: arrowDown,
+			onClick: addItemBelow
+		}
+	];
+
 	return (
 		<section className={className} {...blockProps}>
+			<BlockControls>
+				<ToolbarGroup>
+					<DropdownMenu
+						className=""
+						icon={<img src={iconAdd}/>}
+						label="Add Bloc Item"
+						controls={dropdownMenuControls}
+					></DropdownMenu>
+				</ToolbarGroup>
+			</BlockControls>
+
 			<header>
-				<div className="blockordion__drag-handle"></div>
 				<RichText
 					tagName="div"
 					className="blockordion__title"
@@ -112,6 +173,7 @@ export default function Edit({attributes, setAttributes}) {
 
 				<article ref={refArticle}>
 					<InnerBlocks
+						allowedBlocks={ALLOWED_BLOCKS}
 						template={[
 							['core/paragraph', {placeholder: 'Please type the content of the item here...'}]
 						]}

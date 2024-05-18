@@ -1,24 +1,6 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import {__} from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import {InnerBlocks, useBlockProps} from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
+import {InnerBlocks, useBlockProps, BlockControls} from '@wordpress/block-editor';
+import iconAdd from '../../assets/images/add-item.svg';
 import './editor.scss';
 
 /**
@@ -30,13 +12,27 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
-    return (
-        <section {...useBlockProps()}>
-            <InnerBlocks
-                allowedBlocks={['imandresi/blockordion-plus-blockitem']}
-                // template={['imandresi/blockordion-plus-blockitem']}
-            />
+	return (
 
-        </section>
-    );
+		<section {...useBlockProps()}>
+			<BlockControls
+				controls={[
+					{
+						title: 'Add Item',
+						icon: <img src={iconAdd}/>,
+						onClick: () => console.log('Button clicked')
+					}
+				]}
+			>
+
+			</BlockControls>
+			<InnerBlocks
+				allowedBlocks={['imandresi/blockordion-plus-blockitem']}
+				template={[
+					['imandresi/blockordion-plus-blockitem']
+				]}
+			/>
+
+		</section>
+	);
 }

@@ -62,7 +62,7 @@ body.cursor__grab {
 .wp-block-imandresi-blockordion-plus .blockordion__item header {
   justify-content: flex-start;
   align-items: center;
-  padding-left: 5px;
+  padding-left: 20px;
 }
 .wp-block-imandresi-blockordion-plus .blockordion__item header .blockordion__drag-handle {
   display: block;
