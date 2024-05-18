@@ -19,6 +19,7 @@ import './style.scss';
  */
 import Edit from './edit.js';
 import save from './save.js';
+import {listItem} from "@wordpress/icons";
 import metadata from './block.json';
 
 /**
@@ -31,5 +32,6 @@ registerBlockType( metadata.name, {
 	 * @see ./edit.js
 	 */
 	edit: Edit,
-	save
+	save,
+	icon: listItem
 } );

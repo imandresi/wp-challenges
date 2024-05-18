@@ -62,6 +62,36 @@ const arrowUp = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_
 
 /***/ }),
 
+/***/ "./node_modules/@wordpress/icons/build-module/library/list-item.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/list-item.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+/**
+ * WordPress dependencies
+ */
+
+const listItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path, {
+  d: "M12 11v1.5h8V11h-8zm-6-1c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+}));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listItem);
+//# sourceMappingURL=list-item.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@wordpress/icons/build-module/library/plus-circle-filled.js":
 /*!**********************************************************************************!*\
   !*** ./node_modules/@wordpress/icons/build-module/library/plus-circle-filled.js ***!
@@ -359,6 +389,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/blockordion-plus-blockitem/style.scss");
 /* harmony import */ var _edit_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit.js */ "./src/blocks/blockordion-plus-blockitem/edit.js");
 /* harmony import */ var _save_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save.js */ "./src/blocks/blockordion-plus-blockitem/save.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/list-item.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/blocks/blockordion-plus-blockitem/block.json");
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
@@ -383,6 +414,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -393,7 +425,8 @@ __webpack_require__.r(__webpack_exports__);
    * @see ./edit.js
    */
   edit: _edit_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-  save: _save_js__WEBPACK_IMPORTED_MODULE_3__["default"]
+  save: _save_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+  icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),
@@ -458,7 +491,7 @@ function blockEditor() {
   \**********************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion-plus-blockitem","version":"0.1.0","parent":["imandresi/blockordion-plus"],"title":"Blockordion Item","category":"widgets","icon":"smiley","description":"Item instance of a Blockordion block","example":{},"supports":{"html":false},"textdomain":"blockordion-plus","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"isExpanded":{"type":"boolean","default":true},"title":{"type":"string","default":""}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion-plus-blockitem","version":"0.1.0","parent":["imandresi/blockordion-plus"],"title":"Blockordion Item","category":"widgets","description":"Item instance of a Blockordion block","example":{},"supports":{"html":false},"textdomain":"blockordion-plus","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"isExpanded":{"type":"boolean","default":true},"title":{"type":"string","default":""}}}');
 
 /***/ })
 

@@ -4,8 +4,7 @@
   "name": "imandresi/blockordion-plus",
   "version": "0.1.0",
   "title": "Blockordion Plus",
-  "category": "widgets",
-  "icon": "smiley",
+  "category": "wp_challenge",
   "description": "An accordion block allowing toggled multiple items and various types of body content.",
   "example": {},
   "supports": {

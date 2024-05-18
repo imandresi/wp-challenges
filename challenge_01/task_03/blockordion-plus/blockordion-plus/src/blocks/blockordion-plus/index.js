@@ -20,6 +20,7 @@ import './style.scss';
 import Edit from './edit.js';
 import save from "./save.js";
 import metadata from './block.json';
+import blockIcon from '../../assets/images/blockordion-plus.svg';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -31,5 +32,6 @@ registerBlockType( metadata.name, {
 	 * @see ./edit.js
 	 */
 	edit: Edit,
-	save
+	save,
+	icon: <img src={blockIcon}/>
 } );

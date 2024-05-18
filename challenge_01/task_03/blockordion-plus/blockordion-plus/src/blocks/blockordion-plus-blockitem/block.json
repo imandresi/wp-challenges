@@ -6,7 +6,6 @@
 	"parent": ["imandresi/blockordion-plus"],
 	"title": "Blockordion Item",
 	"category": "widgets",
-	"icon": "smiley",
 	"description": "Item instance of a Blockordion block",
 	"example": {},
 	"supports": {
