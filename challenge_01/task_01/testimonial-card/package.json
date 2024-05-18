@@ -19,9 +19,9 @@
 	"devDependencies": {
 		"@wordpress/scripts": "^27.6.0",
 		"archiver": "^7.0.1",
-		"gulp": "^5.0.0"
+		"gulp": "^5.0.0",
+		"del": "^7.1.0"
 	},
 	"dependencies": {
-		"del": "^7.1.0"
 	}
 }
