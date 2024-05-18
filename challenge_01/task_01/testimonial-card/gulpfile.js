@@ -3,48 +3,41 @@ import {series, parallel} from 'gulp';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import fs from 'fs';
-import del from 'del';
+import {deleteAsync} from 'del';
 import archiver from 'archiver';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const distPath = path.resolve('../dist');
+const distPath = normalizePath(path.resolve('../dist'));
 const pluginName = path.parse(path.basename(__dirname)).name;
 const zipFilename = `${pluginName}.zip`;
 const temporaryFolder = 'tmp';
 const outputFolder = 'build';
 const pluginDir = `${distPath}/${temporaryFolder}/${pluginName}`;
 
-function copyBinaryFiles(sourceDir, destDir) {
-	fs.cpSync(sourceDir, destDir, {recursive: true});
-
-	return Promise.resolve();
+function normalizePath(strPath) {
+	return strPath.replaceAll('\\', '/');
 }
 
 function zipDirectory(sourceDir, outPath) {
-	const archive = archiver('zip', { zlib: { level: 9 }});
+	const archive = archiver('zip', {zlib: {level: 9}});
 	const stream = fs.createWriteStream(outPath);
 
 	return new Promise((resolve, reject) => {
 		archive
 			.directory(sourceDir, false)
 			.on('error', err => reject(err))
-			.pipe(stream)
-		;
+			.pipe(stream);
 
 		stream.on('close', () => resolve());
 		archive.finalize();
 	});
 }
-const copyBuildFolder = () => {
-	fs.cpSync(
-		path.resolve(`./${outputFolder}`),
-		`${pluginDir}/${outputFolder}`,
-		{recursive: true}
-	);
 
-	return Promise.resolve();
+const copyBuildFolder = () => {
+	return gulp.src(`./${outputFolder}/**`)
+		.pipe(gulp.dest(`${pluginDir}/${outputFolder}`));
 };
 
 const copyRootFolder = () => {
@@ -53,18 +46,21 @@ const copyRootFolder = () => {
 };
 
 const buildZip = () => {
-	return  zipDirectory(
+	return zipDirectory(
 		`${distPath}/${temporaryFolder}`,
 		`${distPath}/${zipFilename}`
 	);
 };
 
 const removeTmpFolder = () => {
-	return del([`${distPath}/${temporaryFolder}/**`], {force: true})
+	return deleteAsync([
+		`${distPath}/${temporaryFolder}/**`,
+		`${distPath}/${temporaryFolder}`,
+	], {force: true})
 };
 
 const cleanDistFolder = () => {
-	return del([`${distPath}/**`], {force: true})
+	return deleteAsync([`${distPath}/**`], {force: true})
 }
 
 const process = series(

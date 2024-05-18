@@ -7,6 +7,7 @@
 	"main": "build/index.js",
 	"type": "module",
 	"scripts": {
+		"gulp": "gulp",
 		"build": "wp-scripts build --webpack-copy-php && gulp",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
@@ -19,5 +20,8 @@
 		"@wordpress/scripts": "^27.6.0",
 		"archiver": "^7.0.1",
 		"gulp": "^5.0.0"
+	},
+	"dependencies": {
+		"del": "^7.1.0"
 	}
 }
