@@ -421,9 +421,6 @@ __webpack_require__.r(__webpack_exports__);
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
-  /**
-   * @see ./edit.js
-   */
   edit: _edit_js__WEBPACK_IMPORTED_MODULE_2__["default"],
   save: _save_js__WEBPACK_IMPORTED_MODULE_3__["default"],
   icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -491,7 +488,7 @@ function blockEditor() {
   \**********************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion-plus-blockitem","version":"0.1.0","parent":["imandresi/blockordion-plus"],"title":"Blockordion Item","category":"widgets","description":"Item instance of a Blockordion block","example":{},"supports":{"html":false},"textdomain":"blockordion-plus","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"isExpanded":{"type":"boolean","default":true},"title":{"type":"string","default":""}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"imandresi/blockordion-plus-blockitem","version":"0.1.0","parent":["imandresi/blockordion-plus"],"title":"Blockordion Item","category":"widgets","description":"Item instance of a Blockordion block","example":{},"supports":{"html":false},"textdomain":"blockordion-plus","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","attributes":{"isExpanded":{"type":"boolean","default":true},"title":{"type":"string","default":""}}}');
 
 /***/ })
 

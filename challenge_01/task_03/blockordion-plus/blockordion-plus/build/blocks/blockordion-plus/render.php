@@ -2,7 +2,12 @@
 /**
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+
+/**
+ * @var $content
+ */
+
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Blockordion Plus – hello from a dynamic block!', 'blockordion-plus' ); ?>
-</p>
+<section <?php echo get_block_wrapper_attributes(); ?>>
+	<?php print $content;?>
+</section>
