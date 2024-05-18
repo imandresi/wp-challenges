@@ -1,6 +1,7 @@
 import {__} from '@wordpress/i18n';
 import {InnerBlocks, useBlockProps, BlockControls} from '@wordpress/block-editor';
-import iconAdd from '../../assets/images/add-item.svg';
+import {blockEditor} from "../../lib/tools.js";
+import {plusCircleFilled} from '@wordpress/icons';
 import './editor.scss';
 
 /**
@@ -11,7 +12,12 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit(props) {
+
+	const {
+		clientId
+	} = props;
+
 	return (
 
 		<section {...useBlockProps()}>
@@ -19,8 +25,13 @@ export default function Edit() {
 				controls={[
 					{
 						title: 'Add Item',
-						icon: <img src={iconAdd}/>,
-						onClick: () => console.log('Button clicked')
+						icon: plusCircleFilled,
+						onClick: () => {
+							const block = wp.blocks.createBlock(
+								'imandresi/blockordion-plus-blockitem', {}
+							);
+							blockEditor().insertBlocks(block, 0, clientId);
+						}
 					}
 				]}
 			>

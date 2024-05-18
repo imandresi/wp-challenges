@@ -1,9 +1,9 @@
 import {__} from '@wordpress/i18n';
 import {useRef, useEffect, useContext, useState} from "react";
 import {RichText, InnerBlocks, useBlockProps, BlockControls} from '@wordpress/block-editor';
-import {DropdownMenu, ToolbarGroup} from "@wordpress/components";
+import {DropdownMenu, Toolbar, ToolbarGroup} from "@wordpress/components";
 import {blockEditor} from "../../lib/tools.js";
-import iconAdd from "../../assets/images/add-item.svg";
+import {plusCircleFilled} from '@wordpress/icons';
 
 import {
 	arrowUp,
@@ -114,6 +114,7 @@ export default function Edit(props) {
 	}
 
 	function addItemBelow() {
+		if (!insertBlocksAfter) return;
 		const block = wp.blocks.createBlock(
 			'imandresi/blockordion-plus-blockitem', {}
 		);
@@ -136,14 +137,14 @@ export default function Edit(props) {
 	return (
 		<section className={className} {...blockProps}>
 			<BlockControls>
-				<ToolbarGroup>
+				<Toolbar>
 					<DropdownMenu
 						className=""
-						icon={<img src={iconAdd}/>}
-						label="Add Bloc Item"
+						icon={plusCircleFilled}
+						label="Add new item in Blockordion"
 						controls={dropdownMenuControls}
 					></DropdownMenu>
-				</ToolbarGroup>
+				</Toolbar>
 			</BlockControls>
 
 			<header>
