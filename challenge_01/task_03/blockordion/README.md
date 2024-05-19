@@ -1,5 +1,7 @@
 # Blockordion
 
+*(Challenges proposed by [https://www.wpchallenges.com](https://www.wpchallenges.com/))*
+
 This WordPress plugin project is my solution for the "Senior Challenge - Accordion Block - Part 1".
 The challenge consists in creating an Accordion Block that may contain multiple items that can be toggled.
 

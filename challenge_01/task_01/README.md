@@ -1,5 +1,7 @@
 # Junior Challenge: Create a Custom Gutenberg Block
 
+*(Challenges proposed by [https://www.wpchallenges.com](https://www.wpchallenges.com/))*
+
 **Points: 1**
 
 ## Task:

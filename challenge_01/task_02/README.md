@@ -1,5 +1,7 @@
 ## Medior Challenge: Fetch & Display Dynamic Content
 
+*(Challenges proposed by [https://www.wpchallenges.com](https://www.wpchallenges.com/))*
+
 **Points: 2**
 
 ### Task:
