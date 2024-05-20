@@ -15,4 +15,8 @@ To explore challenges with their respective solutions, navigate to the correspon
 - [Medior Challenge: Fetch & Display Dynamic Content](challenge_01/task_02/README.md)
 - [Senior Challenge: Accordion](challenge_01/task_03/README.md)
 
+#### Challenge #02: Contact Form Plugin
+- [Junior Challenge: Form as Shortcode](./challenge_02/task_01/README.md)
+- [Medior Challenge: Customizable Form & Saving entries](./challenge_02/task_02/README.md)
+- [Senior Challenge: Custom Table & API](./challenge_02/task_03/README.md)
 
