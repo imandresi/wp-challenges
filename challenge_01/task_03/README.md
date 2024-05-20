@@ -1,5 +1,7 @@
 ## Senior Challenge: Accordion
 
+*(Challenges proposed by [https://www.wpchallenges.com](https://www.wpchallenges.com/))*
+
 **Points: 3**
 
 ### Task:
