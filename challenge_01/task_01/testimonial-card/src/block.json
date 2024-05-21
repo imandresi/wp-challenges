@@ -5,7 +5,7 @@
 	"version": "1.0.0",
 	"title": "Testimonial Card",
 	"category": "wp_challenge",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "A custom Gutenberg block for displaying testimonial cards with fields for a testimonial quote, author name, and author's job title.",
 	"example": {},
 	"supports": {
 		"html": false

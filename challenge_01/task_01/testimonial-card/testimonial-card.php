@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Testimonial Card
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       A custom Gutenberg block for displaying testimonial cards with fields for a testimonial quote, author name, and author's job title.
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           1.0.0
