@@ -1,0 +1,19 @@
+{
+    "name": "imandresi/simply-send",
+    "description": "A simple WordPress plugin contact form.",
+    "type": "project",
+    "require": {
+        "twig/twig": "^3.10"
+    },
+    "license": "GPL v2",
+    "autoload": {
+        "psr-4": {
+            "Imandresi\\SimplySend\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tanjaka Mandresi"
+        }
+    ]
+}
