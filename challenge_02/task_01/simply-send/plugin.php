@@ -18,8 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require( __DIR__ . '/vendor/autoload.php' );
-require (__DIR__ . '/includes/constants.php');
+require (__DIR__ . '/includes/Constants.php');
 
 \Imandresi\SimplySend\Loader::run();
+
+
+
 
 

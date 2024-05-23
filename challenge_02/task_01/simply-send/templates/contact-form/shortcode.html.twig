@@ -1,0 +1,29 @@
+<div class="simply-send__contact-form">
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+    <section>
+        <form>
+            <div class="mb-3">
+                <label for="subject-{{ unique_id }}" class="form-label">Subject</label>
+                <input type="email" class="form-control" name="subject" id="subject{{ unique_id }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="email-{{ unique_id }}" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email-{{ unique_id }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="message-{{ unique_id }}" class="form-label">Message</label>
+                <textarea class="form-control" name="message" id="message-{{ unique_id }}"></textarea>
+            </div>
+
+            <div class="simply-send__buttons mt-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+
+        </form>
+    </section>
+</div>

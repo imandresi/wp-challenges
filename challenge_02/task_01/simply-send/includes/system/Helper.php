@@ -56,5 +56,27 @@ class Helper {
 		return $scheme . $path;
 	}
 
+	public static function is_bootstrap_enqueued(): bool {
+		global $wp_styles, $wp_scripts;
+
+		// Check for Bootstrap CSS
+		foreach ( $wp_styles->queue as $handle ) {
+			$src = $wp_styles->registered[ $handle ]->src;
+			if ( strpos( $src, 'bootstrap' ) !== false ) {
+				return true;
+			}
+		}
+
+		// Check for Bootstrap JS
+		foreach ( $wp_scripts->queue as $handle ) {
+			$src = $wp_scripts->registered[ $handle ]->src;
+			if ( strpos( $src, 'bootstrap' ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 
 }
