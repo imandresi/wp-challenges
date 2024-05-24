@@ -1,0 +1,19 @@
+{
+  "name": "simply-send",
+  "version": "1.0.0",
+  "description": "A simple WordPress plugin contact form.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tanjaka Mandresi",
+  "license": "GPL-2.0",
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "del": "^7.1.0",
+    "gulp": "^5.0.0",
+    "gulp-ignore": "^3.0.0"
+  }
+}
