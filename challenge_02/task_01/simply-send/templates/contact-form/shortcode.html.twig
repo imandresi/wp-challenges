@@ -3,29 +3,38 @@
         <h1>Contact Us</h1>
     </header>
     <section>
+        {% if status %}
+            {% set alert_type = status == 'success' ? 'alert-success' : 'alert-danger' %}
+            <div class="alert {{ alert_type }}" role="alert">
+                {{ status_message }}
+            </div>
+        {% endif %}
         <form name="simply_send_form" method="post" action="{{ form_action_url | raw }}">
             <input type="hidden" name="action" value="simply_send_form_submit">
-            {{  nonce | raw }}
+            {{ nonce | raw }}
             <div class="mb-3">
                 <label for="subject-{{ unique_id }}" class="form-label">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject-{{ unique_id }}">
-                {%  if  errors.subject %}
+                <input type="text" class="form-control" name="subject" id="subject-{{ unique_id }}"
+                       value="{{ form_data.subject }}">
+                {% if  errors.subject %}
                     <div class="simply_send_error subject">{{ errors.subject }}</div>
                 {% endif %}
             </div>
 
             <div class="mb-3">
                 <label for="email-{{ unique_id }}" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email-{{ unique_id }}">
-                {%  if  errors.email %}
+                <input type="email" class="form-control" name="email" id="email-{{ unique_id }}"
+                       value="{{ form_data.email }}">
+                {% if  errors.email %}
                     <div class="simply_send_error email">{{ errors.email }}</div>
                 {% endif %}
             </div>
 
             <div class="mb-3">
                 <label for="message-{{ unique_id }}" class="form-label">Message</label>
-                <textarea class="form-control" name="message" id="message-{{ unique_id }}"></textarea>
-                {%  if  errors.message %}
+                <textarea class="form-control" name="message"
+                          id="message-{{ unique_id }}">{{ form_data.message }}</textarea>
+                {% if  errors.message %}
                     <div class="simply_send_error message">{{ errors.message }}</div>
                 {% endif %}
             </div>

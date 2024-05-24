@@ -13,3 +13,14 @@
   }
 
 }
+
+.simply-send__contact-form {
+  label {
+    font-weight: bold;
+  }
+
+  .simply_send_error {
+    color: red;
+    font-size: 90%;
+  }
+}

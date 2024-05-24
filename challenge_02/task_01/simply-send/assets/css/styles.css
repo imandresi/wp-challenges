@@ -9,3 +9,11 @@
     width: 100%;
   }
 }
+
+.simply-send__contact-form label {
+  font-weight: bold;
+}
+.simply-send__contact-form .simply_send_error {
+  color: red;
+  font-size: 90%;
+}

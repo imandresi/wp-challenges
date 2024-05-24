@@ -9,17 +9,27 @@ use const Imandresi\SimplySend\PLUGIN_SHORTCODE_NAME;
 class ContactFormController extends Singleton {
 	private const NONCE_FIELD = '_wpnonce';
 	private const NONCE_ACTION = 'submit';
+	private const FORM_TRANSIENT_NAME = 'simply_send_form_state';
 
 
 	public function process_shortcode( $atts ): string {
-		// put field values here
-		$attributes = [
-			'name'   => 'Tanjaka Mandresi',
-			'nonce'  => wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ),
-			"errors" => [
-				'subject' => 'That field is required.'
-			]
+		$form_state = get_transient( self::FORM_TRANSIENT_NAME );
+		$form_state = $form_state ? $form_state : [
+			'status'         => '',
+			'status_message' => '',
+			'form_data'      => [],
+			'errors'         => []
 		];
+
+		// put field values here
+		$attributes = array_merge( $form_state,
+			[
+				'nonce'     => wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ),
+			]
+		);
+
+		// clear transient data
+		delete_transient( self::FORM_TRANSIENT_NAME );
 
 		return ContactFormView::show_contact_form( $attributes );
 
@@ -66,22 +76,22 @@ class ContactFormController extends Singleton {
 		} else {
 
 			// send the email
-			$to = $safe['email'];
-			$subject = $safe['subject'];
-			$message = $safe['message'];
-			$mail_status = wp_mail($to, $subject, $message);
+			$to          = $safe['email'];
+			$subject     = $safe['subject'];
+			$message     = $safe['message'];
+			$mail_status = wp_mail( $to, $subject, $message );
 
 			if ( $mail_status ) {
 				$form_state['status']         = 'success';
 				$form_state['status_message'] = 'Your message is sent successfully';
 			} else {
-				$form_state['status']         = 'errors';
+				$form_state['status']         = 'error';
 				$form_state['status_message'] = 'The message could not be sent.';
 			}
 
 		}
 
-		set_transient( 'simply_send_form_state', $form_state, 120 );
+		set_transient( self::FORM_TRANSIENT_NAME, $form_state, 120 );
 
 		// return to the form
 		$redirect_url = $_SERVER['HTTP_REFERER'];
