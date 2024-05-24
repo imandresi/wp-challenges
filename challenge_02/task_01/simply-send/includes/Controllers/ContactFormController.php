@@ -5,6 +5,7 @@ namespace Imandresi\SimplySend\Controllers;
 use Imandresi\SimplySend\System\Singleton;
 use Imandresi\SimplySend\Views\ContactFormView;
 use const Imandresi\SimplySend\PLUGIN_SHORTCODE_NAME;
+use const Imandresi\SimplySend\PLUGIN_TEXT_DOMAIN;
 
 class ContactFormController extends Singleton {
 	private const NONCE_FIELD = '_wpnonce';
@@ -24,7 +25,7 @@ class ContactFormController extends Singleton {
 		// put field values here
 		$attributes = array_merge( $form_state,
 			[
-				'nonce'     => wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ),
+				'nonce' => wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ),
 			]
 		);
 
@@ -48,7 +49,7 @@ class ContactFormController extends Singleton {
 
 		// verify nonce
 		if ( ! wp_verify_nonce( $_POST[ self::NONCE_FIELD ], self::NONCE_ACTION ) ) {
-			wp_die( 'Sorry! You are not allowed to send that message.' );
+			wp_die( esc_html__( 'Sorry! You are not allowed to send that message.', PLUGIN_TEXT_DOMAIN ) );
 		}
 
 		// data sanitization
@@ -58,21 +59,21 @@ class ContactFormController extends Singleton {
 
 		// data validation
 		if ( ! $safe['subject'] ) {
-			$form_state['errors']['subject'] = 'The subject of the message is required.';
+			$form_state['errors']['subject'] = esc_html__( 'The subject of the message is required.', PLUGIN_TEXT_DOMAIN );
 		}
 
 		if ( ! is_email( $safe['email'] ) ) {
-			$form_state['errors']['email'] = 'The email address is not valid.';
+			$form_state['errors']['email'] = esc_html__( 'The email address is not valid.', PLUGIN_TEXT_DOMAIN );
 		}
 
 		if ( ! $safe['message'] ) {
-			$form_state['errors']['message'] = 'Please type the message you want to send';
+			$form_state['errors']['message'] = esc_html__( 'Please type the message you want to send', PLUGIN_TEXT_DOMAIN );
 		}
 
 		// preparing data to be returned
 		if ( $form_state['errors'] ) {
 			$form_state['status']         = 'errors';
-			$form_state['status_message'] = 'An error occured. Please verify your fields.';
+			$form_state['status_message'] = esc_html__( 'Some fields are not valid. Please verify them.', PLUGIN_TEXT_DOMAIN );
 		} else {
 
 			// send the email
@@ -83,10 +84,10 @@ class ContactFormController extends Singleton {
 
 			if ( $mail_status ) {
 				$form_state['status']         = 'success';
-				$form_state['status_message'] = 'Your message is sent successfully';
+				$form_state['status_message'] = esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN );
 			} else {
 				$form_state['status']         = 'error';
-				$form_state['status_message'] = 'The message could not be sent.';
+				$form_state['status_message'] = esc_html__( 'An error occured. The message could not be sent.', PLUGIN_TEXT_DOMAIN );
 			}
 
 		}
