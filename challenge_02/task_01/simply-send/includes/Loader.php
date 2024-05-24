@@ -21,51 +21,47 @@ class Loader extends Singleton {
 		);
 	}
 
-	public function load_scripts() {
+	public static function load_scripts() {
 
-		add_action( 'wp_enqueue_scripts', function () {
-
-			// load bootstrap
-			if ( ! Helper::is_bootstrap_enqueued() ) {
-				wp_enqueue_style(
-					'bootstrap',
-					PLUGIN_ASSETS_PLUGINS_URI . 'bootstrap/css/bootstrap.min.css'
-				);
-
-				wp_enqueue_script(
-					'bootstrap',
-					PLUGIN_ASSETS_PLUGINS_URI. 'bootstrap/js/bootstrap.bundle.min.js'
-				);
-			}
-
-			// enqueue styles.css
-			$styles_filename = PLUGIN_ASSETS_CSS_DIR . 'styles.css';
-
+		// load bootstrap
+		if ( ! Helper::is_bootstrap_enqueued() ) {
 			wp_enqueue_style(
-				'simply-send',
-				PLUGIN_ASSETS_CSS_URI . 'styles.css',
-				['bootstrap'],
-				PLUGIN_VERSION . '_' . filemtime( $styles_filename ),
-				'all'
+				'bootstrap',
+				PLUGIN_ASSETS_PLUGINS_URI . 'bootstrap/css/bootstrap.min.css'
 			);
-
-			// enqueue scripts.js
-			$script_filename = PLUGIN_ASSETS_SCRIPTS_DIR . 'script.js';
 
 			wp_enqueue_script(
-				'simply-send',
-				PLUGIN_ASSETS_SCRIPTS_URI . 'script.js',
-				['bootstrap'],
-				PLUGIN_VERSION . '_' . filemtime( $script_filename )
+				'bootstrap',
+				PLUGIN_ASSETS_PLUGINS_URI . 'bootstrap/js/bootstrap.bundle.min.js'
 			);
-		} );
+		}
+
+		// enqueue styles.css
+		$styles_filename = PLUGIN_ASSETS_CSS_DIR . 'styles.css';
+
+		wp_enqueue_style(
+			'simply-send',
+			PLUGIN_ASSETS_CSS_URI . 'styles.css',
+			[ 'bootstrap' ],
+			PLUGIN_VERSION . '_' . filemtime( $styles_filename ),
+			'all'
+		);
+
+		// enqueue scripts.js
+		$script_filename = PLUGIN_ASSETS_SCRIPTS_DIR . 'script.js';
+
+		wp_enqueue_script(
+			'simply-send',
+			PLUGIN_ASSETS_SCRIPTS_URI . 'script.js',
+			[ 'bootstrap' ],
+			PLUGIN_VERSION . '_' . filemtime( $script_filename )
+		);
 
 	}
 
 	public function init() {
 		$this->load_dependencies();
 		$this->language_setup();
-		$this->load_scripts();
 	}
 
 	public static function run() {

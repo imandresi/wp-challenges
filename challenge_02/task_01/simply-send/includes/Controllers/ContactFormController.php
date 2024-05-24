@@ -2,6 +2,7 @@
 
 namespace Imandresi\SimplySend\Controllers;
 
+use Imandresi\SimplySend\Loader;
 use Imandresi\SimplySend\System\Singleton;
 use Imandresi\SimplySend\Views\ContactFormView;
 use const Imandresi\SimplySend\PLUGIN_SHORTCODE_NAME;
@@ -11,6 +12,7 @@ class ContactFormController extends Singleton {
 	private const NONCE_FIELD = '_wpnonce';
 	private const NONCE_ACTION = 'submit';
 	private const FORM_TRANSIENT_NAME = 'simply_send_form_state';
+	private const SHORTCODE_NAME = 'simply-send';
 
 
 	public function process_shortcode( $atts ): string {
@@ -101,10 +103,22 @@ class ContactFormController extends Singleton {
 
 	}
 
+	public function load_scripts() {
+		global $post;
+
+		$content = $post->post_content;
+		if ( has_shortcode( $content, self::SHORTCODE_NAME ) ) {
+			Loader::load_scripts();
+		}
+
+	}
+
 	public function init() {
-		add_shortcode( PLUGIN_SHORTCODE_NAME, [ $this, 'process_shortcode' ] );
+		add_shortcode( self::SHORTCODE_NAME, [ $this, 'process_shortcode' ] );
 		add_action( 'admin_post_simply_send_form_submit', [ $this, 'submit_form' ] );
 		add_action( 'admin_post_nopriv_simply_send_form_submit', [ $this, 'submit_form' ] );
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'load_scripts' ] );
 	}
 
 	public static function load() {
