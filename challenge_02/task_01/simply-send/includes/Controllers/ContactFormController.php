@@ -93,6 +93,8 @@ class ContactFormController extends Singleton {
 			if ( $mail_status ) {
 				$form_state['status']         = 'success';
 				$form_state['status_message'] = esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN );
+				$form_state['form_data']      = [];
+				$form_state['errors']         = [];
 			} else {
 				$form_state['status']         = 'error';
 				$form_state['status_message'] = esc_html__( 'An error occured. The message could not be sent.', PLUGIN_TEXT_DOMAIN );
