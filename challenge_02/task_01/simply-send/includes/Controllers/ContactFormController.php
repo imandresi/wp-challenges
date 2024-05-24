@@ -16,8 +16,9 @@ class ContactFormController extends Singleton {
 
 
 	public function process_shortcode( $atts ): string {
+
 		$form_state = get_transient( self::FORM_TRANSIENT_NAME );
-		$form_state = $form_state ? $form_state : [
+		$form_state = $form_state ?: [
 			'status'         => '',
 			'status_message' => '',
 			'form_data'      => [],
@@ -27,7 +28,12 @@ class ContactFormController extends Singleton {
 		// put field values here
 		$attributes = array_merge( $form_state,
 			[
-				'nonce' => wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ),
+				'nonce' => wp_nonce_field(
+					self::NONCE_ACTION,
+					self::NONCE_FIELD,
+					true,
+					false
+				),
 			]
 		);
 
@@ -115,6 +121,7 @@ class ContactFormController extends Singleton {
 
 	public function init() {
 		add_shortcode( self::SHORTCODE_NAME, [ $this, 'process_shortcode' ] );
+
 		add_action( 'admin_post_simply_send_form_submit', [ $this, 'submit_form' ] );
 		add_action( 'admin_post_nopriv_simply_send_form_submit', [ $this, 'submit_form' ] );
 
