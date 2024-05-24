@@ -55,3 +55,6 @@ the email.
 7. Data validation is directly done on the server side.
    
    ![Data Validation](./docs/invalid-fields.png)
+8. A success notification is displayed on top of the form when the message is sent correctly.
+
+   ![Success Notification](./docs/success.png)
