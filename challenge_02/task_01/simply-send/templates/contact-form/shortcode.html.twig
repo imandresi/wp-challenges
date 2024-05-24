@@ -3,25 +3,36 @@
         <h1>Contact Us</h1>
     </header>
     <section>
-        <form>
+        <form name="simply_send_form" method="post" action="{{ form_action_url | raw }}">
+            <input type="hidden" name="action" value="simply_send_form_submit">
+            {{  nonce | raw }}
             <div class="mb-3">
                 <label for="subject-{{ unique_id }}" class="form-label">Subject</label>
-                <input type="email" class="form-control" name="subject" id="subject{{ unique_id }}">
+                <input type="text" class="form-control" name="subject" id="subject-{{ unique_id }}">
+                {%  if  errors.subject %}
+                    <div class="simply_send_error subject">{{ errors.subject }}</div>
+                {% endif %}
             </div>
 
             <div class="mb-3">
                 <label for="email-{{ unique_id }}" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email-{{ unique_id }}">
+                {%  if  errors.email %}
+                    <div class="simply_send_error email">{{ errors.email }}</div>
+                {% endif %}
             </div>
 
             <div class="mb-3">
                 <label for="message-{{ unique_id }}" class="form-label">Message</label>
                 <textarea class="form-control" name="message" id="message-{{ unique_id }}"></textarea>
+                {%  if  errors.message %}
+                    <div class="simply_send_error message">{{ errors.message }}</div>
+                {% endif %}
             </div>
 
             <div class="simply-send__buttons mt-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary me-2 mt-3">Submit</button>
+                <button type="reset" class="btn btn-secondary mt-3">Reset</button>
             </div>
 
         </form>

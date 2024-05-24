@@ -1,6 +1,15 @@
 
 .simply-send__buttons {
+  text-align: center;
+
   button {
     min-width: 150px;
   }
+
+  @media screen and (max-width: 360px) {
+    button {
+      width: 100%;
+    }
+  }
+
 }
