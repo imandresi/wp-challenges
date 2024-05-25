@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require( __DIR__ . '/vendor/autoload.php' );
 require (__DIR__ . '/includes/Constants.php');
 
-\Imandresi\SimplySend\Loader::run();
+\Imandresi\TailorMail\Core\Loader::run();
 
 
 

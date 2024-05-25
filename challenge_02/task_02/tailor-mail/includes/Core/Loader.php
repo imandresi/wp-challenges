@@ -1,8 +1,10 @@
 <?php
 
-namespace Imandresi\TailorMail;
+namespace Imandresi\TailorMail\Core;
 
 use Imandresi\TailorMail\System\Singleton;
+use const Imandresi\TailorMail\PLUGIN_LANGUAGES_DIR;
+use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 class Loader extends Singleton {
 
@@ -20,6 +22,9 @@ class Loader extends Singleton {
 	public function init() {
 		$this->load_dependencies();
 		$this->language_setup();
+
+		AdminLoader::load();
+
 	}
 
 	public static function run() {

@@ -1,28 +1,28 @@
 <?php return array(
     'root' => array(
-        'name' => 'imandresi/simply-send',
+        'name' => 'imandresi/tailor-mail',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3d6d2c1494e4b5f25c5c883407b38e9b67105b13',
+        'reference' => 'ce4ad5efc0c69fe800aac75a282fe12b96e8bc0e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'imandresi/simply-send' => array(
+        'imandresi/tailor-mail' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3d6d2c1494e4b5f25c5c883407b38e9b67105b13',
+            'reference' => 'ce4ad5efc0c69fe800aac75a282fe12b96e8bc0e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
-            'pretty_version' => 'v3.0.2',
-            'version' => '3.0.2.0',
-            'reference' => '26954b3d62a6c5fd0ea8a2a00c0353a14978d05c',
+            'pretty_version' => 'v2.5.3',
+            'version' => '2.5.3.0',
+            'reference' => '80d075412b557d41002320b96a096ca65aa2c98d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(),

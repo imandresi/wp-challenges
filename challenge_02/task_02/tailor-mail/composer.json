@@ -1,5 +1,5 @@
 {
-    "name": "imandresi/simply-send",
+    "name": "imandresi/tailor-mail",
     "description": "Customizable contact form plugin for WordPress with code-defined fields, entry saving, and wp_mail support via shortcode.",
     "type": "project",
     "require": {
