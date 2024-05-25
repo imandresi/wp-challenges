@@ -7,6 +7,7 @@ use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 class ContactFormsModel {
 
 	const POST_TYPE_SLUG = 'tailor_mail_forms';
+	const POST_META_DATA_SLUG = 'tailor_mail_forms_data';
 
 	public static function init_data_model() {
 		register_post_type( self::POST_TYPE_SLUG,
@@ -23,6 +24,16 @@ class ContactFormsModel {
 				'show_ui'            => true,
 				'show_in_menu'       => false,
 				'supports'           => [ 'title' ]
+			]
+		);
+
+		register_post_meta(
+			self::POST_TYPE_SLUG,
+			self::POST_META_DATA_SLUG,
+			[
+				'type'         => 'array',
+				'single'       => true,
+				'show_in_rest' => false
 			]
 		);
 

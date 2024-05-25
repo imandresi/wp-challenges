@@ -2,6 +2,7 @@
 
 namespace Imandresi\TailorMail\Core;
 
+use Imandresi\TailorMail\Core\Classes\Controls\ShortcodeControls;
 use Imandresi\TailorMail\System\Singleton;
 use const Imandresi\TailorMail\PLUGIN_LANGUAGES_DIR;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
@@ -24,6 +25,7 @@ class Loader extends Singleton {
 		$this->language_setup();
 
 		AdminLoader::load();
+		ShortcodeControls::load();
 
 	}
 

@@ -1,1 +1,14 @@
-<p>Content of the Meta Box Form</p>
+<p>In this area, you can create your contact form by combining its individual controls code with HTML to achieve
+    the final presentation.</p>
+
+{%- set textarea_content %}
+    {%- if is_new_post %}
+        [tmf-text label="Subject" name="my-subject"]
+    {% else -%}
+        {{- form_code | escape -}}
+    {% endif -%}
+{% endset -%}
+
+<textarea class="tailor-mail__form-builder"
+          rows="10"
+          name="tailor_mail_form_code">{{ textarea_content | raw }}</textarea>
