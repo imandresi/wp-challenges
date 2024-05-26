@@ -4,7 +4,7 @@ namespace Imandresi\TailorMail\Core\Classes\Controls;
 
 use Imandresi\TailorMail\System\Singleton;
 
-abstract class AbstractControl extends Singleton {
+abstract class AbstractControl {
 
 	protected static int $CONTROL_INDEX = 0;
 	protected array $attributes = [];
@@ -32,6 +32,6 @@ abstract class AbstractControl extends Singleton {
 
 	public abstract function build_shortcode(): string;
 
-	public static abstract function render_shortcode( $atts ): string;
+	public abstract function render_shortcode( $atts ): string;
 
 }

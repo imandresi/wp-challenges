@@ -12,20 +12,15 @@ class TextControl extends InputControl {
 		return '';
 	}
 
-	public static function render_shortcode( $atts ): string {
-		$instance   = self::get_instance();
-		$attributes = shortcode_atts(
-			$instance->attributes,
-			$atts
-		);
+	public function __construct() {
+		parent::__construct();
 
-		if ( ! $attributes['id'] ) {
-			$attributes['id'] = 'text-control-' . $instance->current_control_index;
-		}
+		$this->attributes = array_merge( $this->attributes, [
+			'type' => 'text'
+		] );
 
-		$attributes['value'] = $attributes['value'] ?: $attributes['default'];
-
-		return ControlsView::render_text_control( [ 'control' => $attributes ] );
+		$this->template_filename = 'controls/input-control.html.twig';
 
 	}
+
 }

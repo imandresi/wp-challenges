@@ -25,6 +25,7 @@ class Loader extends Singleton {
 		$this->language_setup();
 
 		AdminLoader::load();
+		FrontLoader::load();
 		ShortcodeControls::load();
 
 	}

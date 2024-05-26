@@ -32,9 +32,7 @@ Requirements:
 
 3. All other fields are also saved as custom meta
 
-4.
-Creating [custom post type](https://developer.wordpress.org/plugins/post-types/registering-custom-post-types/?utm_source=wpchallenges.beehiiv.com&utm_medium=referral&utm_campaign=wordpress-challenge-2-contact-form-plugin)
+4. Creating [custom post type](https://developer.wordpress.org/plugins/post-types/registering-custom-post-types/?utm_source=wpchallenges.beehiiv.com&utm_medium=referral&utm_campaign=wordpress-challenge-2-contact-form-plugin)
 
-5.
-Customizing [Admin Columns](https://www.smashingmagazine.com/2017/12/customizing-admin-columns-wordpress/?utm_source=wpchallenges.beehiiv.com&utm_medium=referral&utm_campaign=wordpress-challenge-2-contact-form-plugin)
+5. Customizing [Admin Columns](https://www.smashingmagazine.com/2017/12/customizing-admin-columns-wordpress/?utm_source=wpchallenges.beehiiv.com&utm_medium=referral&utm_campaign=wordpress-challenge-2-contact-form-plugin)
 
