@@ -46,7 +46,7 @@ abstract class InputControl extends AbstractControl {
 			return '';
 		}
 
-		return ControlsView::render_text_control(
+		return ControlsView::render_control(
 			$this->template_filename,
 			[ 'control' => $attributes ]
 		);

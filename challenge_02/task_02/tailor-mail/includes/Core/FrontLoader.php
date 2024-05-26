@@ -56,8 +56,6 @@ class FrontLoader {
 			return;
 		}
 
-		ContactFormManagerController::load();
-
 		add_action('wp_enqueue_scripts', [self::class, 'load_scripts']);
 
 	}
