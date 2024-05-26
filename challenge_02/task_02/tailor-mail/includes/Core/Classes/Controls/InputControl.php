@@ -16,7 +16,7 @@ abstract class InputControl extends AbstractControl {
 
 		$this->attributes            = array_merge( [
 			'label'       => '',
-			'required'    => 'false',
+			'required'    => '',
 			'default'     => '',
 			'value'       => '',
 			'placeholder' => '',
@@ -30,7 +30,7 @@ abstract class InputControl extends AbstractControl {
 
 	}
 
-	public function render_shortcode( $atts ): string {
+	public function render_shortcode( $atts, $content = null ): string {
 		$attributes = shortcode_atts(
 			$this->attributes,
 			$atts
@@ -41,6 +41,9 @@ abstract class InputControl extends AbstractControl {
 		}
 
 		$attributes['value'] = $attributes['value'] ?: $attributes['default'];
+		$attributes['content'] = $content;
+
+		var_dump($attributes);
 
 		if ( ! $this->template_filename ) {
 			return '';

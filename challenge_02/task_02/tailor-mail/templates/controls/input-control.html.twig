@@ -4,12 +4,12 @@
             <label for="{{ control.id }}" class="form-label">{{ control.label }}</label>
         {% endif %}
         <input type="{{ control.type }}"
-               class="form-control {% if control.class %}{{ control.class }}{% endif %}"
-               {% if control.id %}id="{{ control.id }}"{% endif %}
-                {% if control.name %}name="{{ control.name }}"{% endif %}
-                {% if control.placeholder %}placeholder="{{ control.placeholder }}"{% endif %}
-                {% if control.value %}value="{{ control.value }}"{% endif %}
-                {% if control.required %}required{% endif %}
+               {%- if true %} class="form-control{% if control.class %} {{ control.class }}{% endif %}"{% endif %}
+                {%- if control.id %} id="{{ control.id }}"{% endif %}
+                {%- if control.name %} name="{{ control.name }}"{% endif %}
+                {%- if control.placeholder %} placeholder="{{ control.placeholder }}"{% endif %}
+                {%- if control.value %} value="{{ control.value }}"{% endif %}
+                {%- if control.required %} required{% endif -%}
         >
     </div>
 {% endif %}

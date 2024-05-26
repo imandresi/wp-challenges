@@ -2,22 +2,22 @@
 
 namespace Imandresi\TailorMail\Core\Classes\Controls;
 
-class TextControl extends InputControl {
+use Imandresi\TailorMail\Core\Classes\Controls\InputControl;
+
+class TextareaControl extends InputControl {
 
 	public function build_shortcode(): string {
 		// TODO: Implement build_shortcode() method.
-		return '';
 	}
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->attributes = array_merge( $this->attributes, [
-			'type' => 'text'
+			'rows' => '5'
 		] );
 
-		$this->template_filename = 'controls/input-control.html.twig';
+		$this->template_filename = 'controls/textarea-control.html.twig';
 
 	}
-
 }

@@ -3,6 +3,7 @@
 namespace Imandresi\TailorMail\Core\Classes;
 
 use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
+use Imandresi\TailorMail\Core\Classes\Controls\TextareaControl;
 use Imandresi\TailorMail\Core\Classes\Controls\TextControl;
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
@@ -11,17 +12,19 @@ use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 class ShortcodeManager {
 	const CONTACT_FORM_SHORTCODE_TAG = PLUGIN_SLUG;
 	const CONTROL_PREFIX = PLUGIN_SLUG . '-';
-	const CONTROLS_PSEUDO_CODE_NAMES = [ 'text' ];
+	const CONTROLS_PSEUDO_CODE_NAMES = [ 'text', 'textarea' ];
 
 	private static function pseudo_to_shortcode( $content ) {
+
+		// Replace open tags
 		$regex = "/\[([\w\-]+)/is";
 
-		$new_content = preg_replace_callback(
+		$content = preg_replace_callback(
 			$regex,
 			function ( $matches ) {
 				$replacement = $matches[0];
 
-				if (in_array($matches[1], self::CONTROLS_PSEUDO_CODE_NAMES)) {
+				if ( in_array( $matches[1], self::CONTROLS_PSEUDO_CODE_NAMES ) ) {
 					$replacement = '[' . self::CONTROL_PREFIX . $matches[1];
 				}
 
@@ -30,14 +33,30 @@ class ShortcodeManager {
 			$content
 		);
 
-		return $new_content;
+		// Replace close tags
+		$regex   = "/\[\/([\w\-]+)]/is";
+		$content = preg_replace_callback(
+			$regex,
+			function ( $matches ) {
+				$replacement = $matches[0];
+
+				if ( in_array( $matches[1], self::CONTROLS_PSEUDO_CODE_NAMES ) ) {
+					$replacement = '[/' . self::CONTROL_PREFIX . $matches[1] . ']';
+				}
+
+				return $replacement;
+			},
+			$content
+		);
+
+		return $content;
 
 	}
 
 	public static function contact_form_render_shortcode( $atts ): string {
 		// TODO: is it really necessary ?
 		$attributes = [
-			'id'    => ''
+			'id' => ''
 		];
 
 		$attributes = shortcode_atts(
@@ -65,6 +84,11 @@ class ShortcodeManager {
 			case 'text':
 				$control = new TextControl();
 				break;
+
+			case 'textarea':
+				$control = new TextareaControl();
+				break;
+
 		}
 
 		return $control;
@@ -75,12 +99,16 @@ class ShortcodeManager {
 		add_shortcode( self::CONTACT_FORM_SHORTCODE_TAG, [ self::class, 'contact_form_render_shortcode' ] );
 
 		foreach ( self::CONTROLS_PSEUDO_CODE_NAMES as $pseudo_code_name ) {
-			add_shortcode( self::CONTROL_PREFIX . $pseudo_code_name, function ( $atts ) use ( $pseudo_code_name ) {
-				$control = self::control_factory( $pseudo_code_name );
+			add_shortcode(
+				self::CONTROL_PREFIX . $pseudo_code_name,
+				function ( $atts, $content = null ) use ( $pseudo_code_name ) {
+					$control = self::control_factory( $pseudo_code_name );
 
-				return $control->render_shortcode( $atts );
-			} );
+					return $control->render_shortcode( $atts, $content );
+				}
+			);
 		}
+
 	}
 
 }

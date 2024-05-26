@@ -32,6 +32,6 @@ abstract class AbstractControl {
 
 	public abstract function build_shortcode(): string;
 
-	public abstract function render_shortcode( $atts ): string;
+	public abstract function render_shortcode( $atts, $content = null ): string;
 
 }

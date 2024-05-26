@@ -1,0 +1,15 @@
+<div class="mb-3">
+    {% if control.label %}
+        <label for="{{ control.id }}" class="form-label">{{ control.label }}</label>
+    {% endif %}
+
+    <textarea class="form-control{% if control.class %} {{ control.class }}{% endif %}"
+            {%- if control.id %} id="{{ control.id }}"{% endif %}
+            {%- if control.name %} name="{{ control.name }}"{% endif %}
+            {%- if control.placeholder %} placeholder="{{ control.placeholder }}"{% endif %}
+            {%- if control.rows %} rows="{{ control.rows }}"{% endif %}
+            {%- if control.required %} required{% endif -%}
+    >
+        {%- if control.content %}{{ control.content }}{% endif -%}
+    </textarea>
+</div>
