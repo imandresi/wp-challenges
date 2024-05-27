@@ -17,7 +17,6 @@ class TextControl extends InputControl {
 		] );
 
 		$this->template_filename = 'controls/input-control.html.twig';
-
 	}
 
 }

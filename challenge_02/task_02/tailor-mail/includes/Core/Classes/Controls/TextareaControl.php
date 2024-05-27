@@ -14,10 +14,12 @@ class TextareaControl extends InputControl {
 		parent::__construct();
 
 		$this->attributes = array_merge( $this->attributes, [
+			'type' => 'textarea',
 			'rows' => '5'
 		] );
 
 		$this->template_filename = 'controls/textarea-control.html.twig';
 
 	}
+
 }

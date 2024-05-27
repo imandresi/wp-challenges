@@ -10,6 +10,8 @@ use Imandresi\TailorMail\Core\Classes\Controls\TextControl;
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\Views\ControlsView;
+use Rakit\Validation\Validator;
+
 use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
@@ -26,7 +28,12 @@ class ShortcodeManager {
 	private const ALERT_SESSION_NAME = 'alert';
 
 	// Fill this with the controls to be initialized
-	private const CONTROLS_PSEUDO_CODE_NAMES = [ 'text', 'textarea', 'button', 'submit' ];
+	private const PSEUDO_CONTROLS = [
+		'text'     => TextControl::class,
+		'textarea' => TextareaControl::class,
+		'button'   => ButtonControl::class,
+		'submit'   => SubmitButtonControl::class
+	];
 
 	private static function pseudo_to_shortcode( $content ) {
 
@@ -38,7 +45,8 @@ class ShortcodeManager {
 			function ( $matches ) {
 				$replacement = $matches[0];
 
-				if ( in_array( $matches[1], self::CONTROLS_PSEUDO_CODE_NAMES ) ) {
+
+				if ( in_array( $matches[1], array_keys( self::PSEUDO_CONTROLS ) ) ) {
 					$replacement = '[' . self::CONTROL_PREFIX . $matches[1];
 				}
 
@@ -54,7 +62,7 @@ class ShortcodeManager {
 			function ( $matches ) {
 				$replacement = $matches[0];
 
-				if ( in_array( $matches[1], self::CONTROLS_PSEUDO_CODE_NAMES ) ) {
+				if ( in_array( $matches[1], array_keys( self::PSEUDO_CONTROLS ) ) ) {
 					$replacement = '[/' . self::CONTROL_PREFIX . $matches[1] . ']';
 				}
 
@@ -64,6 +72,143 @@ class ShortcodeManager {
 		);
 
 		return $content;
+
+	}
+
+	public static function sanitize_fields(): array {
+		if ( ! $_POST['_controls'] ) {
+			return [];
+		}
+
+		$safe = [];
+
+		foreach ( $_POST['_controls'] as $field_name => $attributes ) {
+			if ( ! isset( $_POST[ $field_name ] ) ) {
+				continue;
+			}
+
+			$attributes = wp_unslash( $attributes );
+			$attributes = json_decode( $attributes, true );
+			$field_type = $attributes['type'];
+
+			if ( ! $field_type ) {
+				continue;
+			}
+
+			$field_value = $_POST[ $field_name ];
+			$field_class = self::PSEUDO_CONTROLS[ $field_type ] ?? null;
+
+			if ( ! $field_class ) {
+				continue;
+			}
+
+			if ( is_callable( [ $field_class, 'sanitize_field' ] ) ) {
+				$safe[ $field_name ] = call_user_func( [ $field_class, 'sanitize_field' ], $field_value, $attributes );
+			}
+		}
+
+		return $safe;
+
+	}
+
+	public static function build_validation_data(): array {
+
+		if ( ! $_POST['_controls'] ) {
+			return [];
+		}
+
+		$constraints = [];
+
+		foreach ( $_POST['_controls'] as $field_name => $attributes ) {
+
+			if ( ! isset( $_POST[ $field_name ] ) ) {
+				continue;
+			}
+
+			$attributes = wp_unslash( $attributes );
+			$attributes = json_decode( $attributes, true );
+			$field_type = $attributes['type'];
+
+			if ( ! $field_type ) {
+				continue;
+			}
+
+			// parse validator attribute
+			$validators = explode( '|', strtolower( $attributes['validator'] ) );
+			$rules      = array_combine( $validators, $validators );
+
+			if ( $attributes['required'] ) {
+				$rules['required'] = 'required';
+			}
+
+			// build constraints
+			$constraints[ $field_name ] = join( '|', array_keys( $rules ) );
+
+		}
+
+		return $constraints;
+
+	}
+
+	public static function validate_fields( $fields, &$form_state ) {
+		$validator   = new Validator();
+		$constraints = self::build_validation_data();
+		$validation  = $validator->validate( $fields, $constraints );
+
+		if ( $validation->fails() ) {
+			$form_state['status']         = 'errors';
+			$form_state['status_message'] = esc_html__( 'Some fields are not valid. Please verify them.', PLUGIN_TEXT_DOMAIN );
+			$form_state['errors']         = $validation->errors->firstOfAll();
+		}
+
+	}
+
+	public static function contact_form_submit_process() {
+		$form_state = [
+			'status'         => '',
+			'status_message' => '',
+			'form_data'      => $_POST,
+			'errors'         => [],
+		];
+
+		$safe_data = [];
+
+		// verify nonce
+		if ( ! wp_verify_nonce( $_POST[ self::NONCE_FIELD ], self::NONCE_ACTION ) ) {
+			wp_die( esc_html__( 'Sorry! You are not allowed to send that message.', PLUGIN_TEXT_DOMAIN ) );
+		}
+
+		// sanitize fields
+		$safe_data = self::sanitize_fields();
+
+		// validate fields
+		self::validate_fields( $safe_data, $form_state );
+
+		if ( ! $form_state['status'] ) {
+			// send the mail
+
+
+			// set success status
+			$form_state['status']         = 'success';
+			$form_state['status_message'] = esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN );
+			$form_state['form_data']      = [];
+			$form_state['errors']         = [];
+
+		}
+
+		$session = &Sessions::get_session_var();
+
+		$session[ self::ALERT_SESSION_NAME ] = [
+			'type'    => $form_state['status'] == 'success' ? 'success' : 'danger',
+			'message' => $form_state['status_message']
+		];
+
+		$session[ self::FORM_SESSION_NAME ] = $form_state;
+
+		// return to the form
+		$redirect_url = $_SERVER['HTTP_REFERER'];
+		wp_redirect( $redirect_url );
+		exit;
 
 	}
 
@@ -108,8 +253,9 @@ class ShortcodeManager {
 
 		$output = ControlsView::render_contact_form( $attributes );
 
-		// clear alert messages
-		unset (Sessions::get_session_var()[self::ALERT_SESSION_NAME]);
+		// clear alert messages and contact form previous data
+		unset ( Sessions::get_session_var()[ self::ALERT_SESSION_NAME ] );
+		unset ( Sessions::get_session_var()[ self::FORM_SESSION_NAME ] );
 
 		return $output;
 
@@ -149,7 +295,7 @@ class ShortcodeManager {
 		add_shortcode( self::CONTACT_FORM_SHORTCODE_TAG, [ self::class, 'contact_form_render_shortcode' ] );
 
 		// initialize shortcode for form fields
-		foreach ( self::CONTROLS_PSEUDO_CODE_NAMES as $pseudo_code_name ) {
+		foreach ( array_keys( self::PSEUDO_CONTROLS ) as $pseudo_code_name ) {
 			add_shortcode(
 				self::CONTROL_PREFIX . $pseudo_code_name,
 				function ( $atts, $content = null ) use ( $pseudo_code_name ) {
@@ -159,6 +305,10 @@ class ShortcodeManager {
 				}
 			);
 		}
+
+		// initialize contact form submit process
+		add_action( 'admin_post_' . self::FORM_ACTION, [ self::class, 'contact_form_submit_process' ] );
+		add_action( 'admin_post_nopriv_' . self::FORM_ACTION, [ self::class, 'contact_form_submit_process' ] );
 
 	}
 

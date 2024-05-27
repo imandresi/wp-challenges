@@ -28,6 +28,10 @@ class ComposerStaticInitb041605a0db26bc9310576e639c603b7
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'R' => 
+        array (
+            'Rakit\\Validation\\' => 17,
+        ),
         'I' => 
         array (
             'Imandresi\\TailorMail\\' => 21,
@@ -50,6 +54,10 @@ class ComposerStaticInitb041605a0db26bc9310576e639c603b7
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Rakit\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rakit/validation/src',
         ),
         'Imandresi\\TailorMail\\' => 
         array (

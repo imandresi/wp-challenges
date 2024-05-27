@@ -11,7 +11,7 @@ class Sessions extends Singleton {
 	private $session;
 
 	public static function &get_session_var() {
-		$instance = self::get_instance();
+		self::get_instance();
 
 		return $_SESSION[ self::SESSION_NAME ];
 	}
@@ -21,7 +21,9 @@ class Sessions extends Singleton {
 			session_start();
 		}
 
-		$_SESSION[ self::SESSION_NAME ] = [];
+		if (!isset($_SESSION[self::SESSION_NAME])) {
+			$_SESSION[ self::SESSION_NAME ] = [];
+		}
 	}
 
 	public static function load(): void {

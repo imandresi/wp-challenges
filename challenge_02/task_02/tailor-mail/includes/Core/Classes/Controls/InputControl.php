@@ -4,6 +4,7 @@ namespace Imandresi\TailorMail\Core\Classes\Controls;
 
 use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
 use Imandresi\TailorMail\Views\ControlsView;
+use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 abstract class InputControl extends AbstractControl {
 	protected string $template_filename;
@@ -19,11 +20,16 @@ abstract class InputControl extends AbstractControl {
 			'placeholder' => '',
 			'name'        => '',
 			'id'          => '',
-			'class'       => ''
+			'class'       => '',
+			'validator'   => ''
 		], $this->attributes );
 
 		$this->template_filename = '';
 
+	}
+
+	public static function sanitize_field( $value, $attributes ): string {
+		return $value;
 	}
 
 	public function render_shortcode( $atts, $content = null ): string {
@@ -45,7 +51,10 @@ abstract class InputControl extends AbstractControl {
 
 		return ControlsView::render_control(
 			$this->template_filename,
-			[ 'control' => $attributes ]
+			[
+				'control'    => $attributes,
+				'attributes' => json_encode( $attributes )
+			]
 		);
 
 	}
