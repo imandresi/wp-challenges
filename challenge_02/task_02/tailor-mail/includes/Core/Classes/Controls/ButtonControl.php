@@ -5,25 +5,24 @@ namespace Imandresi\TailorMail\Core\Classes\Controls;
 use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
 use Imandresi\TailorMail\Views\ControlsView;
 
-abstract class InputControl extends AbstractControl {
-	protected string $template_filename;
+class ButtonControl extends AbstractControl {
 
 	public function __construct() {
 		parent::__construct();
 
 		$this->attributes = array_merge( [
-			'label'       => '',
-			'required'    => '',
-			'default'     => '',
-			'value'       => '',
-			'placeholder' => '',
-			'name'        => '',
-			'id'          => '',
-			'class'       => ''
+			'type'    => 'button',
+			'variant' => 'secondary',
+			'label'   => 'Click',
+			'name'    => '',
+			'id'      => '',
+			'class'   => ''
 		], $this->attributes );
 
-		$this->template_filename = '';
+	}
 
+	public function build_shortcode(): string {
+		// TODO: Implement build_shortcode() method.
 	}
 
 	public function render_shortcode( $atts, $content = null ): string {
@@ -36,19 +35,16 @@ abstract class InputControl extends AbstractControl {
 			$attributes['id'] = $this->control_id;
 		}
 
-		$attributes['value']   = $attributes['value'] ?: $attributes['default'];
-		$attributes['content'] = $content;
+		$btn_class = "btn" .
+		             ( $attributes['variant'] ? " btn-{$attributes['variant']}" : '' ) .
+		             ( $attributes['class'] ? " {$attributes['class']}" : "" );
 
-		if ( ! $this->template_filename ) {
-			return '';
-		}
+		$attributes['class'] = $btn_class;
 
 		return ControlsView::render_control(
-			$this->template_filename,
+			'controls/button-control.html.twig',
 			[ 'control' => $attributes ]
 		);
 
 	}
-
-
 }

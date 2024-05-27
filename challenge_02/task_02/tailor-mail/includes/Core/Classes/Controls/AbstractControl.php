@@ -8,6 +8,15 @@ abstract class AbstractControl {
 
 	protected static int $CONTROL_INDEX = 0;
 	protected array $attributes = [];
+	protected int $current_control_index;
+	protected string $control_id;
+
+	public function __construct() {
+		self::$CONTROL_INDEX ++;
+		$this->current_control_index = self::$CONTROL_INDEX;
+		$this->control_id            = 'control-' . uniqid();
+
+	}
 
 	/**
 	 * @throws \Exception
