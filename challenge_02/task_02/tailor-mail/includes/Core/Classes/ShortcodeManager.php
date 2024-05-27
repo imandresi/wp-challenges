@@ -8,16 +8,25 @@ use Imandresi\TailorMail\Core\Classes\Controls\SubmitButtonControl;
 use Imandresi\TailorMail\Core\Classes\Controls\TextareaControl;
 use Imandresi\TailorMail\Core\Classes\Controls\TextControl;
 use Imandresi\TailorMail\Models\ContactFormsModel;
+use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\Views\ControlsView;
+use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 class ShortcodeManager {
 	const CONTACT_FORM_SHORTCODE_TAG = PLUGIN_SLUG;
 	const CONTROL_PREFIX = PLUGIN_SLUG . '-';
+	private const NONCE_FIELD = '_wpnonce';
+	private const NONCE_ACTION = 'submit';
+	private const FORM_TRANSIENT_NAME = PLUGIN_IDENTIFIER . '_form_state';
+
+	private const FORM_ACTION = PLUGIN_IDENTIFIER . '_form_submit';
+	private const FORM_SESSION_NAME = 'contact_form';
+	private const ALERT_SESSION_NAME = 'alert';
 
 	// Fill this with the controls to be initialized
-	const CONTROLS_PSEUDO_CODE_NAMES = [ 'text', 'textarea', 'button', 'submit' ];
+	private const CONTROLS_PSEUDO_CODE_NAMES = [ 'text', 'textarea', 'button', 'submit' ];
 
 	private static function pseudo_to_shortcode( $content ) {
 
@@ -59,16 +68,17 @@ class ShortcodeManager {
 	}
 
 	public static function contact_form_render_shortcode( $atts ): string {
-		$attributes = [
-			'id' => ''
+		$shortcode_attributes = [
+			'id'   => '',
+			'name' => '',
 		];
 
-		$attributes = shortcode_atts(
-			$attributes,
+		$shortcode_attributes = shortcode_atts(
+			$shortcode_attributes,
 			$atts
 		);
 
-		$contact_form_id = (int) $attributes['id'];
+		$contact_form_id = (int) $shortcode_attributes['id'];
 
 		if ( ! $contact_form_id ) {
 			return '';
@@ -79,12 +89,27 @@ class ShortcodeManager {
 		$content   = self::pseudo_to_shortcode( $content );
 		$content   = do_shortcode( $content );
 
+		$form_slug = PLUGIN_SLUG . '-form-' . $contact_form_id;
+
 		$attributes = [
-			'id'      => PLUGIN_SLUG . '-form-' . $contact_form_id,
-			'content' => $content
+			'contact_form_id' => $contact_form_id,
+			'id'              => $form_slug,
+			'name'            => $shortcode_attributes['name'] ? $shortcode_attributes : $form_slug,
+			'form_action_url' => admin_url( 'admin-post.php' ),
+			'form_action'     => self::FORM_ACTION,
+			'nonce'           => wp_nonce_field(
+				self::NONCE_ACTION,
+				self::NONCE_FIELD,
+				true,
+				false
+			),
+			'content'         => $content
 		];
 
 		$output = ControlsView::render_contact_form( $attributes );
+
+		// clear alert messages
+		unset (Sessions::get_session_var()[self::ALERT_SESSION_NAME]);
 
 		return $output;
 

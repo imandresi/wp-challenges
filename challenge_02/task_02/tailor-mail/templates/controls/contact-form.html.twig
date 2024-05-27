@@ -1,3 +1,9 @@
-<div {% if id %}id="{{ id }}"{% endif %}>
-    {{ content | raw }}
+<div id="tailor-mail-form-container-{{ contact_form_id }}" class="tailor-mail-form-container">
+    {{ include('common/alert.html.twig') }}
+    <form name="{{ name }}" id="{{ id }}" method="post" action="{{ form_action_url | raw }}">
+        <input type="hidden" name="action" value="{{ form_action }}">
+        {{ nonce | raw }}
+
+        {{ content | raw }}
+    </form>
 </div>

@@ -11,5 +11,8 @@
                 {%- if control.value %} value="{{ control.value }}"{% endif %}
                 {%- if control.required %} required{% endif -%}
         >
+        {% if (control.name and attribute(SESSIONS.contact_form.errors, control.name)) %}
+            <div class="{{ PLUGIN_IDENTIFIER }}_error {{ control.name }}">{{ attribute(SESSIONS.contact_form.errors, control.name) }}</div>
+        {% endif %}
     </div>
 {% endif %}
