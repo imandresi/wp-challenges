@@ -56,7 +56,6 @@ class ContactFormsController {
 	}
 
 	private static function prepare_ui(): void {
-		global $post;
 
 		add_filter( 'enter_title_here', function ( $title ) {
 			if ( self::is_editing_form() ) {

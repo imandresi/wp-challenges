@@ -32,7 +32,7 @@ abstract class InputControl extends AbstractControl {
 		return $value;
 	}
 
-	public function render_shortcode( $atts, $content = null ): string {
+	public function do_render_shortcode( $atts, $content = null ): string {
 		$attributes = shortcode_atts(
 			$this->attributes,
 			$atts

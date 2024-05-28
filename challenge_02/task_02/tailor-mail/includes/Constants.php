@@ -30,5 +30,11 @@ define( __NAMESPACE__ . '\PLUGIN_ASSETS_SCRIPTS_URI', PLUGIN_URI . PLUGIN_ASSETS
 define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS', PLUGIN_ASSETS . 'plugins/' );
 define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS_URI', PLUGIN_URI . PLUGIN_ASSETS_PLUGINS );
 
-
+/**
+ * Action Hooks
+ */
+const ACTION_HOOK_PROCESS_CONTACT_FORM_DATA        = PLUGIN_IDENTIFIER . '_process_contact_form_data';
+const FILTER_HOOK_BEFORE_RENDER_CONTACT_FORM_FIELD = PLUGIN_IDENTIFIER . '_before_render_contact_form_field';
+const FILTER_HOOK_RENDER_CONTACT_FORM_FIELD        = PLUGIN_IDENTIFIER . '_render_contact_form_field';
+const FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD  = PLUGIN_IDENTIFIER . '_after_render_contact_form_field';
 

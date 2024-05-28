@@ -12,6 +12,7 @@ use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\Views\ControlsView;
 use Rakit\Validation\Validator;
 
+use const Imandresi\TailorMail\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
 use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
@@ -185,8 +186,15 @@ class ShortcodeManager {
 		self::validate_fields( $safe_data, $form_state );
 
 		if ( ! $form_state['status'] ) {
-			// send the mail
 
+			/**
+			 * Send the mail or process the safe form data in another way
+			 *
+			 * @param array $safe_data
+			 * @param int $contact_form_id
+			 *
+			 */
+			do_action( ACTION_HOOK_PROCESS_CONTACT_FORM_DATA, $safe_data, $_POST['contact_form_id'] );
 
 			// set success status
 			$form_state['status']         = 'success';

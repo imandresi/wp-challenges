@@ -2,6 +2,7 @@
     {{ include('common/alert.html.twig') }}
     <form name="{{ name }}" id="{{ id }}" method="post" action="{{ form_action_url | raw }}">
         <input type="hidden" name="action" value="{{ form_action }}">
+        <input type="hidden" name="contact_form_id" value="{{ id }}">
         {{ nonce | raw }}
 
         {{ content | raw }}

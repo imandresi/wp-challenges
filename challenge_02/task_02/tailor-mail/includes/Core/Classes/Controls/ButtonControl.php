@@ -25,7 +25,7 @@ class ButtonControl extends AbstractControl {
 		// TODO: Implement build_shortcode() method.
 	}
 
-	public function render_shortcode( $atts, $content = null ): string {
+	public function do_render_shortcode( $atts, $content = null ): string {
 		$attributes = shortcode_atts(
 			$this->attributes,
 			$atts
