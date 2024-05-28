@@ -222,8 +222,7 @@ class ShortcodeManager {
 
 	public static function contact_form_render_shortcode( $atts ): string {
 		$shortcode_attributes = [
-			'id'   => '',
-			'name' => '',
+			'id'   => ''
 		];
 
 		$shortcode_attributes = shortcode_atts(

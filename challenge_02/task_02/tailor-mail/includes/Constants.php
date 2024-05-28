@@ -33,8 +33,9 @@ define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS_URI', PLUGIN_URI . PLUGIN_ASSETS
 /**
  * Action Hooks
  */
+const ACTION_HOOK_CONTACT_FORM_MAIL_SENT           = PLUGIN_IDENTIFIER . '_contact_form_mail_sent';
 const ACTION_HOOK_PROCESS_CONTACT_FORM_DATA        = PLUGIN_IDENTIFIER . '_process_contact_form_data';
 const FILTER_HOOK_BEFORE_RENDER_CONTACT_FORM_FIELD = PLUGIN_IDENTIFIER . '_before_render_contact_form_field';
 const FILTER_HOOK_RENDER_CONTACT_FORM_FIELD        = PLUGIN_IDENTIFIER . '_render_contact_form_field';
 const FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD  = PLUGIN_IDENTIFIER . '_after_render_contact_form_field';
-
+const FILTER_HOOK_DEFINE_MAILER_SERVICE            = PLUGIN_IDENTIFIER . '_define_mailer_service';

@@ -40,8 +40,9 @@ class ContactFormsView extends AbstractView {
 
 		$default_values = [
 			'to'      => '[_site_admin_email]',
-			'from'    => '[_site_title] <wordpress@wordpress.mg>',
+			'from'    => '[_site_title] <[_site_admin_email]>',
 			'subject' => '[_site_title] "[subject]"',
+			'headers' => 'Reply-To: [email]',
 			'message' => ContactFormsView::mail_template_default_message()
 		];
 
@@ -49,6 +50,7 @@ class ContactFormsView extends AbstractView {
 			'to'      => $contact_form_data['mail_template']['to'] ?: $default_values['to'],
 			'from'    => $contact_form_data['mail_template']['from'] ?: $default_values['from'],
 			'subject' => $contact_form_data['mail_template']['subject'] ?: $default_values['subject'],
+			'headers' => $contact_form_data['mail_template']['headers'] ?: $default_values['headers'],
 			'message' => $contact_form_data['mail_template']['message'] ?: $default_values['message'],
 		];
 
