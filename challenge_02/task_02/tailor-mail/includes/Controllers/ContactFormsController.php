@@ -4,12 +4,55 @@ namespace Imandresi\TailorMail\Controllers;
 
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\Views\ContactFormsView;
+use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 class ContactFormsController {
 
 	public static function is_editing_form(): bool {
 		return ( get_post_type() == ContactFormsModel::POST_TYPE_SLUG ) && is_admin();
+	}
+
+	public static function customize_contact_forms_list_table_display() {
+
+		// Customize the columns header
+		add_filter( 'manage_' . ContactFormsModel::POST_TYPE_SLUG . '_posts_columns', function ( $columns ) {
+			$columns = array(
+				'cb'        => $columns['cb'],
+				'title'     => $columns['title'],
+				'shortcode' => 'Shortcode',
+				'date'      => $columns['date'],
+			);
+
+			return $columns;
+		} );
+
+		// Customize the columns content
+		$action_name = 'manage_' . ContactFormsModel::POST_TYPE_SLUG . '_posts_custom_column';
+		add_action ($action_name, function ($column, $post_id) {
+			switch ($column) {
+				case 'shortcode':
+					print "<pre>";
+					print self::get_shortcode($post_id);
+					print "</pre>";
+					break;
+			}
+		}, 10, 2);
+
+
+	}
+
+
+	public static function get_shortcode( $post ): string {
+		if ( $post instanceof \WP_Post ) {
+			$post = $post->ID;
+		}
+
+		if ( ! is_numeric( $post ) ) {
+			return '';
+		}
+
+		return '[' . PLUGIN_SLUG . " id=\"{$post}\"]";
 	}
 
 	private static function prepare_ui(): void {
@@ -49,7 +92,7 @@ class ContactFormsController {
 			add_meta_box(
 				'tailor-mail-metabox-mail',
 				__( 'Mail', PLUGIN_TEXT_DOMAIN ),
-				[ self::class, 'mail_meta_box' ],
+				[ ContactFormsView::class, 'mail_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
 				'advanced',
 				'core'
@@ -58,29 +101,6 @@ class ContactFormsController {
 
 	}
 
-	public static function mail_meta_box( \WP_Post $post, array $meta_box ): void {
-		$contact_form_data = get_post_meta( $post->ID, ContactFormsModel::POST_META_DATA_SLUG, true );
-
-		$default_values = [
-			'to'      => '[_site_admin_email]',
-			'from'    => '[_site_title] <wordpress@wordpress.mg>',
-			'subject' => '[_site_title] "[subject]"',
-			'message' => ContactFormsView::mail_template_default_message()
-		];
-
-		$mail = [
-			'to'      => $contact_form_data['mail_template']['to'] ?: $default_values['to'],
-			'from'    => $contact_form_data['mail_template']['from'] ?: $default_values['from'],
-			'subject' => $contact_form_data['mail_template']['subject'] ?: $default_values['subject'],
-			'message' => $contact_form_data['mail_template']['message'] ?: $default_values['message'],
-		];
-
-		$attributes = [
-			'template' => $mail
-		];
-		ContactFormsView::mail_meta_box( $attributes );
-
-	}
 
 	public static function save_post_hook( int $post_id, \WP_Post $post, bool $update ) {
 		if ( wp_is_post_revision( $post_id ) ) {
@@ -88,7 +108,7 @@ class ContactFormsController {
 		}
 
 		$meta_value = [
-			'form_code'      => trim( $_POST['tailor_mail']['form_code'] ),
+			'form_code'     => trim( $_POST['tailor_mail']['form_code'] ),
 			'mail_template' => $_POST['tailor_mail']['template']
 		];
 
@@ -123,6 +143,8 @@ class ContactFormsController {
 			[ self::class, 'save_post_hook' ],
 			10, 3
 		);
+
+		self::customize_contact_forms_list_table_display();
 
 	}
 

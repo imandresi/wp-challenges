@@ -5,7 +5,7 @@
 }
 
 #tailor-mail__meta-box__shortcode .shortcode-area {
-  font-family: monospace;
+  font-family: Consolas, Monaco, monospace;
   font-size: 18px;
   padding: 10px;
   color: white;

@@ -35,7 +35,27 @@ class ContactFormsView extends AbstractView {
 		print $output;
 	}
 
-	public static function mail_meta_box( $attributes ): void {
+	public static function mail_meta_box( \WP_Post $post, array $meta_box ): void {
+		$contact_form_data = get_post_meta( $post->ID, ContactFormsModel::POST_META_DATA_SLUG, true );
+
+		$default_values = [
+			'to'      => '[_site_admin_email]',
+			'from'    => '[_site_title] <wordpress@wordpress.mg>',
+			'subject' => '[_site_title] "[subject]"',
+			'message' => ContactFormsView::mail_template_default_message()
+		];
+
+		$mail = [
+			'to'      => $contact_form_data['mail_template']['to'] ?: $default_values['to'],
+			'from'    => $contact_form_data['mail_template']['from'] ?: $default_values['from'],
+			'subject' => $contact_form_data['mail_template']['subject'] ?: $default_values['subject'],
+			'message' => $contact_form_data['mail_template']['message'] ?: $default_values['message'],
+		];
+
+		$attributes = [
+			'template' => $mail
+		];
+
 		$output = self::render( 'contact-forms/meta-box-mail.html.twig', $attributes );
 		print $output;
 
