@@ -3,4 +3,8 @@
 }
 .tailor-mail-form-container label {
   font-weight: bold;
+  color: #444444;
+}
+.tailor-mail-form-container input, .tailor-mail-form-container textarea {
+  color: #888888 !important;
 }

@@ -2,9 +2,9 @@
     the final presentation.</p>
 
 {%- set textarea_content %}
-    {%- if is_new_post %}
-        [tmf-text label="Subject" name="my-subject"]
-    {% else -%}
+    {%- if is_new_post -%}
+        {%  include('contact-forms/default-form-template.html.twig') %}
+    {%- else -%}
         {{- form_code | escape -}}
     {% endif -%}
 {% endset -%}
