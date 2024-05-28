@@ -8,16 +8,18 @@ use const Imandresi\TailorMail\PLUGIN_SLUG;
 
 class ContactFormsView extends AbstractView {
 
-	public static function shortcode_meta_box(\WP_Post $post, array $meta_box): void {
+	public static function shortcode_meta_box( \WP_Post $post, array $meta_box ): void {
 
 
 		$attributes = [
 			'post_id' => $post->ID,
-			'PLUGIN_IDENTIFIER', PLUGIN_IDENTIFIER,
-			'PLUGIN_SLUG', PLUGIN_SLUG,
+			'PLUGIN_IDENTIFIER',
+			PLUGIN_IDENTIFIER,
+			'PLUGIN_SLUG',
+			PLUGIN_SLUG,
 		];
 
-		$output     = self::render( 'contact-forms/meta-box-shortcode.html.twig', $attributes );
+		$output = self::render( 'contact-forms/meta-box-shortcode.html.twig', $attributes );
 		print $output;
 	}
 
@@ -33,10 +35,14 @@ class ContactFormsView extends AbstractView {
 		print $output;
 	}
 
-	public static function mail_meta_box( \WP_Post $post, array $meta_box ): void {
-		$attributes = array();
-		$output     = self::render( 'contact-forms/meta-box-mail.html.twig', $attributes );
+	public static function mail_meta_box( $attributes ): void {
+		$output = self::render( 'contact-forms/meta-box-mail.html.twig', $attributes );
 		print $output;
+
+	}
+
+	public static function mail_template_default_message(): string {
+		return self::render( 'contact-forms/default-mail-template.html.twig' );
 
 	}
 

@@ -18,7 +18,7 @@ abstract class AbstractView extends Singleton {
 		$instance->twig = new Environment( new FilesystemLoader( PLUGIN_TEMPLATES_DIR ) );
 	}
 
-	protected static function render( $template_filename, $attributes ): string {
+	protected static function render( $template_filename, $attributes = [] ): string {
 		$instance = self::get_instance();
 
 		$attributes = array_merge(

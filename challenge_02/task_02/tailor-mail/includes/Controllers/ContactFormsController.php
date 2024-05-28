@@ -49,12 +49,36 @@ class ContactFormsController {
 			add_meta_box(
 				'tailor-mail-metabox-mail',
 				__( 'Mail', PLUGIN_TEXT_DOMAIN ),
-				[ ContactFormsView::class, 'mail_meta_box' ],
+				[ self::class, 'mail_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
 				'advanced',
 				'core'
 			);
 		} );
+
+	}
+
+	public static function mail_meta_box( \WP_Post $post, array $meta_box ): void {
+		$contact_form_data = get_post_meta( $post->ID, ContactFormsModel::POST_META_DATA_SLUG, true );
+
+		$default_values = [
+			'to'      => '[_site_admin_email]',
+			'from'    => '[_site_title] <wordpress@wordpress.mg>',
+			'subject' => '[_site_title] "[subject]"',
+			'message' => ContactFormsView::mail_template_default_message()
+		];
+
+		$mail = [
+			'to'      => $contact_form_data['mail_template']['to'] ?: $default_values['to'],
+			'from'    => $contact_form_data['mail_template']['from'] ?: $default_values['from'],
+			'subject' => $contact_form_data['mail_template']['subject'] ?: $default_values['subject'],
+			'message' => $contact_form_data['mail_template']['message'] ?: $default_values['message'],
+		];
+
+		$attributes = [
+			'template' => $mail
+		];
+		ContactFormsView::mail_meta_box( $attributes );
 
 	}
 
@@ -64,7 +88,8 @@ class ContactFormsController {
 		}
 
 		$meta_value = [
-			'form_code' => trim($_POST['tailor_mail_form_code'])
+			'form_code'      => trim( $_POST['tailor_mail']['form_code'] ),
+			'mail_template' => $_POST['tailor_mail']['template']
 		];
 
 		update_post_meta(
