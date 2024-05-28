@@ -25,7 +25,18 @@ class ContactFormsController {
 
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-1',
+				'tailor-mail-metabox-shortcode',
+				__( 'Shortcode', PLUGIN_TEXT_DOMAIN ),
+				[ ContactFormsView::class, 'shortcode_meta_box' ],
+				[ ContactFormsModel::POST_TYPE_SLUG ],
+				'advanced',
+				'core'
+			);
+		} );
+
+		add_action( 'add_meta_boxes', function () {
+			add_meta_box(
+				'tailor-mail-metabox-form',
 				__( 'Form', PLUGIN_TEXT_DOMAIN ),
 				[ ContactFormsView::class, 'form_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
@@ -36,7 +47,7 @@ class ContactFormsController {
 
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-2',
+				'tailor-mail-metabox-mail',
 				__( 'Mail', PLUGIN_TEXT_DOMAIN ),
 				[ ContactFormsView::class, 'mail_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
@@ -44,10 +55,6 @@ class ContactFormsController {
 				'core'
 			);
 		} );
-
-	}
-
-	public static function pre_post_update_hook( $post_id, $data ) {
 
 	}
 
@@ -76,8 +83,6 @@ class ContactFormsController {
 
 	public static function init(): void {
 		self::prepare_ui();
-
-		add_action( 'pre_post_update', [ self::class, 'pre_post_update_hook' ], 10, 2 );
 
 		add_filter( 'default_title', function ( string $post_title, \WP_Post $post ) {
 			if ( $post->post_type !== ContactFormsModel::POST_TYPE_SLUG ) {

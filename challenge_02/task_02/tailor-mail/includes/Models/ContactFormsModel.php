@@ -14,7 +14,7 @@ class ContactFormsModel {
 
 		$post = get_post( $id );
 
-		if ( ! $post || ( $post->post_type != self::POST_TYPE_SLUG ) ) {
+		if ( ! $post || ( $post->post_type != self::POST_TYPE_SLUG ) || ($post->post_status != 'publish')) {
 			return null;
 		}
 

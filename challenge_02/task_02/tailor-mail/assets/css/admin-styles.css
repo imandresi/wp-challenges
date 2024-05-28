@@ -3,3 +3,11 @@
   font-family: monospace;
   font-size: 130%;
 }
+
+#tailor-mail__meta-box__shortcode .shortcode-area {
+  font-family: monospace;
+  font-size: 18px;
+  padding: 10px;
+  color: white;
+  background-color: #03509d;
+}

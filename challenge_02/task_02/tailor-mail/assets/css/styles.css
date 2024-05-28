@@ -1,3 +1,6 @@
 .tailor-mail-form-container .tailor_mail_error {
   color: red;
 }
+.tailor-mail-form-container label {
+  font-weight: bold;
+}
