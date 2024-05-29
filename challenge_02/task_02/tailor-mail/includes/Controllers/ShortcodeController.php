@@ -1,6 +1,6 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Classes;
+namespace Imandresi\TailorMail\Controllers;
 
 use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
 use Imandresi\TailorMail\Core\Classes\Controls\ButtonControl;
@@ -11,13 +11,12 @@ use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\Views\ControlsView;
 use Rakit\Validation\Validator;
-
 use const Imandresi\TailorMail\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
 use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
-class ShortcodeManager {
+class ShortcodeController {
 	const CONTACT_FORM_SHORTCODE_TAG = PLUGIN_SLUG;
 	const CONTROL_PREFIX = PLUGIN_SLUG . '-';
 	private const NONCE_FIELD = '_wpnonce';

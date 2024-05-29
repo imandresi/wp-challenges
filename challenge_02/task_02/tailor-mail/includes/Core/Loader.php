@@ -3,7 +3,7 @@
 namespace Imandresi\TailorMail\Core;
 
 use Imandresi\TailorMail\Controllers\SendMailController;
-use Imandresi\TailorMail\Core\Classes\ShortcodeManager;
+use Imandresi\TailorMail\Controllers\ShortcodeController;
 use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\System\Singleton;
 use const Imandresi\TailorMail\PLUGIN_LANGUAGES_DIR;
@@ -15,7 +15,7 @@ class Loader extends Singleton {
 		Sessions::load();
 		AdminLoader::load();
 		FrontLoader::load();
-		ShortcodeManager::load();
+		ShortcodeController::load();
 		SendMailController::load();
 
 	}
