@@ -90,7 +90,7 @@ class ContactFormController extends Singleton {
 			$subject = $safe['subject'];
 			$message = $safe['message'];
 
-			$headers = "From: {$safe['email']}\r\n" .
+			$headers = "From: {$safe['email']} <{$safe['email']}>\r\n" .
 			           "Reply-To: {$safe['email']}";
 
 			$mail_status = wp_mail( $to, $subject, $message, $headers );
