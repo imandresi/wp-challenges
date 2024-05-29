@@ -189,6 +189,7 @@ class ShortcodeController {
 		}
 
 		// sanitize fields
+		$_POST = stripslashes_deep($_POST);
 		$safe_data = self::sanitize_fields();
 
 		// validate fields
