@@ -35,6 +35,17 @@ class ShortcodeController {
 		'submit'   => SubmitButtonControl::class
 	];
 
+	private static function has_field_shortcode( $content ): bool {
+		foreach ( array_keys( self::PSEUDO_CONTROLS ) as $pseudo_shortcode ) {
+			$shortcode = self::CONTROL_PREFIX . $pseudo_shortcode;
+			if ( has_shortcode( $content, $shortcode ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private static function pseudo_to_shortcode( $content ) {
 
 		// Replace open tags
@@ -221,7 +232,7 @@ class ShortcodeController {
 
 	public static function contact_form_render_shortcode( $atts ): string {
 		$shortcode_attributes = [
-			'id'   => ''
+			'id' => ''
 		];
 
 		$shortcode_attributes = shortcode_atts(
@@ -238,7 +249,11 @@ class ShortcodeController {
 		$form_data = ContactFormsModel::get_data( $contact_form_id );
 		$content   = $form_data['meta'][ ContactFormsModel::POST_META_DATA_SLUG ]['form_code'];
 		$content   = self::pseudo_to_shortcode( $content );
-		$content   = do_shortcode( $content );
+
+		while ( self::has_field_shortcode( $content ) ) {
+			$content = do_shortcode( $content );
+			$content = self::pseudo_to_shortcode( $content );
+		}
 
 		$form_slug = PLUGIN_SLUG . '-form-' . $contact_form_id;
 

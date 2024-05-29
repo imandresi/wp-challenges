@@ -6,6 +6,7 @@ use Imandresi\TailorMail\Controllers\SendMailController;
 use Imandresi\TailorMail\Controllers\ShortcodeController;
 use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\System\Singleton;
+use const Imandresi\TailorMail\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
 use const Imandresi\TailorMail\PLUGIN_LANGUAGES_DIR;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
