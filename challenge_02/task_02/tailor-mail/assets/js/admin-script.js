@@ -9,7 +9,8 @@
             return `[${name}]`;
         });
 
-        formControlNamesAreaEl.innerText = names.join(', ');
+        const mailTags =  names.length ? ', ' + names.join(', ') : '';
+        formControlNamesAreaEl.innerText = mailTags;
     }
 
     function init() {

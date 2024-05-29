@@ -14,7 +14,7 @@
   background-color: #03509d;
 }
 
-#tailor-mail__meta-box__mail #form-control-names-area {
+#tailor-mail__meta-box__mail #form-control-names-area, #tailor-mail__meta-box__mail .code-area {
   display: inline-block;
   font-family: Consolas, Monaco, monospace;
   font-size: 16px;
@@ -32,4 +32,9 @@
   border-radius: 5px;
   padding: 10px;
   color: #888;
+}
+
+.dots-list {
+  list-style: square outside;
+  margin-left: 20px;
 }
