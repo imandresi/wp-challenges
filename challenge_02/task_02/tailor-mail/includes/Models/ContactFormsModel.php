@@ -15,7 +15,7 @@ class ContactFormsModel {
 
 		$post = get_post( $id );
 
-		if ( ! $post || ( $post->post_type != self::POST_TYPE_SLUG ) || ($post->post_status != 'publish')) {
+		if ( ! $post || ( $post->post_type != self::POST_TYPE_SLUG ) || ( $post->post_status != 'publish' ) ) {
 			return null;
 		}
 
@@ -40,6 +40,7 @@ class ContactFormsModel {
 					'singular_name' => __( 'Contact Form', PLUGIN_TEXT_DOMAIN ),
 					'add_new'       => __( 'Add New Form', PLUGIN_TEXT_DOMAIN ),
 					'add_new_item'  => __( 'Add New Form', PLUGIN_TEXT_DOMAIN ),
+					'edit_item'     => __( 'Edit Contact Form', PLUGIN_TEXT_DOMAIN ),
 				],
 				'public'             => true,
 				'hierarchical'       => false,
