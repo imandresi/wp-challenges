@@ -45,6 +45,7 @@ class ContactFormController extends Singleton {
 	}
 
 	public function submit_form() {
+		$_POST = stripslashes_deep( $_POST );
 
 		$form_state = [
 			'status'         => '',
@@ -85,10 +86,14 @@ class ContactFormController extends Singleton {
 		} else {
 
 			// send the email
-			$to          = $safe['email'];
-			$subject     = $safe['subject'];
-			$message     = $safe['message'];
-			$mail_status = wp_mail( $to, $subject, $message );
+			$to      = get_bloginfo( 'admin_email' );
+			$subject = $safe['subject'];
+			$message = $safe['message'];
+
+			$headers = "From: {$safe['email']}\r\n" .
+			           "Reply-To: {$safe['email']}";
+
+			$mail_status = wp_mail( $to, $subject, $message, $headers );
 
 			if ( $mail_status ) {
 				$form_state['status']         = 'success';
