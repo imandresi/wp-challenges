@@ -7,6 +7,7 @@ use Imandresi\TailorMail\Core\Classes\Controls\ButtonControl;
 use Imandresi\TailorMail\Core\Classes\Controls\SubmitButtonControl;
 use Imandresi\TailorMail\Core\Classes\Controls\TextareaControl;
 use Imandresi\TailorMail\Core\Classes\Controls\TextControl;
+use Imandresi\TailorMail\Core\FrontLoader;
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\System\Sessions;
 use Imandresi\TailorMail\Views\ControlsView;
@@ -21,8 +22,6 @@ class ShortcodeController {
 	const CONTROL_PREFIX = PLUGIN_SLUG . '-';
 	private const NONCE_FIELD = '_wpnonce';
 	private const NONCE_ACTION = 'submit';
-	private const FORM_TRANSIENT_NAME = PLUGIN_IDENTIFIER . '_form_state';
-
 	private const FORM_ACTION = PLUGIN_IDENTIFIER . '_form_submit';
 	private const FORM_SESSION_NAME = 'contact_form';
 	private const ALERT_SESSION_NAME = 'alert';

@@ -3,6 +3,7 @@
 namespace Imandresi\TailorMail\Core;
 
 use Imandresi\TailorMail\Controllers\ContactFormManagerController;
+use Imandresi\TailorMail\Controllers\ShortcodeController;
 use Imandresi\TailorMail\System\Helper;
 use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_DIR;
 use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_URI;
@@ -14,6 +15,12 @@ use const Imandresi\TailorMail\PLUGIN_VERSION;
 class FrontLoader {
 
 	public static function load_scripts() {
+		global $post;
+
+		$content = $post->post_content;
+		if ( ! has_shortcode( $content, ShortcodeController::CONTACT_FORM_SHORTCODE_TAG ) ) {
+			return;
+		}
 
 		// load bootstrap
 		if ( ! Helper::is_bootstrap_enqueued() ) {
@@ -52,11 +59,11 @@ class FrontLoader {
 	}
 
 	public static function load() {
-		if (is_admin()) {
+		if ( is_admin() ) {
 			return;
 		}
 
-		add_action('wp_enqueue_scripts', [self::class, 'load_scripts']);
+		add_action( 'wp_enqueue_scripts', [ self::class, 'load_scripts' ] );
 
 	}
 
