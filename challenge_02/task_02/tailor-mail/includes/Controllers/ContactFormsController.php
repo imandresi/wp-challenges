@@ -4,6 +4,7 @@ namespace Imandresi\TailorMail\Controllers;
 
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\Views\ContactFormsView;
+use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_SLUG;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
@@ -29,15 +30,15 @@ class ContactFormsController {
 
 		// Customize the columns content
 		$action_name = 'manage_' . ContactFormsModel::POST_TYPE_SLUG . '_posts_custom_column';
-		add_action ($action_name, function ($column, $post_id) {
-			switch ($column) {
+		add_action( $action_name, function ( $column, $post_id ) {
+			switch ( $column ) {
 				case 'shortcode':
 					print "<pre>";
-					print self::get_shortcode($post_id);
+					print self::get_shortcode( $post_id );
 					print "</pre>";
 					break;
 			}
-		}, 10, 2);
+		}, 10, 2 );
 
 
 	}
@@ -107,8 +108,8 @@ class ContactFormsController {
 		}
 
 		$meta_value = [
-			'form_code'     => trim( $_POST['tailor_mail']['form_code'] ),
-			'mail_template' => $_POST['tailor_mail']['template']
+			'form_code'     => trim( $_POST[ PLUGIN_IDENTIFIER ]['form_code'] ),
+			'mail_template' => $_POST[ PLUGIN_IDENTIFIER ]['template']
 		];
 
 		update_post_meta(
@@ -123,6 +124,10 @@ class ContactFormsController {
 		$unique_id = $post ? $post->ID : 1;
 
 		return $unique_id;
+	}
+
+	public static function remove_all_forms() {
+		// TODO: to be implemented for plugin uninstallation
 	}
 
 	public static function init(): void {

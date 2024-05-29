@@ -81,8 +81,8 @@ class SendMailController {
 			/**
 			 * Action called after the contact form is sent by mail
 			 *
-			 * @param string[] $form_data
-			 * @param string[] $mail_fields_data
+			 * @param string[] $form_data Array of each form field name/value pairs
+			 * @param string[] $mail_fields_data Array of mail data (to/from/subject/message) to be sent
 			 *
 			 */
 			do_action( ACTION_HOOK_CONTACT_FORM_MAIL_SENT, $form_data, $mail_fields_data, $contact_form_id );

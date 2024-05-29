@@ -1,9 +1,12 @@
 <p>In this area, you can create your contact form by combining its individual controls code with HTML to achieve
     the final presentation. You can use Bootstrap in your code.</p>
 
+<p>Every form field must include a <code>'name'</code> attribute. Please also create a text form field with
+    <code>'subject'</code> as the name attribute to ensure it is correctly saved in the database.</p>
+
 {%- set textarea_content %}
     {%- if is_new_post -%}
-        {%  include('contact-forms/default-form-template.html.twig') %}
+        {% include('contact-forms/default-form-template.html.twig') %}
     {%- else -%}
         {{- form_code | escape -}}
     {% endif -%}

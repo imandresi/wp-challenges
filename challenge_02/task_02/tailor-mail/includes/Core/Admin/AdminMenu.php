@@ -2,12 +2,17 @@
 
 namespace Imandresi\TailorMail\Core\Admin;
 
+use Imandresi\TailorMail\Models\ContactEntriesModel;
+use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\System\Singleton;
+use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 class AdminMenu extends Singleton {
 	const MENU_CAPABILITY = 'edit_posts';
-	const SLUG_MAIN_MENU = 'tailor_mail_main_menu';
+	const SLUG_MAIN_MENU = PLUGIN_IDENTIFIER . '_main_menu';
+
+	public bool $active_page;
 
 	public function action_admin_menu() {
 		global $menu, $submenu;
@@ -28,7 +33,7 @@ class AdminMenu extends Singleton {
 			__( 'Contact Forms', PLUGIN_TEXT_DOMAIN ),
 			__( 'Contact Forms', PLUGIN_TEXT_DOMAIN ),
 			self::MENU_CAPABILITY,
-			'edit.php?post_type=tailor_mail_forms'
+			'edit.php?post_type=' . ContactFormsModel::POST_TYPE_SLUG
 		);
 
 		add_submenu_page(
@@ -36,15 +41,40 @@ class AdminMenu extends Singleton {
 			__( 'Add New Form', PLUGIN_TEXT_DOMAIN ),
 			__( 'Add New Form', PLUGIN_TEXT_DOMAIN ),
 			self::MENU_CAPABILITY,
-			'post-new.php?post_type=tailor_mail_forms'
+			'post-new.php?post_type=' . ContactFormsModel::POST_TYPE_SLUG
+		);
+
+		add_submenu_page(
+			self::SLUG_MAIN_MENU,
+			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
+			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
+			self::MENU_CAPABILITY,
+			'edit.php?post_type=' . ContactEntriesModel::POST_TYPE_SLUG
 		);
 
 		unset( $submenu[ self::SLUG_MAIN_MENU ][0] );
 
+		add_action( 'parent_file', function ( $parent_file ) {
+			if ( $this->active_page ) {
+				$parent_file = self::SLUG_MAIN_MENU;
+			}
+
+			return $parent_file;
+		}, 10, 1 );
+
+	}
+
+	function define_active_page() {
+		$current_screen    = get_current_screen();
+		$this->active_page =
+			( $current_screen->post_type == ContactFormsModel::POST_TYPE_SLUG ) ||
+			( $current_screen->post_type == ContactEntriesModel::POST_TYPE_SLUG );
 	}
 
 	public function init(): void {
+		$this->active_page = false;
 		add_action( 'admin_menu', [ $this, 'action_admin_menu' ] );
+		add_action( 'current_screen', [ $this, 'define_active_page' ] );
 
 	}
 

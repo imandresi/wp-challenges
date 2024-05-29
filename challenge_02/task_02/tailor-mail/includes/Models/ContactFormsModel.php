@@ -2,12 +2,13 @@
 
 namespace Imandresi\TailorMail\Models;
 
+use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
 
 class ContactFormsModel {
 
-	const POST_TYPE_SLUG = 'tailor_mail_forms';
-	const POST_META_DATA_SLUG = 'tailor_mail_forms_data';
+	const POST_TYPE_SLUG = PLUGIN_IDENTIFIER . '_forms';
+	const POST_META_DATA_SLUG = PLUGIN_IDENTIFIER . '_forms_data';
 
 	public static function get_data( int $id ): ?array {
 		$result = [];
@@ -41,7 +42,7 @@ class ContactFormsModel {
 					'add_new_item'  => __( 'Add New Form', PLUGIN_TEXT_DOMAIN ),
 				],
 				'public'             => true,
-				'hierarchical'       => false, // To be changed if necessary
+				'hierarchical'       => false,
 				'publicly_queryable' => false,
 				'show_ui'            => true,
 				'show_in_menu'       => false,

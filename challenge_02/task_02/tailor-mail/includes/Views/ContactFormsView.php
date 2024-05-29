@@ -9,8 +9,6 @@ use const Imandresi\TailorMail\PLUGIN_SLUG;
 class ContactFormsView extends AbstractView {
 
 	public static function shortcode_meta_box( \WP_Post $post, array $meta_box ): void {
-
-
 		$attributes = [
 			'post_id' => $post->ID,
 			'PLUGIN_IDENTIFIER',

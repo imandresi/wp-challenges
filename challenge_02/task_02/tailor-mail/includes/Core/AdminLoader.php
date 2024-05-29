@@ -2,8 +2,10 @@
 
 namespace Imandresi\TailorMail\Core;
 
+use Imandresi\TailorMail\Controllers\ContactEntriesController;
 use Imandresi\TailorMail\Controllers\ContactFormsController;
 use Imandresi\TailorMail\Core\Admin\AdminMenu;
+use Imandresi\TailorMail\Models\ContactEntriesModel;
 use Imandresi\TailorMail\Models\ContactFormsModel;
 use Imandresi\TailorMail\System\Singleton;
 use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_DIR;
@@ -31,7 +33,9 @@ class AdminLoader extends Singleton {
 
 		AdminMenu::load();
 		ContactFormsModel::init();
+		ContactEntriesModel::init();
 		ContactFormsController::init();
+		ContactEntriesController::init();
 
 		$this->load_scripts();
 

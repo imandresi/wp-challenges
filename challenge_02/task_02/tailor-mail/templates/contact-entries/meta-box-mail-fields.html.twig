@@ -1,0 +1,10 @@
+<table class="form-table">
+    {% for key, value in fields %}
+        <tr>
+            <th>{{ key }}</th>
+            <td>
+                <div class="tailor-mail-code">{{ value | nl2br }}</div>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
