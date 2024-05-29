@@ -105,7 +105,7 @@ class ContactEntriesModel {
 					'create_posts' => false
 				],
 				'map_meta_cap'       => true,
-				'supports'           => [ 'title' ]
+				'supports'           => [ '' ]
 			]
 		);
 
