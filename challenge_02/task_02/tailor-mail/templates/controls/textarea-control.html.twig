@@ -8,7 +8,7 @@
         {% set default_value = attribute(SESSIONS.contact_form.form_data, control.name) %}
     {% endif %}
 
-    <textarea class="form-control{% if control.class %} {{ control.class }}{% endif %}"
+    <textarea class="form-control tailor-mail-input-control{% if control.class %} {{ control.class }}{% endif %}"
             {%- if control.id %} id="{{ control.id }}"{% endif %}
             {%- if control.name %} name="{{ control.name }}"{% endif %}
             {%- if control.placeholder %} placeholder="{{ control.placeholder }}"{% endif %}
