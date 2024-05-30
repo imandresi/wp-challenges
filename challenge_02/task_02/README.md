@@ -253,3 +253,11 @@ There are 3 filters that can be used to alter the rendered code of a contact for
 ```
 
 ### Credits
+
+This plugin utilizes the following open-source packages:
+
+- **[rakit/validation](https://github.com/rakit/validation)**: A PHP validation library. Created and maintained by [Muhammad Syifa](https://github.com/rakit).
+- **[twig/twig](https://github.com/twigphp/Twig)**: A flexible, fast, and secure template engine for PHP. Created and maintained by [Fabien Potencier](https://github.com/fabpot) and the [Twig Team](https://twig.symfony.com/doc/3.x/contributing.html#the-core-team).
+
+We appreciate the work of these developers and their contributions to the open-source community.
+
