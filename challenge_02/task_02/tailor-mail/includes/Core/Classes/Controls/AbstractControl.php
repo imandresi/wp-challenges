@@ -47,7 +47,6 @@ abstract class AbstractControl {
 	public abstract function do_render_shortcode( $atts, $content = null ): string;
 
 	public function render_shortcode( $atts, $content = null ): string {
-		$html = '';
 
 		/**
 		 * Filter used to add some data before the control
@@ -55,14 +54,14 @@ abstract class AbstractControl {
 		 * @param string[] $atts
 		 * @param string $content
 		 */
-		$html = apply_filters(
+		$html_before = apply_filters(
 			FILTER_HOOK_BEFORE_RENDER_CONTACT_FORM_FIELD,
-			$html,
+			'',
 			$atts, $content
 		);
 
 		// renders the control
-		$control_html = $this->do_render_shortcode( $atts, $content );
+		$html_control = $this->do_render_shortcode( $atts, $content );
 
 		/**
 		 * Filter to update the rendered data of the control
@@ -70,9 +69,9 @@ abstract class AbstractControl {
 		 * @param string[] $atts
 		 * @param string $content
 		 */
-		$html .= apply_filters(
+		$html_control_new = apply_filters(
 			FILTER_HOOK_RENDER_CONTACT_FORM_FIELD,
-			$control_html,
+			$html_control,
 			$atts, $content
 		);
 
@@ -82,11 +81,15 @@ abstract class AbstractControl {
 		 * @param string[] $atts
 		 * @param string $content
 		 */
-		$html = apply_filters(
+		$html_after = apply_filters(
 			FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD,
-			$html,
+			'',
 			$atts, $content
 		);
+
+		$html = $html_before .
+		        $html_control_new .
+		        $html_after;
 
 		return $html;
 
