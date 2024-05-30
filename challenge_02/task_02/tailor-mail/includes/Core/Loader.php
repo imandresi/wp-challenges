@@ -32,6 +32,7 @@ class Loader extends Singleton {
 	public function init() {
 		$this->language_setup();
 		$this->load_dependencies();
+
 	}
 
 	public static function run() {
