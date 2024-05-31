@@ -1,4 +1,66 @@
+/*!********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/modal/modal.scss ***!
+  \********************************************************************************************************************************************************************/
+.tailor-mail__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tailor-mail__modal {
+  width: 630px;
+  min-height: 300px;
+  background-color: white;
+  border: 4px solid #dddddd;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tailor-mail__modal header {
+  background-color: #032c6c;
+  font-size: 22px;
+  padding: 10px;
+  color: #e7e6e6;
+}
+.tailor-mail__modal .tailor-mail__modal__content {
+  flex-grow: 2;
+  padding: 10px;
+}
+.tailor-mail__modal footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-basis: 50px;
+  border-top: 1px solid #bbbbbb;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+.tailor-mail__modal footer textarea {
+  font-family: Consolas, Monaco, monospace;
+  flex-grow: 2;
+}
+.tailor-mail__modal footer button {
+  flex-basis: 50px;
+  font-size: 120% !important;
+}
 /*!****************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles.scss ***!
   \****************************************************************************************************************************************************/
-
+.tailor-mail__toolbar {
+  background-color: #d7e2fd;
+  padding: 5px;
+}
+.tailor-mail__toolbar .tailor-mail__toolbar__button {
+  display: inline-block;
+  margin: 2px 2px;
+}
