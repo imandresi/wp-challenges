@@ -1,6 +1,5 @@
 import React, {useContext} from "react";
 import {ModalContext} from "./App.js";
-import {TextDialogContent} from "./dialogs/TextDialogContent.js";
 
 function ToolbarButton({label, dialogTitle, dialogContent}) {
     const [updateModalParams] = useContext(ModalContext);

@@ -14,15 +14,11 @@ const App = () => {
         content: null
     })
 
-    const updateModalVisibility = v => {
-        setModalVisibility(v);
-    };
-
     // only set this function to control the modal
     const updateModalParams = params => {
         const visibility = !!params.title && (params.content !== null);
         setModalParams(params);
-        updateModalVisibility(visibility);
+        setModalVisibility(visibility);
     };
 
     return (
@@ -32,7 +28,7 @@ const App = () => {
                 <Modal title={modalParams.title}
                        ContentComponent={modalParams.content}
                        visible={modalVisibility}
-                       modalVisibilityHandle={updateModalVisibility}
+                       modalVisibilityHandle={setModalVisibility}
                 />
             </div>
         </ModalContext.Provider>
