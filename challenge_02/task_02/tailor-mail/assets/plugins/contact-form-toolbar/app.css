@@ -29,6 +29,25 @@
   font-size: 22px;
   padding: 10px;
   color: #e7e6e6;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.tailor-mail__modal header .tailor-mail__close__btn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: #cecece;
+  background-image: url("data:image/svg+xml,<svg class=\"svg-icon\" style=\"width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M896 224l-96-96-288 288-288-288-96 96 288 288-288 288 96 96 288-288 288 288 96-96-288-288 288-288z\" /></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.tailor-mail__modal header .tailor-mail__close__btn:hover {
+  background-color: #6ea0df;
+  cursor: pointer;
 }
 .tailor-mail__modal .tailor-mail__modal__content {
   flex-grow: 2;
@@ -48,6 +67,7 @@
 .tailor-mail__modal footer textarea {
   font-family: Consolas, Monaco, monospace;
   flex-grow: 2;
+  min-height: 50px;
 }
 .tailor-mail__modal footer button {
   flex-basis: 50px;
