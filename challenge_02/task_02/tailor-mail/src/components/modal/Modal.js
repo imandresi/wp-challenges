@@ -37,8 +37,9 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
                         </header>
                         <section className="tailor-mail__modal__content"><ContentComponent/></section>
                         <footer>
-                    <textarea
-                        readOnly={true}>[text label="Subject of your message" name="subject" validator="required"]</textarea>
+                            <textarea readOnly={true}>
+                                [text label="Subject of your message" name="subject" validator="required"]
+                            </textarea>
                             <button className="button">Insert</button>
                         </footer>
                     </section>

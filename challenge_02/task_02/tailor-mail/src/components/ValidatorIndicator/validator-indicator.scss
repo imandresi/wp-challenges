@@ -1,0 +1,42 @@
+.tailor-mail__validator {
+  $border-emboss-color: #bbb;
+
+  display: inline-block;
+  border: 1px solid #666666;
+  background-color: #f0f0f0;
+  margin: 5px 5px 5px 0;
+  padding: 0 2px 0 5px;
+  line-height: 20px;
+  border-radius: 5px;
+
+  border-top-color: $border-emboss-color;
+  border-left-color: $border-emboss-color;
+
+  .tailor-mail__validator__label {
+    display: inline-block;
+  }
+
+  .tailor-mail__validator__cancel {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: #fbfbfb;
+    background-image: url('data:image/svg+xml,<svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M810.666667 273.493333 750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512 810.666667 273.493333Z" /></svg>');
+    background-size: contain;
+    background-position: center;
+    vertical-align: middle;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #666;
+      border-color: #777;
+      filter: invert(100%) sepia(3%) saturate(75%) hue-rotate(314deg) brightness(113%) contrast(87%);
+    }
+
+  }
+
+
+
+}

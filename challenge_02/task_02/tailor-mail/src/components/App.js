@@ -4,15 +4,16 @@ import {Modal} from "./modal/Modal.js";
 
 import {TextDialogContent} from "./dialogs/TextDialogContent.js";
 
-const ModalContext = createContext();
+const AppContext = createContext();
 
 const App = () => {
 
     const [modalVisibility, setModalVisibility] = useState(false);
+    const [selectedValidators, setSelectedValidators] = useState([]);
     const [modalParams, setModalParams] = useState({
         title: '',
         content: null
-    })
+    });
 
     // only set this function to control the modal
     const updateModalParams = params => {
@@ -22,7 +23,7 @@ const App = () => {
     };
 
     return (
-        <ModalContext.Provider value={[updateModalParams]}>
+        <AppContext.Provider value={[updateModalParams, selectedValidators, setSelectedValidators]}>
             <div id="tailor-mail-contact-form-toolbar">
                 <Toolbar/>
                 <Modal title={modalParams.title}
@@ -31,11 +32,11 @@ const App = () => {
                        modalVisibilityHandle={setModalVisibility}
                 />
             </div>
-        </ModalContext.Provider>
+        </AppContext.Provider>
     );
 };
 
 export {
     App,
-    ModalContext
+    AppContext
 };
