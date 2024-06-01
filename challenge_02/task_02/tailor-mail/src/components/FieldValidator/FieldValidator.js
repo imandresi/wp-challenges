@@ -35,27 +35,45 @@ function FieldValidator() {
                 }
             </div>
             <div>
-                <select name="validator" ref={validatorSelectRef}>
-                    {
-                        validators.map((ruleObj, i) => {
-                            const rule = ruleObj.rule;
-                            return (
-                                <option key={i} value={rule}>{rule}</option>
-                            );
+                {
+                    (function () {
+                        const availableValidators = validators.filter(ruleObj => {
+                            return !selectedValidators.find(sValidator => sValidator === ruleObj.rule);
                         })
-                    }
-                </select>
-                <button type="button"
-                        className="button"
-                        onClick={() => {
-                            setSelectedValidators([...selectedValidators, validatorSelectRef.current.value]);
 
-                        }}
-                >Add</button>
+                        if (availableValidators.length > 0) {
+                            return (
+                                <>
+                                    <select name="validator" ref={validatorSelectRef}>
+                                        {availableValidators.map((ruleObj, i) => {
+                                            const rule = ruleObj.rule;
+                                            return (
+                                                <option key={i} value={rule}>{rule}</option>
+                                            );
+                                        })}
+                                    </select>
+
+                                    <button type="button"
+                                            className="button"
+                                            onClick={() => {
+                                                setSelectedValidators([...selectedValidators, validatorSelectRef.current.value]);
+                                            }}
+                                    >Add
+                                    </button>
+
+                                </>
+                            )
+                        }
+
+                    })()
+
+
+                }
 
             </div>
         </>
-    );
+    )
+        ;
 }
 
 export {
