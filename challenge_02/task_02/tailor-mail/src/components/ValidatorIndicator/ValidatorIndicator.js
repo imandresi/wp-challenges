@@ -10,7 +10,7 @@ function ValidatorIndicator({rule}) {
             <div className="tailor-mail__validator__label">{rule}</div>
             <div className="tailor-mail__validator__cancel"
                  onClick={() => {
-                     const newValidators = selectedValidators.filter(v => v !== rule);
+                     const newValidators = selectedValidators.filter(sValidator => sValidator.rule !== rule);
                      setSelectedValidators(newValidators);
                  }}
             ></div>
