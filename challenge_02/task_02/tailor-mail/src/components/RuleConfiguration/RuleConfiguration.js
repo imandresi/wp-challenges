@@ -51,16 +51,26 @@ function RuleConfiguration({rule}) {
                     <div className="tailor-mail__rule-configuration">
                         <div>
                             {
-                                fields.map(field => {
-                                    return (
-                                        <RuleConfigurationField
-                                            label={field.label}
-                                            name={field.name}
-                                            multiple={field.multiple}
-                                            value={field.value}
-                                        />
-                                    );
-                                })
+                                (function() {
+                                    const multipleCount = fields.reduce((finalValue, value) => {
+                                        return finalValue + (value.multiple ? 1 : 0);
+                                    }, 0);
+
+                                    const noRemoveAction = multipleCount <= 1;
+
+                                    return fields.map(field => {
+                                        return (
+                                            <RuleConfigurationField
+                                                label={field.label}
+                                                name={field.name}
+                                                multiple={field.multiple}
+                                                value={field.value}
+                                                noRemoveAction={noRemoveAction}
+                                            />
+                                        );
+                                    });
+
+                                })()
                             }
                         </div>
                         <div className="tailor-mail__rule-configuration__button">
