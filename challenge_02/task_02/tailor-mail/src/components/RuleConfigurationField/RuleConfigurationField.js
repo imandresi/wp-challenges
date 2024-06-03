@@ -1,7 +1,7 @@
 import React from "react";
 import "./rule-configuration-field.scss";
 
-function RuleConfigurationField({id, label, name, value, multiple, noRemoveAction, addFieldMultiple, onChange}) {
+function RuleConfigurationField({id, label, name, value, multiple, noRemoveAction, addFieldMultiple, deleteFieldMultiple, onChange}) {
 
     return (
         <div className="tailor-mail__rule-configuration__field-row">
@@ -20,8 +20,14 @@ function RuleConfigurationField({id, label, name, value, multiple, noRemoveActio
                         <div className="tailor-mail__rule-configuration__action">
                             {
                                 !noRemoveAction ?
-                                    (<div className="tailor-mail__action-button remove"></div>)
-                                    : null
+                                    (
+                                        <div className="tailor-mail__action-button remove"
+                                             onClick={() => {
+                                                 deleteFieldMultiple(id);
+                                             }}
+                                        ></div>
+
+                                    ) : null
                             }
                             <div className="tailor-mail__action-button add"
                                  onClick={() => {

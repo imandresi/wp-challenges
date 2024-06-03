@@ -33,6 +33,12 @@ function RuleConfiguration({rule}) {
         setFields(newFields);
     }
 
+    const deleteFieldMultiple = (fieldId) => {
+        const newFields = fields.filter(field => field.id !== fieldId);
+        setFields(newFields);
+
+    }
+
     const setFieldValue = (fieldId, value) => {
         const newFields = fields.map(field => {
             if (field.id === fieldId) {
@@ -106,6 +112,7 @@ function RuleConfiguration({rule}) {
                                                 value={field.value}
                                                 noRemoveAction={noRemoveAction}
                                                 addFieldMultiple={addFieldMultiple}
+                                                deleteFieldMultiple={deleteFieldMultiple}
                                                 onChange={value => {
                                                     setFieldValue(field.id, value);
                                                 }}
