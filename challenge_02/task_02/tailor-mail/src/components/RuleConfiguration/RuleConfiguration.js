@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./rule-configuration.scss";
 import {RuleConfigurationField} from "../RuleConfigurationField/RuleConfigurationField.js";
 
-function RuleConfiguration({rule, addRule}) {
+function RuleConfiguration({rule, ruleValidation, addRule}) {
 
     const [fields, setFields] = useState([]);
 
@@ -118,6 +118,7 @@ function RuleConfiguration({rule, addRule}) {
                                                 noRemoveAction={noRemoveAction}
                                                 addFieldMultiple={addFieldMultiple}
                                                 deleteFieldMultiple={deleteFieldMultiple}
+                                                keyValidation={ruleValidation[field.name]}
                                                 onChange={value => {
                                                     setFieldValue(field.id, value);
                                                 }}

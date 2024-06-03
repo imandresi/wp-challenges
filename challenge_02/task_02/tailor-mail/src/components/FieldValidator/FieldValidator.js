@@ -4,6 +4,8 @@ import {AppContext} from "../App.js";
 import "./field-validator.scss";
 import {RuleConfiguration} from "../RuleConfiguration/RuleConfiguration.js";
 
+export const REGEX_NUMBER = /\d/;
+
 const validators = [
     {rule: 'required'},
     {rule: 'email'},
@@ -13,15 +15,25 @@ const validators = [
     {rule: 'numeric'},
     {rule: 'uppercase'},
     {rule: 'lowercase'},
-    {rule: 'min:number', paramType: 'number'},
-    {rule: 'max:number', paramType: 'number'},
-    {rule: 'between:min,max', paramType: 'number'},
-    {rule: 'in:value_1,value_2,...', paramType: 'alpha_spaces'},
-    {rule: 'not_in:value_1,value_2,...', paramType: 'alpha_spaces'},
-    {rule: 'regex:/your-regex/'},
-    {rule: 'same:another_field', paramType: 'alpha_dash'},
-    {rule: 'different:another_field', paramType: 'alpha_dash'},
+    {rule: 'min:number', ruleValidation: {number: REGEX_NUMBER}},
+    {rule: 'max:number', ruleValidation: {number: REGEX_NUMBER}},
+    {rule: 'between:min,max', ruleValidation: {min: REGEX_NUMBER, max: REGEX_NUMBER}},
+    {rule: 'in:value_1,value_2,...', ruleValidation: {value: /[a-z0-9 ]/i}},
+    {rule: 'not_in:value_1,value_2,...', ruleValidation: {value: /[a-z0-9 ]/i}},
+    {rule: 'regex:/your-regex/', ruleValidation: {'/your-regex/': /[^,]/}},
+    {rule: 'same:another_field', ruleValidation: {another_field: /[\w-]/}},
+    {rule: 'different:another_field',  ruleValidation: {another_field: /[\w-]/}}
 ];
+
+function getRuleValidation(rule) {
+    const index = validators.findIndex(validator => {
+        return validator.rule === rule;
+    })
+
+    if (index === -1) return null;
+
+    return validators[index]['ruleValidation'];
+}
 
 function FieldValidator() {
     const [, selectedValidators, setSelectedValidators] = useContext(AppContext);
@@ -103,13 +115,14 @@ function FieldValidator() {
                                     {
                                         ruleToBeConfigured ?
                                             <RuleConfiguration rule={ruleToBeConfigured}
+                                                               ruleValidation={getRuleValidation(ruleToBeConfigured)}
                                                                addRule={value => {
                                                                    const selectedRule = validatorSelectRef.current.value;
                                                                    const ruleName = selectedRule.match(/^(\w+):/)[1];
                                                                    setSelectedValidators([
                                                                        ...selectedValidators,
                                                                        {
-                                                                           rule: selectedRule ,
+                                                                           rule: selectedRule,
                                                                            value: `${ruleName}:${value}`,
                                                                        }
                                                                    ]);
