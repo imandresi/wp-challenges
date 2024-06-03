@@ -1,6 +1,6 @@
 import React from "react";
-import {ToolbarButton} from "./ToolbarButton.js";
-import {TextDialogContent} from "./dialogs/TextDialogContent.js";
+import {ToolbarButton} from "../ToolBarButton/ToolbarButton.js";
+import {TextDialogContent} from "../dialogs/TextDialogContent.js";
 
 function Toolbar() {
     return (

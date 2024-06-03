@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import {Toolbar} from "./Toolbar.js";
+import {Toolbar} from "./Toolbar/Toolbar.js";
 import {Modal} from "./Modal/Modal.js";
 
 import {TextDialogContent} from "./dialogs/TextDialogContent.js";

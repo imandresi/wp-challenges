@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./modal.scss";
 import {typeInTextarea} from "../../lib/helper.js";
+import {AppContext} from "../App.js";
 
 function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
 
     const [modalVisibility, setModalVisibility] = useState(visible);
     const [modalFooter, setModalFooter] = useState('');
+    const [, , setSelectedValidators] = useContext(AppContext);
 
     const updateModalVisibility = v => {
         setModalVisibility(v);
@@ -15,6 +17,7 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
     };
 
     const closeModal = () => {
+        setSelectedValidators([]);
         updateModalVisibility(false);
     }
 
@@ -41,10 +44,13 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
                                  }}
                             ></div>
                         </header>
-                        <section className="tailor-mail__modal__content"><ContentComponent
-                            setFooter={value => {
-                                setModalFooter(value);
-                            }}/></section>
+                        <section className="tailor-mail__modal__content">
+                            <ContentComponent
+                                setFooter={value => {
+                                    setModalFooter(value);
+                                }}
+                            />
+                        </section>
                         <footer>
                             <div className="tailor-mail__pseudocode">
                                 {modalFooter}
