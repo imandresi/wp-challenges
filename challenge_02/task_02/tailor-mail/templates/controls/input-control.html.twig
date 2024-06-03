@@ -5,7 +5,7 @@
     {% endif %}
     <div class="mb-3">
         {% if control.label %}
-            <label for="{{ control.id }}" class="form-label">{{ control.label }}</label>
+            <label for="{{ control.id }}" class="form-label">{{ control.label | raw }}</label>
         {% endif %}
         <input type="{{ control.type }}"
                 {%- if true %} class="form-control tailor-mail-input-control{% if control.class %} {{ control.class }}{% endif %}"{% endif %}

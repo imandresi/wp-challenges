@@ -176,10 +176,12 @@
   padding: 10px;
   background-color: #f0f0f0;
 }
-.tailor-mail__modal footer textarea {
+.tailor-mail__modal footer .tailor-mail__pseudocode {
   font-family: Consolas, Monaco, monospace;
+  font-size: 120%;
   flex-grow: 2;
   min-height: 50px;
+  color: #666666;
 }
 .tailor-mail__modal footer button {
   flex-basis: 50px;

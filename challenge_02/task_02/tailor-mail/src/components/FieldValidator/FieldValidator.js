@@ -37,7 +37,7 @@ function getRuleValidation(rule) {
     return validators[index]['ruleValidation'];
 }
 
-function FieldValidator() {
+function FieldValidator({onChange}) {
     const [, selectedValidators, setSelectedValidators] = useContext(AppContext);
     const validatorSelectRef = useRef();
     const [showAddBtn, setShowAddBtn] = useState(false);
@@ -71,12 +71,20 @@ function FieldValidator() {
         setSelectedValidators(newSelectedValidators);
     }
 
+    function compileValidatorToText() {
+        return selectedValidators.map(validator => validator.value).join('|');
+    }
+
     useEffect(() => {
         const selectedRule = validatorSelectRef?.current?.value;
         const configureRule = validatorNeedsConfiguration(selectedRule);
         setShowAddBtn(!configureRule);
         setRuleToBeConfigured(configureRule ? selectedRule : null);
     });
+
+    useEffect(() => {
+        onChange(compileValidatorToText());
+    }, [selectedValidators]);
 
     return (
         <>
