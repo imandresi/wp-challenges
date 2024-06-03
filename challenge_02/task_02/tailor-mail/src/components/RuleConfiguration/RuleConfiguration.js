@@ -6,6 +6,44 @@ function RuleConfiguration({rule}) {
 
     const [fields, setFields] = useState([]);
 
+    const uniqueId = () => "id" + Math.random().toString(16).slice(2);
+
+    const addFieldMultiple = (fieldId) => {
+
+        const fieldIndex = fields.findIndex((field) => {
+           return field.id === fieldId;
+        });
+
+        if (fieldIndex === -1) {
+            return;
+        }
+
+        const newAddedField = {...fields[fieldIndex]};
+        newAddedField.id = uniqueId();
+        newAddedField.value = '';
+
+        const newFields = [];
+        fields.forEach(field => {
+           newFields.push(field);
+           if (field.id === fieldId) {
+               newFields.push(newAddedField);
+           }
+        });
+
+        setFields(newFields);
+    }
+
+    const setFieldValue = (fieldId, value) => {
+        const newFields = fields.map(field => {
+            if (field.id === fieldId) {
+                field.value = value;
+            }
+            return field;
+        });
+
+        setFields(newFields);
+    }
+
     useEffect(() => {
         const strFields = rule.split(':')[1];
         if (!strFields) return;
@@ -26,7 +64,6 @@ function RuleConfiguration({rule}) {
                 .join(' ');
         };
 
-
         if (fieldMultiple) {
             fieldNames.pop();
         }
@@ -34,6 +71,7 @@ function RuleConfiguration({rule}) {
         setFields(
             fieldNames.map(fieldName => {
                 return {
+                    id: uniqueId(),
                     label: makeLabel(fieldName),
                     name: fieldName,
                     multiple: fieldMultiple === fieldName,
@@ -51,7 +89,7 @@ function RuleConfiguration({rule}) {
                     <div className="tailor-mail__rule-configuration">
                         <div>
                             {
-                                (function() {
+                                (function () {
                                     const multipleCount = fields.reduce((finalValue, value) => {
                                         return finalValue + (value.multiple ? 1 : 0);
                                     }, 0);
@@ -61,11 +99,17 @@ function RuleConfiguration({rule}) {
                                     return fields.map(field => {
                                         return (
                                             <RuleConfigurationField
+                                                id={field.id}
                                                 label={field.label}
                                                 name={field.name}
                                                 multiple={field.multiple}
                                                 value={field.value}
                                                 noRemoveAction={noRemoveAction}
+                                                addFieldMultiple={addFieldMultiple}
+                                                onChange={value => {
+                                                    setFieldValue(field.id, value);
+                                                }}
+
                                             />
                                         );
                                     });

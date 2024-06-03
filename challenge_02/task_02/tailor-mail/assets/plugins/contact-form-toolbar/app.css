@@ -72,7 +72,7 @@
 .tailor-mail__rule-configuration .tailor-mail__rule-configuration__field-row .tailor-mail__rule-configuration__action {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
 }
