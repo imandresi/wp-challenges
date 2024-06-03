@@ -7,14 +7,6 @@ function TextDialogContent() {
             <table className="form-table">
                 <tbody>
                 <tr>
-                    <th>Field type</th>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="required"/> Field is required
-                        </label>
-                    </td>
-                </tr>
-                <tr>
                     <th>Label</th>
                     <td><input type="text" name="label"/></td>
                 </tr>
