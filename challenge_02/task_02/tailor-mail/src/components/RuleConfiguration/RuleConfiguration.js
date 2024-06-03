@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./rule-configuration.scss";
 import {RuleConfigurationField} from "../RuleConfigurationField/RuleConfigurationField.js";
 
-function RuleConfiguration({rule}) {
+function RuleConfiguration({rule, addRule}) {
 
     const [fields, setFields] = useState([]);
 
@@ -11,7 +11,7 @@ function RuleConfiguration({rule}) {
     const addFieldMultiple = (fieldId) => {
 
         const fieldIndex = fields.findIndex((field) => {
-           return field.id === fieldId;
+            return field.id === fieldId;
         });
 
         if (fieldIndex === -1) {
@@ -24,10 +24,10 @@ function RuleConfiguration({rule}) {
 
         const newFields = [];
         fields.forEach(field => {
-           newFields.push(field);
-           if (field.id === fieldId) {
-               newFields.push(newAddedField);
-           }
+            newFields.push(field);
+            if (field.id === fieldId) {
+                newFields.push(newAddedField);
+            }
         });
 
         setFields(newFields);
@@ -48,6 +48,11 @@ function RuleConfiguration({rule}) {
         });
 
         setFields(newFields);
+    }
+
+    const buildRuleValue = () => {
+        return fields.map(field => field.value).join(',');
+
     }
 
     useEffect(() => {
@@ -127,6 +132,10 @@ function RuleConfiguration({rule}) {
                         <div className="tailor-mail__rule-configuration__button">
                             <button type="button"
                                     className="button"
+                                    onClick={() => {
+                                        const ruleValue = buildRuleValue();
+                                        addRule(ruleValue);
+                                    }}
                             >Add Rule
                             </button>
                         </div>

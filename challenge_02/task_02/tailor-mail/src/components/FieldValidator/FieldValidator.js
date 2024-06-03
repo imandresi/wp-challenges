@@ -47,7 +47,11 @@ function FieldValidator() {
             <div className="tailor-mail__field-validator__indicators">
                 {
                     selectedValidators.map((ruleObj, i) => {
-                        return <ValidatorIndicator key={i} rule={ruleObj.value}/>
+                        return <ValidatorIndicator key={i}
+                                                   rule={ruleObj.rule}
+                                                   ruleValue={ruleObj.value}
+
+                        />
                     })
                 }
             </div>
@@ -98,7 +102,20 @@ function FieldValidator() {
                                     </div>
                                     {
                                         ruleToBeConfigured ?
-                                            <RuleConfiguration rule={ruleToBeConfigured}/>
+                                            <RuleConfiguration rule={ruleToBeConfigured}
+                                                               addRule={value => {
+                                                                   const selectedRule = validatorSelectRef.current.value;
+                                                                   const ruleName = selectedRule.match(/^(\w+):/)[1];
+                                                                   setSelectedValidators([
+                                                                       ...selectedValidators,
+                                                                       {
+                                                                           rule: selectedRule ,
+                                                                           value: `${ruleName}:${value}`,
+                                                                       }
+                                                                   ]);
+                                                                   setRuleToBeConfigured(null);
+                                                               }}
+                                            />
                                             : null
                                     }
 
