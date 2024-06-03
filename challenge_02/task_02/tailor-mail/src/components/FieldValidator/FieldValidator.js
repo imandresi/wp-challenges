@@ -1,8 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {createContext, useContext, useEffect, useRef, useState} from "react";
 import {ValidatorIndicator} from "../ValidatorIndicator/ValidatorIndicator.js";
 import {AppContext} from "../App.js";
 import "./field-validator.scss";
 import {RuleConfiguration} from "../RuleConfiguration/RuleConfiguration.js";
+
+const ValidatorContext = createContext();
 
 export const REGEX_NUMBER = /\d/;
 
@@ -22,7 +24,7 @@ const validators = [
     {rule: 'not_in:value_1,value_2,...', ruleValidation: {value: /[^,]/i}},
     {rule: 'regex:/your-regex/', ruleValidation: {'/your-regex/': /[^,]/}},
     {rule: 'same:another_field', ruleValidation: {another_field: /[\w-]/}},
-    {rule: 'different:another_field',  ruleValidation: {another_field: /[\w-]/}}
+    {rule: 'different:another_field', ruleValidation: {another_field: /[\w-]/}}
 ];
 
 function getRuleValidation(rule) {
@@ -41,10 +43,32 @@ function FieldValidator() {
     const [showAddBtn, setShowAddBtn] = useState(false);
     const [update, setUpdate] = useState(false);
     const [ruleToBeConfigured, setRuleToBeConfigured] = useState();
+    const [draggedRule, setDraggedRule] = useState([]);
 
     function validatorNeedsConfiguration(validatorRule) {
         const regex = /^[a-z_]+:.+/is;
         return regex.test(validatorRule);
+    }
+
+    function dragValidatorRuleFromTo(fromRule, toRule) {
+        const newSelectedValidators = [];
+        const fromValidator = selectedValidators.find(v => v.rule === fromRule);
+
+        if (!fromValidator) return;
+
+        selectedValidators.forEach(validator => {
+            if (validator.rule === toRule) {
+                newSelectedValidators.push(fromValidator);
+            }
+
+            if (validator.rule === fromRule) {
+                return;
+            }
+
+            newSelectedValidators.push(validator);
+        });
+
+        setSelectedValidators(newSelectedValidators);
     }
 
     useEffect(() => {
@@ -56,17 +80,20 @@ function FieldValidator() {
 
     return (
         <>
-            <div className="tailor-mail__field-validator__indicators">
-                {
-                    selectedValidators.map((ruleObj, i) => {
-                        return <ValidatorIndicator key={i}
-                                                   rule={ruleObj.rule}
-                                                   ruleValue={ruleObj.value}
+            <ValidatorContext.Provider value={[draggedRule, setDraggedRule]}>
+                <div className="tailor-mail__field-validator__indicators">
+                    {
+                        selectedValidators.map((ruleObj, i) => {
+                            return <ValidatorIndicator key={i}
+                                                       rule={ruleObj.rule}
+                                                       ruleValue={ruleObj.value}
+                                                       dragValidatorRuleFromTo={dragValidatorRuleFromTo}
 
-                        />
-                    })
-                }
-            </div>
+                            />
+                        })
+                    }
+                </div>
+            </ValidatorContext.Provider>
             <div>
                 {
                     (function () {
@@ -148,5 +175,7 @@ function FieldValidator() {
 }
 
 export {
-    FieldValidator
+    FieldValidator,
+    ValidatorContext
+
 }

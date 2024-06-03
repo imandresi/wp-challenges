@@ -8,9 +8,22 @@
   padding: 0 2px 0 5px;
   line-height: 20px;
   border-radius: 5px;
+  position: relative;
 
   border-top-color: $border-emboss-color;
   border-left-color: $border-emboss-color;
+
+  &.drag-over {
+    &:before {
+      display: block;
+      content: "";
+      width: 4px;
+      height: 100%;
+      background-color: red;
+      position: absolute;
+      left: -6px;
+    }
+  }
 
   .tailor-mail__validator__label {
     display: inline-block;
