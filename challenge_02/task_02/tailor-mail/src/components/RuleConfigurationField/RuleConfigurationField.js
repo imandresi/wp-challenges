@@ -22,7 +22,7 @@ function RuleConfigurationField({
                    value={value}
                    onKeyDown={e => {
                        const key = e.key;
-                       if (((key.length === 1) && (keyValidation) && (!keyValidation.test(key))) ||
+                       if (((key.length === 1) && (typeof keyValidation?.test === 'function') && (!keyValidation.test(key))) ||
                            (key === 'Enter')) {
                            e.preventDefault();
                        }

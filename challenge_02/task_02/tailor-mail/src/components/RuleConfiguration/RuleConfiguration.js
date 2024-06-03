@@ -118,7 +118,7 @@ function RuleConfiguration({rule, ruleValidation, addRule}) {
                                                 noRemoveAction={noRemoveAction}
                                                 addFieldMultiple={addFieldMultiple}
                                                 deleteFieldMultiple={deleteFieldMultiple}
-                                                keyValidation={ruleValidation[field.name]}
+                                                keyValidation={ruleValidation && ruleValidation[field.name]}
                                                 onChange={value => {
                                                     setFieldValue(field.id, value);
                                                 }}
