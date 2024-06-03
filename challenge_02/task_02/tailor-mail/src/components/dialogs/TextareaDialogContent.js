@@ -1,13 +1,14 @@
-import React, {useRef, useState} from "react";
+import React, {useRef} from "react";
+import {formFieldAllowRegex, formFieldDisableKeys} from "../../lib/helper.js";
 import {FieldValidator} from "../FieldValidator/FieldValidator.js";
-import {buildPseudoCode, formFieldDisableKeys} from "../../lib/helper.js";
 
-function TextDialogContent({updatePseudoCode}) {
+function TextareaDialogContent({updatePseudoCode}) {
 
     const pseudoCodeAttributes = useRef({
         label: '',
         placeholder: '',
-        value: '',
+        content: '',
+        rows: '',
         name: '',
         id: '',
         className: '',
@@ -25,7 +26,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{label: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {label: value})
                                }}
                     /></td>
                 </tr>
@@ -36,18 +37,28 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{placeholder: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {placeholder: value})
                                }}
                     /></td>
                 </tr>
                 <tr>
-                    <th>Value</th>
+                    <th>Content</th>
+                    <td><textarea name="content"
+                                  rows="2"
+                                  onChange={e => {
+                                      const value = e.target.value;
+                                      updatePseudoCode('textarea', pseudoCodeAttributes, {content: value})
+                                  }}
+                    ></textarea></td>
+                </tr>
+                <tr>
+                    <th>Rows</th>
                     <td><input type="text"
-                               name="value"
-                               onKeyDown={formFieldDisableKeys('Enter')}
+                               name="rows"
+                               onKeyDown={formFieldAllowRegex(/\d/)}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{value: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {rows: value})
                                }}
                     /></td>
                 </tr>
@@ -58,7 +69,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{name: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {name: value})
                                }}
                     /></td>
                 </tr>
@@ -69,7 +80,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{id: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {id: value})
                                }}
                     /></td>
                 </tr>
@@ -80,7 +91,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{className: value})
+                                   updatePseudoCode('textarea', pseudoCodeAttributes, {className: value})
                                }}
                     /></td>
                 </tr>
@@ -88,7 +99,7 @@ function TextDialogContent({updatePseudoCode}) {
                     <th>Validators</th>
                     <td>
                         <FieldValidator onChange={value => {
-                            updatePseudoCode('text', pseudoCodeAttributes,{validator: value});
+                            updatePseudoCode('textarea', pseudoCodeAttributes, {validator: value});
                         }}/>
                     </td>
                 </tr>
@@ -99,5 +110,5 @@ function TextDialogContent({updatePseudoCode}) {
 }
 
 export {
-    TextDialogContent
+    TextareaDialogContent
 }

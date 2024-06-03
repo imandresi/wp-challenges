@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./modal.scss";
-import {typeInTextarea} from "../../lib/helper.js";
+import {buildPseudoCode, typeInTextarea} from "../../lib/helper.js";
 import {AppContext} from "../App.js";
 
 function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
@@ -20,6 +20,14 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
         setSelectedValidators([]);
         updateModalVisibility(false);
     }
+
+    const updatePseudoCode = (name, pseudoCodeAttributes, value) => {
+        pseudoCodeAttributes.current = {...pseudoCodeAttributes.current, ...value};
+
+        const pseudoCode = buildPseudoCode(name, pseudoCodeAttributes.current);
+        setModalFooter(pseudoCode);
+    }
+
 
     useEffect(() => {
         setModalVisibility(visible);
@@ -46,9 +54,7 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
                         </header>
                         <section className="tailor-mail__modal__content">
                             <ContentComponent
-                                setFooter={value => {
-                                    setModalFooter(value);
-                                }}
+                                updatePseudoCode={updatePseudoCode}
                             />
                         </section>
                         <footer>

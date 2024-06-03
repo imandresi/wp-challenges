@@ -17,8 +17,31 @@ function formFieldDisableKeys(forbiddenKeys) {
     };
 }
 
+function formFieldAllowRegex(regex) {
+    return (e) => {
+        const currentKey = e.key;
+
+        if (currentKey === 'Enter') {
+            e.preventDefault();
+        }
+
+        if (currentKey.length === 1) {
+            if (!regex.test(currentKey)) {
+                e.preventDefault();
+            }
+        }
+
+    }
+}
+
 function buildPseudoCode(name, attributes) {
     const pseudoCodeBuffer = [];
+    let content = '';
+
+    if (attributes['content']) {
+        content = attributes['content'];
+        attributes['content'] = null;
+    }
 
     for (let key in attributes) {
         const value = attributes[key];
@@ -32,7 +55,13 @@ function buildPseudoCode(name, attributes) {
     let compiledAttributes = pseudoCodeBuffer.join(' ').trim();
     compiledAttributes = compiledAttributes ? ` ${compiledAttributes}`: '';
 
-    return `[${name}${compiledAttributes}]`;
+    let pseudoCode = `[${name}${compiledAttributes}]`;
+
+    if (content) {
+        pseudoCode += content + `[/${name}]`;
+    }
+
+    return pseudoCode;
 }
 
 function htmlEntities(str) {
@@ -54,6 +83,7 @@ function typeInTextarea(newText, el = document.activeElement) {
 
 export {
     formFieldDisableKeys,
+    formFieldAllowRegex,
     buildPseudoCode,
     htmlEntities,
     htmlEntityDecode,
