@@ -38,6 +38,7 @@ function zipDirectory(sourceDir, outPath) {
 const copyPluginFolder = () => {
     return gulp.src(`./**`)
         .pipe(ignore.exclude('node_modules/**'))
+        .pipe(ignore.exclude('src/**'))
         .pipe(ignore.exclude('.gitkeep'))
         .pipe(gulp.dest(`${pluginDir}`));
 };
@@ -59,8 +60,10 @@ const removeTmpFolder = () => {
 const cleanPluginFolder = () => {
     return deleteAsync([
         `${pluginDir}/node_modules`,
+        `${pluginDir}/src`,
         `${pluginDir}/*.*`,
         `!${pluginDir}/*.php`,
+        `!${pluginDir}/*.txt`,
     ], {force: true});
 }
 

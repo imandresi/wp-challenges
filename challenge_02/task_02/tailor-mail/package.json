@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "gulp": "gulp",
     "start": "webpack --watch --mode development",
-    "build": "webpack",
+    "build": "webpack && gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,8 +19,12 @@
     "@babel/preset-env": "^7.24.6",
     "@babel/preset-react": "^7.24.6",
     "@wordpress/dependency-extraction-webpack-plugin": "^5.9.0",
+    "archiver": "^7.0.1",
     "babel-loader": "^9.1.3",
     "css-loader": "^7.1.2",
+    "del": "^7.1.0",
+    "gulp": "^5.0.0",
+    "gulp-ignore": "^3.0.0",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",
