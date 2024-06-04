@@ -218,6 +218,16 @@ Here are some useful validation rules you can use:
 You can view all the available validation rules by visiting the [rakit/validation](https://github.com/rakit/validation) 
 documentation on GitHub.
 
+#### Using the "FORM FIELD WIZARD"
+
+Retaining all the syntaxes of the pseudo-shortcode attributes and validators can be challenging. 
+To simplify this, you can use the "Form Field Wizard", which provides an interface to easily generate each 
+pseudo-shortcode. To access the wizard, click on the toolbar above the contact form code editor and 
+select the pseudo-shortcode.
+
+![Contact Form Code Editor](./docs/contact_form_code_editor.png)
+
+![Form Field Wizard](./docs/form_field_wizard.png)
 
 #### Adding programmatically a field to an existing contact form
 
