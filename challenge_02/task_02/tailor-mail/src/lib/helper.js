@@ -38,6 +38,8 @@ function buildPseudoCode(name, attributes) {
     const pseudoCodeBuffer = [];
     let content = '';
 
+    attributes = {...attributes};
+
     if (attributes['content']) {
         content = attributes['content'];
         attributes['content'] = null;

@@ -22,12 +22,12 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
     }
 
     const updatePseudoCode = (name, pseudoCodeAttributes, value) => {
+        const a = {...pseudoCodeAttributes};
         pseudoCodeAttributes.current = {...pseudoCodeAttributes.current, ...value};
 
         const pseudoCode = buildPseudoCode(name, pseudoCodeAttributes.current);
         setModalFooter(pseudoCode);
     }
-
 
     useEffect(() => {
         setModalVisibility(visible);
