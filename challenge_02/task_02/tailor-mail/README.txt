@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Tailor Mail is a WordPress plugin that allows you to create customizable contact forms with code-defined fields. Submitted entries are saved before being sent via wp_mail, providing you with a record of all inquiries. The plugin utilizes shortcodes for easy integration into your website's pages and posts.
 
+This plugin is a solution to a Medior Challenge proposed by [WP Challenges](https://www.wpchallenges.com).
+
 == Installation:
 
     Upload the plugin folder to the /wp-content/plugins/ directory, or install it directly from the WordPress admin area.
