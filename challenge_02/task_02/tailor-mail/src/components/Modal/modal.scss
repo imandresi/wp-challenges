@@ -24,6 +24,9 @@
   flex-direction: column;
   justify-content: space-between;
 
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+
   header {
     background-color: #032c6c;
     font-size: 22px;
