@@ -1,8 +1,15 @@
-# Tailor Mail - Customizable Contact Forms Plugin
+=== Tailor Mail ===
+Contributors: imandresi
+Tags: contact form
+Requires PHP: 7.4
+Tested up to: 6.5
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-**Tailor Mail** is a powerful and flexible WordPress plugin designed to help you create and manage customizable contact forms with ease. 
+== Description ==
+**Tailor Mail** is a powerful and flexible WordPress plugin designed to help you create and manage customizable contact forms with ease.
 
-## Key Features:
+== Key Features ==
 
 - **Easy Form Creation**: Create contact forms directly from the WordPress admin by navigating to the "TAILOR MAIL" menu and clicking "Add New Form". Design your forms using the intuitive HTML editor and add control fields effortlessly.
 
@@ -23,7 +30,7 @@
 
 - **Email Notifications**: Receive email notifications containing the content submitted by visitors. Customize the email template and information using the "Mail" metabox section.
 
-## How to Use:
+== How to Use ==
 
 1. **Create a New Form**: Navigate to "TAILOR MAIL" in the WordPress admin and click "Add New Form".
 2. **Design Your Form**: Use the "Form" metabox to design your form with HTML and add control fields.
@@ -33,7 +40,7 @@
 
 Tailor Mail simplifies the creation and management of contact forms, providing a seamless experience for both site administrators and visitors. Whether you need a simple contact form or a complex form with multiple validation rules, Tailor Mail has you covered.
 
-## More Information
+== More Information ==
 
 For more detailed information about the Tailor Mail plugin, including comprehensive documentation and usage examples, please visit our GitHub repository.
 
