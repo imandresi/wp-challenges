@@ -3,6 +3,7 @@ import {ToolbarButton} from "../ToolBarButton/ToolbarButton.js";
 import {TextDialogContent} from "../dialogs/TextDialogContent.js";
 import {TextareaDialogContent} from "../dialogs/TextareaDialogContent.js";
 import {ButtonDialogContent} from "../dialogs/ButtonDialogContent.js";
+import {SubmitDialogContent} from "../dialogs/SubmitDialogContent.js";
 
 function Toolbar() {
     return (
@@ -15,6 +16,9 @@ function Toolbar() {
 
             <ToolbarButton label="Button"
                            dialogContent={ButtonDialogContent}/>
+
+            <ToolbarButton label="Submit"
+                           dialogContent={SubmitDialogContent}/>
 
         </div>
     );

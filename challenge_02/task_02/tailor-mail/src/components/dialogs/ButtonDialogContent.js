@@ -4,6 +4,8 @@ import {FieldValidator} from "../FieldValidator/FieldValidator.js";
 
 function ButtonDialogContent({updatePseudoCode}) {
 
+    const componentName = 'button';
+
     const pseudoCodeAttributes = useRef({
         type: '',
         label: '',
@@ -17,7 +19,7 @@ function ButtonDialogContent({updatePseudoCode}) {
     const variantElRef = useRef();
 
     useEffect(() => {
-        updatePseudoCode('button', pseudoCodeAttributes, {
+        updatePseudoCode(componentName, pseudoCodeAttributes, {
             type: typeElRef.current.value,
             variant: variantElRef.current.value
         });
@@ -34,9 +36,10 @@ function ButtonDialogContent({updatePseudoCode}) {
                                 ref={typeElRef}
                                 onChange={e => {
                                     const value = e.target.value;
-                                    updatePseudoCode('button', pseudoCodeAttributes, {type: value})
+                                    updatePseudoCode(componentName, pseudoCodeAttributes, {type: value})
                                 }}
                         >
+                            <option value=""></option>
                             <option value="button">Button</option>
                             <option value="submit">Submit</option>
                             <option value="reset">Reset</option>
@@ -51,7 +54,7 @@ function ButtonDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('button', pseudoCodeAttributes, {label: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes, {label: value})
                                }}
                     /></td>
                 </tr>
@@ -62,9 +65,10 @@ function ButtonDialogContent({updatePseudoCode}) {
                                 ref={variantElRef}
                                 onChange={e => {
                                     const value = e.target.value;
-                                    updatePseudoCode('button', pseudoCodeAttributes, {variant: value})
+                                    updatePseudoCode(componentName, pseudoCodeAttributes, {variant: value})
                                 }}
                         >
+                            <option value=""></option>
                             <option value="primary">Primary</option>
                             <option value="secondary">Secondary</option>
                             <option value="success">Success</option>
@@ -83,7 +87,7 @@ function ButtonDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('button', pseudoCodeAttributes, {name: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes, {name: value})
                                }}
                     /></td>
                 </tr>
@@ -94,7 +98,7 @@ function ButtonDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('button', pseudoCodeAttributes, {id: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes, {id: value})
                                }}
                     /></td>
                 </tr>
@@ -105,7 +109,7 @@ function ButtonDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('button', pseudoCodeAttributes, {className: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes, {className: value})
                                }}
                     /></td>
                 </tr>

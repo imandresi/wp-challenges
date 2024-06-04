@@ -1,21 +1,26 @@
-import React, {useRef} from "react";
-import {formFieldAllowRegex, formFieldDisableKeys} from "../../lib/helper.js";
+import React, {useEffect, useRef} from "react";
+import {formFieldDisableKeys} from "../../lib/helper.js";
 import {FieldValidator} from "../FieldValidator/FieldValidator.js";
 
-function TextareaDialogContent({updatePseudoCode}) {
+function SubmitDialogContent({updatePseudoCode}) {
 
-    const componentName = 'textarea';
+    const componentName = 'submit';
 
     const pseudoCodeAttributes = useRef({
         label: '',
-        placeholder: '',
-        content: '',
-        rows: '',
+        variant: '',
         name: '',
         id: '',
-        className: '',
-        validator: ''
+        className: ''
     });
+
+    const variantElRef = useRef();
+
+    useEffect(() => {
+        updatePseudoCode(componentName, pseudoCodeAttributes, {
+            variant: variantElRef.current.value
+        });
+    }, []);
 
     return (
         <div>
@@ -33,36 +38,26 @@ function TextareaDialogContent({updatePseudoCode}) {
                     /></td>
                 </tr>
                 <tr>
-                    <th>Placeholder</th>
-                    <td><input type="text"
-                               name="placeholder"
-                               onKeyDown={formFieldDisableKeys('Enter')}
-                               onChange={e => {
-                                   const value = e.target.value;
-                                   updatePseudoCode(componentName, pseudoCodeAttributes, {placeholder: value})
-                               }}
-                    /></td>
-                </tr>
-                <tr>
-                    <th>Content</th>
-                    <td><textarea name="content"
-                                  rows="2"
-                                  onChange={e => {
-                                      const value = e.target.value;
-                                      updatePseudoCode(componentName, pseudoCodeAttributes, {content: value})
-                                  }}
-                    ></textarea></td>
-                </tr>
-                <tr>
-                    <th>Rows</th>
-                    <td><input type="text"
-                               name="rows"
-                               onKeyDown={formFieldAllowRegex(/\d/)}
-                               onChange={e => {
-                                   const value = e.target.value;
-                                   updatePseudoCode(componentName, pseudoCodeAttributes, {rows: value})
-                               }}
-                    /></td>
+                    <th>Variant</th>
+                    <td>
+                        <select name="variant"
+                                ref={variantElRef}
+                                onChange={e => {
+                                    const value = e.target.value;
+                                    updatePseudoCode(componentName, pseudoCodeAttributes, {variant: value})
+                                }}
+                        >
+                            <option value=""></option>
+                            <option value="primary">Primary</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="success">Success</option>
+                            <option value="danger">Danger</option>
+                            <option value="warning">Warning</option>
+                            <option value="info">Info</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Name</th>
@@ -97,14 +92,6 @@ function TextareaDialogContent({updatePseudoCode}) {
                                }}
                     /></td>
                 </tr>
-                <tr>
-                    <th>Validators</th>
-                    <td>
-                        <FieldValidator onChange={value => {
-                            updatePseudoCode(componentName, pseudoCodeAttributes, {validator: value});
-                        }}/>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -112,5 +99,6 @@ function TextareaDialogContent({updatePseudoCode}) {
 }
 
 export {
-    TextareaDialogContent
+    SubmitDialogContent
 }
+

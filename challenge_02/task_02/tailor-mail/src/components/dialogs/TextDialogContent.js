@@ -4,6 +4,8 @@ import {buildPseudoCode, formFieldDisableKeys} from "../../lib/helper.js";
 
 function TextDialogContent({updatePseudoCode}) {
 
+    const componentName = 'text';
+
     const pseudoCodeAttributes = useRef({
         label: '',
         placeholder: '',
@@ -25,7 +27,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{label: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{label: value})
                                }}
                     /></td>
                 </tr>
@@ -36,7 +38,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{placeholder: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{placeholder: value})
                                }}
                     /></td>
                 </tr>
@@ -47,7 +49,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{value: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{value: value})
                                }}
                     /></td>
                 </tr>
@@ -58,7 +60,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{name: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{name: value})
                                }}
                     /></td>
                 </tr>
@@ -69,7 +71,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{id: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{id: value})
                                }}
                     /></td>
                 </tr>
@@ -80,7 +82,7 @@ function TextDialogContent({updatePseudoCode}) {
                                onKeyDown={formFieldDisableKeys('Enter')}
                                onChange={e => {
                                    const value = e.target.value;
-                                   updatePseudoCode('text', pseudoCodeAttributes,{className: value})
+                                   updatePseudoCode(componentName, pseudoCodeAttributes,{className: value})
                                }}
                     /></td>
                 </tr>
@@ -88,7 +90,7 @@ function TextDialogContent({updatePseudoCode}) {
                     <th>Validators</th>
                     <td>
                         <FieldValidator onChange={value => {
-                            updatePseudoCode('text', pseudoCodeAttributes,{validator: value});
+                            updatePseudoCode(componentName, pseudoCodeAttributes,{validator: value});
                         }}/>
                     </td>
                 </tr>
