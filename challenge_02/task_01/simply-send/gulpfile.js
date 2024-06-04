@@ -61,6 +61,7 @@ const cleanPluginFolder = () => {
         `${pluginDir}/node_modules`,
         `${pluginDir}/*.*`,
         `!${pluginDir}/*.php`,
+        `!${pluginDir}/*.txt`,
     ], {force: true});
 }
 
