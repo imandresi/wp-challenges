@@ -36,7 +36,7 @@ the email.
 2. Log in to your WordPress admin dashboard
 3. Go to `Plugins > Add New Plugin` and click on the "Upload Plugin" button
 4. Choose the downloaded ZIP file from your computer and click "Install Now"
-5. After installation, click on the "Activate Plugin" of the **Category Viewer** plugin
+5. After installation, click on the "Activate Plugin" of the **Simply Send** plugin
 
 ### How to use
 
