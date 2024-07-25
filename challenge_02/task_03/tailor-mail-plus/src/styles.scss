@@ -1,0 +1,26 @@
+#tailor-mail-contact-form-toolbar {
+  table.form-table {
+
+    td, th {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    input[type=text], textarea {
+      width: 100%;
+    }
+
+  }
+}
+
+.tailor-mail__toolbar {
+  background-color: #d7e2fd;
+  padding: 5px;
+
+  .tailor-mail__toolbar__button {
+    display: inline-block;
+    margin: 2px 2px;
+  }
+
+}
+

@@ -1,0 +1,40 @@
+.tailor-mail__form-builder {
+  width: 100%;
+  font-family: monospace;
+  font-size: 130%;
+  color: #ccc;
+  background-color: #2d2c2c;
+}
+
+#tailor-mail__meta-box__shortcode .shortcode-area {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 18px;
+  padding: 10px;
+  color: white;
+  background-color: #03509d;
+}
+
+#tailor-mail__meta-box__mail #form-control-names-area, #tailor-mail__meta-box__mail .code-area {
+  display: inline-block;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 16px;
+}
+#tailor-mail__meta-box__mail .form-table input, #tailor-mail__meta-box__mail .form-table textarea {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 16px;
+  width: 100%;
+}
+
+.tailor-mail-code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 16px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  color: #888;
+}
+
+.dots-list {
+  list-style: square outside;
+  margin-left: 20px;
+}

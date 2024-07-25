@@ -1,0 +1,5 @@
+<button {% if control.type %}type="{{ control.type }}"{% endif %}
+        {%- if true %} class="{{ control.class }}"{% endif %}
+        {%- if control.name %} name="{{ control.name }}"{% endif %}
+        {%- if control.id %} id="{{ control.id }}"{% endif %}
+>{{ control.label }}</button>

@@ -1,0 +1,93 @@
+.tailor-mail__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  justify-content: center;
+  align-items:center;
+
+}
+
+.tailor-mail__modal {
+  width: 630px;
+  min-height: 300px;
+  background-color: white;
+  border: 4px solid #dddddd;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+
+  header {
+    background-color: #032c6c;
+    font-size: 22px;
+    padding: 10px;
+    color: #e7e6e6;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .tailor-mail__close__btn {
+      display: block;
+      width: 25px;
+      height: 25px;
+      background-color: #cecece;
+      background-image: url('data:image/svg+xml,<svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M896 224l-96-96-288 288-288-288-96 96 288 288-288 288 96 96 288-288 288 288 96-96-288-288 288-288z" /></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &:hover {
+        background-color: #6ea0df;
+        cursor: pointer;
+      }
+
+    }
+
+  }
+
+  .tailor-mail__modal__content {
+    flex-grow: 2;
+    padding: 10px 10px 40px;
+  }
+
+  footer {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    flex-basis: 50px;
+    border-top: 1px solid #bbbbbb;
+    padding: 10px;
+    background-color: #f0f0f0;
+
+    .tailor-mail__pseudocode {
+      font-family: Consolas, Monaco, monospace;
+      font-size: 120%;
+      flex-grow: 2;
+      min-height: 50px;
+      color: #666666;
+    }
+
+    button {
+      flex-basis: 50px;
+      font-size: 120% !important;
+    }
+
+  }
+
+}

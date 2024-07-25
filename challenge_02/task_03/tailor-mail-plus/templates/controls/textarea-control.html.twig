@@ -1,0 +1,27 @@
+<div class="mb-3">
+    {% if control.label %}
+        <label for="{{ control.id }}" class="form-label">{{ control.label }}</label>
+    {% endif %}
+
+    {% set default_value = control.content %}
+    {% if (control.name and attribute(SESSIONS.contact_form.form_data, control.name)) %}
+        {% set default_value = attribute(SESSIONS.contact_form.form_data, control.name) %}
+    {% endif %}
+
+    <textarea class="form-control tailor-mail-input-control{% if control.class %} {{ control.class }}{% endif %}"
+            {%- if control.id %} id="{{ control.id }}"{% endif %}
+            {%- if control.name %} name="{{ control.name }}"{% endif %}
+            {%- if control.placeholder %} placeholder="{{ control.placeholder }}"{% endif %}
+            {%- if control.rows %} rows="{{ control.rows }}"{% endif %}
+            {%- if control.required %} required{% endif -%}
+    >
+        {%- if default_value %}{{ default_value }}{% endif -%}
+    </textarea>
+    {% if control.name and control.type %}
+        <input type="hidden" name="_controls[{{ control.name }}]" value="{{ attributes }}">
+    {% endif %}
+    {% if (control.name and attribute(SESSIONS.contact_form.errors, control.name)) %}
+        <div class="{{ PLUGIN_IDENTIFIER }}_error {{ control.name }}">{{ attribute(SESSIONS.contact_form.errors, control.name) }}</div>
+    {% endif %}
+
+</div>

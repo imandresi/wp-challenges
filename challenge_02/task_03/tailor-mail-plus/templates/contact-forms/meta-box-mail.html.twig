@@ -1,0 +1,61 @@
+<div id="tailor-mail__meta-box__mail">
+    <p>
+        Modify the mail template below. You can use the fields:
+        <span class="code-area">[_site_admin_email], [_site_title], [_site_url]</span>
+        <span id="form-control-names-area"></span>
+    </p>
+    <table class="form-table">
+        <tr>
+            <th>
+                <label for="tailor-mail__field__to">To</label>
+            </th>
+            <td>
+                <input type="text" name="tailor_mail[template][to]" id="tailor-mail__field__to"
+                       value="{{ template.to }}">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="tailor-mail__field__from">From</label>
+            </th>
+            <td>
+                <input type="text" name="tailor_mail[template][from]" id="tailor-mail__field__from"
+                       value="{{ template.from }}">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="tailor-mail__field__subject">Subject</label>
+            </th>
+            <td>
+                <input type="text" name="tailor_mail[template][subject]" id="tailor-mail__field__subject"
+                       value="{{ template.subject }}">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="tailor-mail__field__headers">Additional Headers</label>
+            </th>
+            <td>
+                <textarea name="tailor_mail[template][headers]"
+                          id="tailor-mail__field__headers"
+                          rows="3">{{ template.headers }}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label for="tailor-mail__field__message">Message</label>
+            </th>
+            <td>
+                <textarea name="tailor_mail[template][message]" id="tailor-mail__field__message" rows="10">
+                    {{- template.message -}}
+                </textarea>
+            </td>
+        </tr>
+
+    </table>
+</div>

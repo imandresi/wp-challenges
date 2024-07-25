@@ -1,0 +1,5 @@
+{% if SESSIONS.alert %}
+    <div class="alert alert-{{ SESSIONS.alert.type }}" role="alert">
+        {{ SESSIONS.alert.message }}
+    </div>
+{% endif %}

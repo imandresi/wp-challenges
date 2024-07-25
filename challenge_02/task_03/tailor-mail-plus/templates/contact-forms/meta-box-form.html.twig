@@ -1,0 +1,23 @@
+<p>In this area, you can create your contact form by combining its individual controls code with HTML to achieve
+    the final presentation. You can use Bootstrap in your code.</p>
+
+<ul class="dots-list">
+    <li>Every form field must include a <code>name</code> attribute.</li>
+    <li>Please also create a text form field with <code>subject</code> as the name attribute to ensure
+        it is correctly saved in the database.
+    </li>
+</ul>
+
+{%- set textarea_content %}
+    {%- if is_new_post -%}
+        {% include('contact-forms/default-form-template.html.twig') %}
+    {%- else -%}
+        {{- form_code | escape -}}
+    {% endif -%}
+{% endset -%}
+
+<div id="contact-form-toolbar"></div>
+<textarea class="tailor-mail__form-builder"
+          rows="15"
+          name="tailor_mail[form_code]"
+          spellcheck="false">{{ textarea_content | raw }}</textarea>
