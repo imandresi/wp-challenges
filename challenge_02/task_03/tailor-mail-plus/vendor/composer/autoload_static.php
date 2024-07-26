@@ -34,7 +34,7 @@ class ComposerStaticInitb041605a0db26bc9310576e639c603b7
         ),
         'I' => 
         array (
-            'Imandresi\\TailorMail\\' => 21,
+            'Imandresi\\TailorMailPlus\\' => 25,
         ),
     );
 
@@ -59,7 +59,7 @@ class ComposerStaticInitb041605a0db26bc9310576e639c603b7
         array (
             0 => __DIR__ . '/..' . '/rakit/validation/src',
         ),
-        'Imandresi\\TailorMail\\' => 
+        'Imandresi\\TailorMailPlus\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
         ),

@@ -1,20 +1,20 @@
 <?php
 
-namespace Imandresi\TailorMail\Core;
+namespace Imandresi\TailorMailPlus\Core;
 
-use Imandresi\TailorMail\Controllers\ContactEntriesController;
-use Imandresi\TailorMail\Controllers\ContactFormsController;
-use Imandresi\TailorMail\Core\Admin\AdminMenu;
-use Imandresi\TailorMail\Models\ContactEntriesModel;
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\System\Singleton;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_DIR;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_URI;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_PLUGINS_DIR;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_PLUGINS_URI;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_SCRIPTS_DIR;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_SCRIPTS_URI;
-use const Imandresi\TailorMail\PLUGIN_VERSION;
+use Imandresi\TailorMailPlus\Controllers\ContactEntriesController;
+use Imandresi\TailorMailPlus\Controllers\ContactFormsController;
+use Imandresi\TailorMailPlus\Core\Admin\AdminMenu;
+use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Singleton;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_PLUGINS_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_PLUGINS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_SCRIPTS_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_SCRIPTS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_VERSION;
 
 class AdminLoader extends Singleton {
 
@@ -27,7 +27,7 @@ class AdminLoader extends Singleton {
 
 				// loads style
 				$css_version = PLUGIN_VERSION . '_' . filemtime( PLUGIN_ASSETS_PLUGINS_DIR . 'contact-form-toolbar/app.css' );
-				wp_enqueue_style( 'tailor-mail-contact-form-toolbar', PLUGIN_ASSETS_PLUGINS_URI . 'contact-form-toolbar/app.css', [], $css_version );
+				wp_enqueue_style( 'tailor-mail-plus-contact-form-toolbar', PLUGIN_ASSETS_PLUGINS_URI . 'contact-form-toolbar/app.css', [], $css_version );
 
 				// loads script
 				$script_dependencies = array(
@@ -40,7 +40,7 @@ class AdminLoader extends Singleton {
 				}
 
 				wp_enqueue_script(
-					'tailor-mail-contact-form-toolbar',
+					'tailor-mail-plus-contact-form-toolbar',
 					PLUGIN_ASSETS_PLUGINS_URI . 'contact-form-toolbar/app.js',
 					$script_dependencies['dependencies'],
 					$script_dependencies['version'],
@@ -50,10 +50,10 @@ class AdminLoader extends Singleton {
 			}
 
 			$css_version = PLUGIN_VERSION . '_' . filemtime( PLUGIN_ASSETS_CSS_DIR . 'admin-styles.css' );
-			wp_enqueue_style( 'tailor-mail-admin', PLUGIN_ASSETS_CSS_URI . 'admin-styles.css', [], $css_version );
+			wp_enqueue_style( 'tailor-mail-plus-admin', PLUGIN_ASSETS_CSS_URI . 'admin-styles.css', [], $css_version );
 
 			$js_version = PLUGIN_VERSION . '_' . filemtime( PLUGIN_ASSETS_SCRIPTS_DIR . 'admin-script.js' );
-			wp_enqueue_script( 'tailor-mail-admin', PLUGIN_ASSETS_SCRIPTS_URI . 'admin-script.js', [], $js_version );
+			wp_enqueue_script( 'tailor-mail-plus-admin', PLUGIN_ASSETS_SCRIPTS_URI . 'admin-script.js', [], $js_version );
 		} );
 	}
 

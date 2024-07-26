@@ -1,10 +1,10 @@
-.tailor-mail-form-container .tailor_mail_error {
+.tailor-mail-plus-form-container .tailor_mail_plus_error {
   color: red;
 }
-.tailor-mail-form-container label {
+.tailor-mail-plus-form-container label {
   font-weight: bold;
   color: #444444;
 }
-.tailor-mail-form-container input, .tailor-mail-form-container textarea {
+.tailor-mail-plus-form-container input, .tailor-mail-plus-form-container textarea {
   color: #888888 !important;
 }

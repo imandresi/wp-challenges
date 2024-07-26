@@ -1,8 +1,8 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Classes\Controls;
+namespace Imandresi\TailorMailPlus\Core\Classes\Controls;
 
-use Imandresi\TailorMail\Core\Classes\Controls\ButtonControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\ButtonControl;
 
 class SubmitButtonControl extends ButtonControl {
 

@@ -5,7 +5,7 @@ function ToolbarButton({label, dialogTitle, dialogContent}) {
     const [updateModalParams] = useContext(AppContext);
     const title = dialogTitle ?? `Form Field Wizard : ${label.toUpperCase()}`;
     return (
-        <div className="tailor-mail__toolbar__button">
+        <div className="tailor-mail-plus__toolbar__button">
             <button type="button"
                     className="button"
                     onClick={() => {

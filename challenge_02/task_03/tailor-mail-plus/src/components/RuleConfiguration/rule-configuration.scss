@@ -1,10 +1,10 @@
-.tailor-mail__rule-configuration {
+.tailor-mail-plus__rule-configuration {
   margin-top: 15px;
   background-color: #eee;
   padding: 15px;
   border-radius: 5px;
 
-  .tailor-mail__rule-configuration__button {
+  .tailor-mail-plus__rule-configuration__button {
     margin-top: 20px;
 
     button {
@@ -12,7 +12,7 @@
     }
   }
 
-  .tailor-mail__rule-configuration__field-row {
+  .tailor-mail-plus__rule-configuration__field-row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -29,14 +29,14 @@
       margin-right: 5px;
     }
 
-    .tailor-mail__rule-configuration__action {
+    .tailor-mail-plus__rule-configuration__action {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: flex-end;
       align-items: center;
 
-      .tailor-mail__action-button {
+      .tailor-mail-plus__action-button {
         display: block;
         width: 25px;
         height: 25px;

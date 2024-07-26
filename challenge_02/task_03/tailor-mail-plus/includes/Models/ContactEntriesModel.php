@@ -1,9 +1,9 @@
 <?php
 
-namespace Imandresi\TailorMail\Models;
+namespace Imandresi\TailorMailPlus\Models;
 
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class ContactEntriesModel {
 

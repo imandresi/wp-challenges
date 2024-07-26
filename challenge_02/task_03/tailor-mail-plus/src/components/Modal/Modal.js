@@ -36,35 +36,35 @@ function Modal({title, ContentComponent, modalVisibilityHandle, visible}) {
     return (
         <>
             {modalVisibility ?
-                <div className="tailor-mail__modal__overlay"
+                <div className="tailor-mail-plus__modal__overlay"
                      onClick={e => {
-                         if (e.target.className === 'tailor-mail__modal__overlay') {
+                         if (e.target.className === 'tailor-mail-plus__modal__overlay') {
                              closeModal();
                          }
                      }}
                 >
-                    <section className="tailor-mail__modal">
+                    <section className="tailor-mail-plus__modal">
                         <header>
                             <div>{title}</div>
-                            <div className="tailor-mail__close__btn"
+                            <div className="tailor-mail-plus__close__btn"
                                  onClick={() => {
                                      closeModal();
                                  }}
                             ></div>
                         </header>
-                        <section className="tailor-mail__modal__content">
+                        <section className="tailor-mail-plus__modal__content">
                             <ContentComponent
                                 updatePseudoCode={updatePseudoCode}
                             />
                         </section>
                         <footer>
-                            <div className="tailor-mail__pseudocode">
+                            <div className="tailor-mail-plus__pseudocode">
                                 {modalFooter}
                             </div>
                             <button type="button"
                                     className="button"
                                     onClick={() => {
-                                        const textareaEl = document.querySelector('.tailor-mail__form-builder');
+                                        const textareaEl = document.querySelector('.tailor-mail-plus__form-builder');
                                         if (!textareaEl) return;
 
                                         textareaEl.focus();

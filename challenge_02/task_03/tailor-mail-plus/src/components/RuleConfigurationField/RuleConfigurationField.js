@@ -15,7 +15,7 @@ function RuleConfigurationField({
                                 }) {
 
     return (
-        <div className="tailor-mail__rule-configuration__field-row">
+        <div className="tailor-mail-plus__rule-configuration__field-row">
             <label>{label}</label>
             <input type="text"
                    name={name}
@@ -35,11 +35,11 @@ function RuleConfigurationField({
             {
                 multiple ?
                     (
-                        <div className="tailor-mail__rule-configuration__action">
+                        <div className="tailor-mail-plus__rule-configuration__action">
                             {
                                 !noRemoveAction ?
                                     (
-                                        <div className="tailor-mail__action-button remove"
+                                        <div className="tailor-mail-plus__action-button remove"
                                              onClick={() => {
                                                  deleteFieldMultiple(id);
                                              }}
@@ -47,7 +47,7 @@ function RuleConfigurationField({
 
                                     ) : null
                             }
-                            <div className="tailor-mail__action-button add"
+                            <div className="tailor-mail-plus__action-button add"
                                  onClick={() => {
                                      addFieldMultiple(id);
                                  }}

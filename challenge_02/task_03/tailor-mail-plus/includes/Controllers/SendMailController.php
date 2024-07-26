@@ -1,13 +1,13 @@
 <?php
 
-namespace Imandresi\TailorMail\Controllers;
+namespace Imandresi\TailorMailPlus\Controllers;
 
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\System\Mailer\MailerInterface;
-use Imandresi\TailorMail\System\Mailer\MailerWpMail;
-use const Imandresi\TailorMail\ACTION_HOOK_CONTACT_FORM_MAIL_SENT;
-use const Imandresi\TailorMail\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
-use const Imandresi\TailorMail\FILTER_HOOK_DEFINE_MAILER_SERVICE;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Mailer\MailerInterface;
+use Imandresi\TailorMailPlus\System\Mailer\MailerWpMail;
+use const Imandresi\TailorMailPlus\ACTION_HOOK_CONTACT_FORM_MAIL_SENT;
+use const Imandresi\TailorMailPlus\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
+use const Imandresi\TailorMailPlus\FILTER_HOOK_DEFINE_MAILER_SERVICE;
 
 class SendMailController {
 

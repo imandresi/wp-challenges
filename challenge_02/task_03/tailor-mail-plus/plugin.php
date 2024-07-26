@@ -1,14 +1,14 @@
 <?php
 /*
- * Plugin Name:       Tailor Mail
- * Description:       Customizable contact form plugin for WordPress with code-defined fields, entry saving, and wp_mail support via shortcode.
+ * Plugin Name:       Tailor Mail Plus
+ * Description:       Advanced contact form plugin with a custom table for entries, admin data management, and SendGrid email integration for WordPress.
  * Version:           1.0.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Tanjaka Mandresi
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       tailor-mail
+ * Text Domain:       tailor-mail-plus
  * Domain Path:       /languages
  */
 
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require( __DIR__ . '/vendor/autoload.php' );
 require (__DIR__ . '/includes/Constants.php');
 
-\Imandresi\TailorMail\Core\Loader::run();
+\Imandresi\TailorMailPlus\Core\Loader::run();
 
 
 

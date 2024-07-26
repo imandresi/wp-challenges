@@ -1,14 +1,14 @@
 <?php
 
-namespace Imandresi\TailorMail\Core;
+namespace Imandresi\TailorMailPlus\Core;
 
-use Imandresi\TailorMail\Controllers\SendMailController;
-use Imandresi\TailorMail\Controllers\ShortcodeController;
-use Imandresi\TailorMail\System\Sessions;
-use Imandresi\TailorMail\System\Singleton;
-use const Imandresi\TailorMail\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
-use const Imandresi\TailorMail\PLUGIN_LANGUAGES_DIR;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use Imandresi\TailorMailPlus\Controllers\SendMailController;
+use Imandresi\TailorMailPlus\Controllers\ShortcodeController;
+use Imandresi\TailorMailPlus\System\Sessions;
+use Imandresi\TailorMailPlus\System\Singleton;
+use const Imandresi\TailorMailPlus\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
+use const Imandresi\TailorMailPlus\PLUGIN_LANGUAGES_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class Loader extends Singleton {
 

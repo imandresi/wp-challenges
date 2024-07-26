@@ -1,16 +1,16 @@
 <?php
 
-namespace Imandresi\TailorMail\Core;
+namespace Imandresi\TailorMailPlus\Core;
 
-use Imandresi\TailorMail\Controllers\ContactFormManagerController;
-use Imandresi\TailorMail\Controllers\ShortcodeController;
-use Imandresi\TailorMail\System\Helper;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_DIR;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_CSS_URI;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_PLUGINS_URI;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_SCRIPTS_DIR;
-use const Imandresi\TailorMail\PLUGIN_ASSETS_SCRIPTS_URI;
-use const Imandresi\TailorMail\PLUGIN_VERSION;
+use Imandresi\TailorMailPlus\Controllers\ContactFormManagerController;
+use Imandresi\TailorMailPlus\Controllers\ShortcodeController;
+use Imandresi\TailorMailPlus\System\Helper;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_PLUGINS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_SCRIPTS_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_SCRIPTS_URI;
+use const Imandresi\TailorMailPlus\PLUGIN_VERSION;
 
 class FrontLoader {
 

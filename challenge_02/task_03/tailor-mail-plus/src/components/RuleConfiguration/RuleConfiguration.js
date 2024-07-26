@@ -97,7 +97,7 @@ function RuleConfiguration({rule, ruleValidation, addRule}) {
         <>
             {
                 rule ? (
-                    <div className="tailor-mail__rule-configuration">
+                    <div className="tailor-mail-plus__rule-configuration">
                         <div>
                             {
                                 (function () {
@@ -130,7 +130,7 @@ function RuleConfiguration({rule, ruleValidation, addRule}) {
                                 })()
                             }
                         </div>
-                        <div className="tailor-mail__rule-configuration__button">
+                        <div className="tailor-mail-plus__rule-configuration__button">
                             <button type="button"
                                     className="button"
                                     onClick={() => {

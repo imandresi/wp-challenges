@@ -1,10 +1,10 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Classes\Controls;
+namespace Imandresi\TailorMailPlus\Core\Classes\Controls;
 
-use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
-use Imandresi\TailorMail\Views\ControlsView;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\AbstractControl;
+use Imandresi\TailorMailPlus\Views\ControlsView;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 abstract class InputControl extends AbstractControl {
 	protected string $template_filename;

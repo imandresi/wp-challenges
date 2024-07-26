@@ -1,13 +1,13 @@
 <?php
 
-namespace Imandresi\TailorMail\Controllers;
+namespace Imandresi\TailorMailPlus\Controllers;
 
-use Imandresi\TailorMail\Models\ContactEntriesModel;
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\Views\ContactEntriesView;
-use Imandresi\TailorMail\Views\ContactFormsView;
-use const Imandresi\TailorMail\ACTION_HOOK_CONTACT_FORM_MAIL_SENT;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\Views\ContactEntriesView;
+use Imandresi\TailorMailPlus\Views\ContactFormsView;
+use const Imandresi\TailorMailPlus\ACTION_HOOK_CONTACT_FORM_MAIL_SENT;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class ContactEntriesController {
 
@@ -137,7 +137,7 @@ class ContactEntriesController {
 	private static function prepare_ui(): void {
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-mail-fields',
+				'tailor-mail-plus-metabox-mail-fields',
 				__( 'Mail Fields', PLUGIN_TEXT_DOMAIN ),
 				[ ContactEntriesView::class, 'mail_fields_metabox' ],
 				[ ContactEntriesModel::POST_TYPE_SLUG ],

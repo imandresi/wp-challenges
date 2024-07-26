@@ -1,10 +1,10 @@
 <?php
 
-namespace Imandresi\TailorMail\Views;
+namespace Imandresi\TailorMailPlus\Views;
 
-use Imandresi\TailorMail\Models\ContactEntriesModel;
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\Views\AbstractView;
+use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\Views\AbstractView;
 
 class ContactEntriesView extends AbstractView {
 

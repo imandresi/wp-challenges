@@ -1,4 +1,4 @@
-.tailor-mail__modal__overlay {
+.tailor-mail-plus__modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
 
 }
 
-.tailor-mail__modal {
+.tailor-mail-plus__modal {
   width: 630px;
   min-height: 300px;
   background-color: white;
@@ -39,7 +39,7 @@
     justify-content: space-between;
     align-items: center;
 
-    .tailor-mail__close__btn {
+    .tailor-mail-plus__close__btn {
       display: block;
       width: 25px;
       height: 25px;
@@ -58,7 +58,7 @@
 
   }
 
-  .tailor-mail__modal__content {
+  .tailor-mail-plus__modal__content {
     flex-grow: 2;
     padding: 10px 10px 40px;
   }
@@ -75,7 +75,7 @@
     padding: 10px;
     background-color: #f0f0f0;
 
-    .tailor-mail__pseudocode {
+    .tailor-mail-plus__pseudocode {
       font-family: Consolas, Monaco, monospace;
       font-size: 120%;
       flex-grow: 2;

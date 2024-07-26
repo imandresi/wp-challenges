@@ -24,7 +24,7 @@ const App = () => {
 
     return (
         <AppContext.Provider value={[updateModalParams, selectedValidators, setSelectedValidators]}>
-            <div id="tailor-mail-contact-form-toolbar">
+            <div id="tailor-mail-plus-contact-form-toolbar">
                 <Toolbar/>
                 <Modal title={modalParams.title}
                        ContentComponent={modalParams.content}

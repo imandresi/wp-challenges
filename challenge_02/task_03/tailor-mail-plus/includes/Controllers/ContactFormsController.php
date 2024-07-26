@@ -1,12 +1,12 @@
 <?php
 
-namespace Imandresi\TailorMail\Controllers;
+namespace Imandresi\TailorMailPlus\Controllers;
 
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\Views\ContactFormsView;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_SLUG;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\Views\ContactFormsView;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_SLUG;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class ContactFormsController {
 
@@ -68,7 +68,7 @@ class ContactFormsController {
 
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-shortcode',
+				'tailor-mail-plus-metabox-shortcode',
 				__( 'Shortcode', PLUGIN_TEXT_DOMAIN ),
 				[ ContactFormsView::class, 'shortcode_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
@@ -79,7 +79,7 @@ class ContactFormsController {
 
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-form',
+				'tailor-mail-plus-metabox-form',
 				__( 'Form', PLUGIN_TEXT_DOMAIN ),
 				[ ContactFormsView::class, 'form_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],
@@ -90,7 +90,7 @@ class ContactFormsController {
 
 		add_action( 'add_meta_boxes', function () {
 			add_meta_box(
-				'tailor-mail-metabox-mail',
+				'tailor-mail-plus-metabox-mail',
 				__( 'Mail', PLUGIN_TEXT_DOMAIN ),
 				[ ContactFormsView::class, 'mail_meta_box' ],
 				[ ContactFormsModel::POST_TYPE_SLUG ],

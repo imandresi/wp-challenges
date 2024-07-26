@@ -1,9 +1,9 @@
 <?php
 
-namespace Imandresi\TailorMail\System;
+namespace Imandresi\TailorMailPlus\System;
 
-use Imandresi\TailorMail\System\Singleton;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
+use Imandresi\TailorMailPlus\System\Singleton;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
 
 class Sessions extends Singleton {
 	const SESSION_NAME = 'imandresi/' . PLUGIN_IDENTIFIER;

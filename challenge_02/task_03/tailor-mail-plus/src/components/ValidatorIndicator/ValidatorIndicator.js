@@ -9,7 +9,7 @@ function ValidatorIndicator({rule, ruleValue, dragValidatorRuleFromTo}) {
     const [draggedRule, setDraggedRule] = useContext(ValidatorContext);
 
     return (
-        <div className={"tailor-mail__validator" + (draggedOver ? " drag-over" : "")}
+        <div className={"tailor-mail-plus__validator" + (draggedOver ? " drag-over" : "")}
              draggable="true"
 
              onDragStart={e => {
@@ -40,8 +40,8 @@ function ValidatorIndicator({rule, ruleValue, dragValidatorRuleFromTo}) {
                  setDraggedRule(null);
              }}
         >
-            <div className="tailor-mail__validator__label">{ruleValue}</div>
-            <div className="tailor-mail__validator__cancel"
+            <div className="tailor-mail-plus__validator__label">{ruleValue}</div>
+            <div className="tailor-mail-plus__validator__cancel"
                  onClick={() => {
                      const newValidators = selectedValidators.filter(sValidator => sValidator.rule !== rule);
                      setSelectedValidators(newValidators);

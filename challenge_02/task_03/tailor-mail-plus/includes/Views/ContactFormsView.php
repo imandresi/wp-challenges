@@ -1,10 +1,10 @@
 <?php
 
-namespace Imandresi\TailorMail\Views;
+namespace Imandresi\TailorMailPlus\Views;
 
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_SLUG;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_SLUG;
 
 class ContactFormsView extends AbstractView {
 

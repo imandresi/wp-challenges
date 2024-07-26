@@ -1,21 +1,21 @@
 <?php
 
-namespace Imandresi\TailorMail\Controllers;
+namespace Imandresi\TailorMailPlus\Controllers;
 
-use Imandresi\TailorMail\Core\Classes\Controls\AbstractControl;
-use Imandresi\TailorMail\Core\Classes\Controls\ButtonControl;
-use Imandresi\TailorMail\Core\Classes\Controls\SubmitButtonControl;
-use Imandresi\TailorMail\Core\Classes\Controls\TextareaControl;
-use Imandresi\TailorMail\Core\Classes\Controls\TextControl;
-use Imandresi\TailorMail\Core\FrontLoader;
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\System\Sessions;
-use Imandresi\TailorMail\Views\ControlsView;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\AbstractControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\ButtonControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\SubmitButtonControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\TextareaControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\TextControl;
+use Imandresi\TailorMailPlus\Core\FrontLoader;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Sessions;
+use Imandresi\TailorMailPlus\Views\ControlsView;
 use Rakit\Validation\Validator;
-use const Imandresi\TailorMail\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_SLUG;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use const Imandresi\TailorMailPlus\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_SLUG;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class ShortcodeController {
 	const CONTACT_FORM_SHORTCODE_TAG = PLUGIN_SLUG;

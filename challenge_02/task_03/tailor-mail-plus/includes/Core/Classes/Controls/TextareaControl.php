@@ -1,8 +1,8 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Classes\Controls;
+namespace Imandresi\TailorMailPlus\Core\Classes\Controls;
 
-use Imandresi\TailorMail\Core\Classes\Controls\InputControl;
+use Imandresi\TailorMailPlus\Core\Classes\Controls\InputControl;
 
 class TextareaControl extends InputControl {
 

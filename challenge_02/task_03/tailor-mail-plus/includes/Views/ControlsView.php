@@ -1,8 +1,8 @@
 <?php
 
-namespace Imandresi\TailorMail\Views;
+namespace Imandresi\TailorMailPlus\Views;
 
-use Imandresi\TailorMail\Views\AbstractView;
+use Imandresi\TailorMailPlus\Views\AbstractView;
 
 class ControlsView extends AbstractView {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Admin;
+namespace Imandresi\TailorMailPlus\Core\Admin;
 
-use Imandresi\TailorMail\Models\ContactEntriesModel;
-use Imandresi\TailorMail\Models\ContactFormsModel;
-use Imandresi\TailorMail\System\Singleton;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_TEXT_DOMAIN;
+use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
+use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Singleton;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class AdminMenu extends Singleton {
 	const MENU_CAPABILITY = 'edit_posts';
@@ -19,7 +19,7 @@ class AdminMenu extends Singleton {
 
 		add_menu_page(
 			__( 'TAILOR MAIL - Dashboard', PLUGIN_TEXT_DOMAIN ),
-			'TAILOR MAIL',
+			'TAILOR MAIL PLUS',
 			self::MENU_CAPABILITY,
 			self::SLUG_MAIN_MENU,
 			function () {

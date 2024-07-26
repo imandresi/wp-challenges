@@ -26,8 +26,8 @@
     }
 
     addEventListener('DOMContentLoaded', () => {
-        formTextareaEl = document.querySelector('#tailor-mail-metabox-form textarea.tailor-mail__form-builder');
-        formControlNamesAreaEl = document.querySelector('#tailor-mail__meta-box__mail #form-control-names-area');
+        formTextareaEl = document.querySelector('#tailor-mail-plus-metabox-form textarea.tailor-mail-plus__form-builder');
+        formControlNamesAreaEl = document.querySelector('#tailor-mail-plus__meta-box__mail #form-control-names-area');
 
         if (formTextareaEl && formControlNamesAreaEl) {
             init();

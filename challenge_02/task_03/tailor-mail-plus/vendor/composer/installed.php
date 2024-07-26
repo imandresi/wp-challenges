@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'imandresi/tailor-mail',
+        'name' => 'imandresi/tailor-mail-plus',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '207fa823f504a94c3851b423ea8c7deca0e18e25',
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'imandresi/tailor-mail' => array(
+        'imandresi/tailor-mail-plus' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '207fa823f504a94c3851b423ea8c7deca0e18e25',

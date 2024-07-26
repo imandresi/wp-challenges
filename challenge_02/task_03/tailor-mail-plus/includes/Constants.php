@@ -1,8 +1,8 @@
 <?php
 
-namespace Imandresi\TailorMail;
+namespace Imandresi\TailorMailPlus;
 
-use Imandresi\TailorMail\System\Helper;
+use Imandresi\TailorMailPlus\System\Helper;
 
 define( __NAMESPACE__ . '\PLUGIN_VERSION', '1.0' );
 
@@ -12,7 +12,7 @@ define( __NAMESPACE__ . '\PLUGIN_URI', plugin_dir_url( PLUGIN_ENTRY ) );
 
 define( __NAMESPACE__ . '\PLUGIN_NAME', plugin_basename( PLUGIN_ROOT_DIR ) );
 define( __NAMESPACE__ . '\PLUGIN_SLUG', PLUGIN_NAME );
-define( __NAMESPACE__ . '\PLUGIN_IDENTIFIER', str_replace( '-', '_', PLUGIN_NAME ) );
+define( __NAMESPACE__ . '\PLUGIN_IDENTIFIER', 'tm_plus' );
 define( __NAMESPACE__ . '\PLUGIN_TEXT_DOMAIN', PLUGIN_NAME );
 
 define( __NAMESPACE__ . '\PLUGIN_TEMPLATES_DIR', PLUGIN_ROOT_DIR . 'templates/' );

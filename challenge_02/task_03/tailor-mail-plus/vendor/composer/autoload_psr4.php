@@ -11,5 +11,5 @@ return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Rakit\\Validation\\' => array($vendorDir . '/rakit/validation/src'),
-    'Imandresi\\TailorMail\\' => array($baseDir . '/includes'),
+    'Imandresi\\TailorMailPlus\\' => array($baseDir . '/includes'),
 );

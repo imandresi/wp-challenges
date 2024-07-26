@@ -1,6 +1,6 @@
 <?php
 
-namespace Imandresi\TailorMail\System\Mailer;
+namespace Imandresi\TailorMailPlus\System\Mailer;
 
 interface MailerInterface {
 

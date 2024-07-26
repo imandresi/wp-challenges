@@ -1,6 +1,6 @@
 <?php
 
-namespace Imandresi\TailorMail\System;
+namespace Imandresi\TailorMailPlus\System;
 
 abstract class Singleton {
 

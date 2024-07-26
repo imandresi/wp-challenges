@@ -1,11 +1,11 @@
 <?php
 
-namespace Imandresi\TailorMail\Core\Classes\Controls;
+namespace Imandresi\TailorMailPlus\Core\Classes\Controls;
 
-use Imandresi\TailorMail\System\Singleton;
-use const Imandresi\TailorMail\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
-use const Imandresi\TailorMail\FILTER_HOOK_BEFORE_RENDER_CONTACT_FORM_FIELD;
-use const Imandresi\TailorMail\FILTER_HOOK_RENDER_CONTACT_FORM_FIELD;
+use Imandresi\TailorMailPlus\System\Singleton;
+use const Imandresi\TailorMailPlus\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
+use const Imandresi\TailorMailPlus\FILTER_HOOK_BEFORE_RENDER_CONTACT_FORM_FIELD;
+use const Imandresi\TailorMailPlus\FILTER_HOOK_RENDER_CONTACT_FORM_FIELD;
 
 abstract class AbstractControl {
 

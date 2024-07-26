@@ -7,7 +7,7 @@ import {SubmitDialogContent} from "../dialogs/SubmitDialogContent.js";
 
 function Toolbar() {
     return (
-        <div className="tailor-mail__toolbar">
+        <div className="tailor-mail-plus__toolbar">
             <ToolbarButton label="Text"
                            dialogContent={TextDialogContent}/>
 

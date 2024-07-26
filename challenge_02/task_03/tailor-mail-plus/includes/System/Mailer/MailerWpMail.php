@@ -1,8 +1,8 @@
 <?php
 
-namespace Imandresi\TailorMail\System\Mailer;
+namespace Imandresi\TailorMailPlus\System\Mailer;
 
-use Imandresi\TailorMail\System\Mailer\MailerInterface;
+use Imandresi\TailorMailPlus\System\Mailer\MailerInterface;
 
 class MailerWpMail implements MailerInterface {
 

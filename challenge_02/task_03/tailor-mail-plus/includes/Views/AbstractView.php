@@ -1,14 +1,14 @@
 <?php
 
-namespace Imandresi\TailorMail\Views;
+namespace Imandresi\TailorMailPlus\Views;
 
-use Imandresi\TailorMail\System\Sessions;
-use Imandresi\TailorMail\System\Singleton;
+use Imandresi\TailorMailPlus\System\Sessions;
+use Imandresi\TailorMailPlus\System\Singleton;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use const Imandresi\TailorMail\PLUGIN_IDENTIFIER;
-use const Imandresi\TailorMail\PLUGIN_SLUG;
-use const Imandresi\TailorMail\PLUGIN_TEMPLATES_DIR;
+use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_SLUG;
+use const Imandresi\TailorMailPlus\PLUGIN_TEMPLATES_DIR;
 
 abstract class AbstractView extends Singleton {
 	protected Environment $twig;

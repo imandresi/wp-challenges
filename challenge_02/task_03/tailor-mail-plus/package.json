@@ -1,7 +1,7 @@
 {
-  "name": "tailor-mail",
+  "name": "tailor-mail-plus-plus",
   "version": "1.0.0",
-  "description": "A user interface to insert controls in the Tailor Mail contact form admin.",
+  "description": "A user interface to insert controls in the Tailor Mail Plus contact form admin.",
   "main": "index.js",
   "type": "module",
   "scripts": {

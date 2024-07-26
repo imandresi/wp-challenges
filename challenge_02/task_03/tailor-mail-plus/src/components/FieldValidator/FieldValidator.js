@@ -89,7 +89,7 @@ function FieldValidator({onChange}) {
     return (
         <>
             <ValidatorContext.Provider value={[draggedRule, setDraggedRule]}>
-                <div className="tailor-mail__field-validator__indicators">
+                <div className="tailor-mail-plus__field-validator__indicators">
                     {
                         selectedValidators.map((ruleObj, i) => {
                             return <ValidatorIndicator key={i}

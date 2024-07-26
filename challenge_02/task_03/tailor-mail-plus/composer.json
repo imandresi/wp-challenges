@@ -1,5 +1,5 @@
 {
-    "name": "imandresi/tailor-mail",
+    "name": "imandresi/tailor-mail-plus",
     "description": "Customizable contact form plugin for WordPress with code-defined fields, entry saving, and wp_mail support via shortcode.",
     "type": "project",
     "require": {
@@ -9,7 +9,7 @@
     "license": "GPL v2",
     "autoload": {
         "psr-4": {
-            "Imandresi\\TailorMail\\": "includes/"
+            "Imandresi\\TailorMailPlus\\": "includes/"
         }
     },
     "authors": [
