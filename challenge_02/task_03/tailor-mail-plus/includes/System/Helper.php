@@ -78,5 +78,39 @@ class Helper {
 		return false;
 	}
 
+	public static function get_table_prefix(): string {
+		global $wpdb;
+
+		if ( ! ( $wpdb instanceof \wpdb ) ) {
+			$root = realpath( $_SERVER["DOCUMENT_ROOT"] );
+			require "$root/wp-blog-header.php";
+		}
+
+		$table_prefix = $wpdb->prefix;
+
+		return $table_prefix;
+	}
+
+	public static function table_exists( $table_name ): bool {
+		global $wpdb;
+
+		$sql = $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name );
+		$rows = $wpdb->query( $sql );
+
+		return boolval( $rows );
+
+	}
+
+	public static function delete_table( $table_name ): void {
+		global $wpdb;
+
+		// language=text
+		$sql = "DROP TABLE IF EXISTS %s;";
+
+		$sql = sprintf($sql, $table_name);
+		$wpdb->query($sql);
+
+	}
+
 
 }

@@ -31,6 +31,8 @@ define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS', PLUGIN_ASSETS . 'plugins/' );
 define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS_DIR', PLUGIN_ROOT_DIR . PLUGIN_ASSETS_PLUGINS );
 define( __NAMESPACE__ . '\PLUGIN_ASSETS_PLUGINS_URI', PLUGIN_URI . PLUGIN_ASSETS_PLUGINS );
 
+define( __NAMESPACE__ . '\PLUGIN_TABLE_PREFIX', Helper::get_table_prefix() );
+
 /**
  * Action Hooks
  */

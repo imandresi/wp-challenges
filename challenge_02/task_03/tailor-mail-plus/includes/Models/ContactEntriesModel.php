@@ -3,13 +3,41 @@
 namespace Imandresi\TailorMailPlus\Models;
 
 use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
+use const Imandresi\TailorMailPlus\PLUGIN_TABLE_PREFIX;
 use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class ContactEntriesModel {
 
+	const ENTRIES_TABLE_NAME = PLUGIN_TABLE_PREFIX . 'tailormailplus_entries';
+
 	const POST_TYPE_SLUG = PLUGIN_IDENTIFIER . '_entries';
 	const POST_META_DATA_SLUG = PLUGIN_IDENTIFIER . '_entries_data';
 	const POST_META_OWNER_SLUG = PLUGIN_IDENTIFIER . '_entries_owner';
+
+
+	public static function create_tables(): void {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		// language=text
+		$sql = <<<EOT
+CREATE TABLE %s (
+	entry_id INT(11) NOT NULL AUTO_INCREMENT ,
+	subject VARCHAR(255) NOT NULL ,
+	message TEXT NOT NULL ,
+	email VARCHAR(128) NOT NULL ,
+	custom TEXT NULL ,
+	PRIMARY KEY  (entry_id)
+) %s;
+EOT;
+
+		$sql = sprintf( $sql, self::ENTRIES_TABLE_NAME, $charset_collate );
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $sql );
+
+	}
+
 
 	public static function get_entry( $post_id ) {
 		$data = [];
