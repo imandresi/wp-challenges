@@ -45,11 +45,11 @@ class ContactFormsView extends AbstractView {
 		];
 
 		$mail = [
-			'to'      => $contact_form_data['mail_template']['to'] ?: $default_values['to'],
-			'from'    => $contact_form_data['mail_template']['from'] ?: $default_values['from'],
-			'subject' => $contact_form_data['mail_template']['subject'] ?: $default_values['subject'],
-			'headers' => $contact_form_data['mail_template']['headers'] ?: $default_values['headers'],
-			'message' => $contact_form_data['mail_template']['message'] ?: $default_values['message'],
+			'to'      => $contact_form_data['mail_template']['to'] ?? $default_values['to'],
+			'from'    => $contact_form_data['mail_template']['from'] ?? $default_values['from'],
+			'subject' => $contact_form_data['mail_template']['subject'] ?? $default_values['subject'],
+			'headers' => $contact_form_data['mail_template']['headers'] ?? $default_values['headers'],
+			'message' => $contact_form_data['mail_template']['message'] ?? $default_values['message'],
 		];
 
 		$attributes = [

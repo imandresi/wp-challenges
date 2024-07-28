@@ -260,7 +260,7 @@ class ShortcodeController {
 		$attributes = [
 			'contact_form_id' => $contact_form_id,
 			'id'              => $form_slug,
-			'name'            => $shortcode_attributes['name'] ? $shortcode_attributes : $form_slug,
+			'name'            => $shortcode_attributes['name'] ?? $form_slug,
 			'form_action_url' => admin_url( 'admin-post.php' ),
 			'form_action'     => self::FORM_ACTION,
 			'nonce'           => wp_nonce_field(

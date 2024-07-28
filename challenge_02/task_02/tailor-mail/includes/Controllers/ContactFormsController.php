@@ -108,8 +108,8 @@ class ContactFormsController {
 		}
 
 		$meta_value = [
-			'form_code'     => trim( $_POST[ PLUGIN_IDENTIFIER ]['form_code'] ),
-			'mail_template' => $_POST[ PLUGIN_IDENTIFIER ]['template']
+			'form_code'     => trim( $_POST[ PLUGIN_IDENTIFIER ]['form_code'] ?? '' ),
+			'mail_template' => $_POST[ PLUGIN_IDENTIFIER ]['template'] ?? ''
 		];
 
 		update_post_meta(
