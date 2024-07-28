@@ -23,7 +23,6 @@ class PluginManager {
 
 		// activate
 		ContactEntriesModel::create_tables();
-
 	}
 
 	public static function deactivate() {
@@ -36,7 +35,6 @@ class PluginManager {
 		}
 
 		Helper::delete_table(ContactEntriesModel::ENTRIES_TABLE_NAME);
-
 	}
 
 	public static function action_hook_activate() {
@@ -61,7 +59,6 @@ class PluginManager {
 
 		// checks if an activation is to be done
 		add_action( 'init', array( self::class, 'check_activation' ) );
-
 	}
 
 }

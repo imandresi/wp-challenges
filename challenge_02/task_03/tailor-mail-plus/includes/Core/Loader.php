@@ -16,7 +16,6 @@ class Loader extends Singleton {
 
 	public function load_dependencies() {
 		Sessions::load();
-		PluginManager::setup();
 		AdminLoader::load();
 		FrontLoader::load();
 		ShortcodeController::load();
@@ -35,10 +34,10 @@ class Loader extends Singleton {
 	public function init() {
 		$this->language_setup();
 		$this->load_dependencies();
-
 	}
 
 	public static function run() {
+		PluginManager::setup();
 		add_action( 'plugins_loaded', function () {
 			self::get_instance();
 		} );
