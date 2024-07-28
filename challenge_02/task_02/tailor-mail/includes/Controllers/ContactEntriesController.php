@@ -40,7 +40,7 @@ class ContactEntriesController {
 			return $query;
 		}
 
-		if ( $_GET['owner'] ) {
+		if ( isset( $_GET['owner'] ) && $_GET['owner'] ) {
 			$query->set( 'meta_key', ContactEntriesModel::POST_META_OWNER_SLUG );
 			$query->set( 'meta_value', $_GET['owner'] );
 		}
@@ -159,9 +159,9 @@ class ContactEntriesController {
 
 		add_filter( 'post_row_actions', [ self::class, 'filter_page_row_actions' ], 10, 2 );
 
-		add_action('admin_menu', function() {
-			remove_meta_box('submitdiv', ContactEntriesModel::POST_TYPE_SLUG, 'side');
-		});
+		add_action( 'admin_menu', function () {
+			remove_meta_box( 'submitdiv', ContactEntriesModel::POST_TYPE_SLUG, 'side' );
+		} );
 
 		self::customize_contact_forms_list_table_display();
 
