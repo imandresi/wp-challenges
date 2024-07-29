@@ -50,16 +50,16 @@
 
     </table>
 
-    <div class="page-navigation">
-        {% for i in range(1, total_pages) %}
-            {% if (page_index == i) %}
-                <span class="page-navigation__item page-navigation__item__active">{{ i }}</span>
-            {% else %}
-                <a class="page-navigation__item" href="{{ request_uri }}&page_index={{ i }}">{{ i }}</a>
-            {% endif %}
-        {% endfor %}
-
-    </div>
-
+    {% if (total_pages > 1) %}
+        <div class="page-navigation">
+            {% for i in range(1, total_pages) %}
+                {% if (page_index == i) %}
+                    <span class="page-navigation__item page-navigation__item__active">{{ i }}</span>
+                {% else %}
+                    <a class="page-navigation__item" href="{{ request_uri }}&page_index={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
 </div>
