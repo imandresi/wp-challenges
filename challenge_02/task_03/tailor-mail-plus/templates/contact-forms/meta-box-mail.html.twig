@@ -10,7 +10,7 @@
                 <label for="tailor-mail-plus__field__to">To</label>
             </th>
             <td>
-                <input type="text" name="tailor_mail_plus[template][to]" id="tailor-mail-plus__field__to"
+                <input type="text" name="tm_plus[template][to]" id="tailor-mail-plus__field__to"
                        value="{{ template.to }}">
             </td>
         </tr>
@@ -20,7 +20,7 @@
                 <label for="tailor-mail-plus__field__from">From</label>
             </th>
             <td>
-                <input type="text" name="tailor_mail_plus[template][from]" id="tailor-mail-plus__field__from"
+                <input type="text" name="tm_plus[template][from]" id="tailor-mail-plus__field__from"
                        value="{{ template.from }}">
             </td>
         </tr>
@@ -30,7 +30,7 @@
                 <label for="tailor-mail-plus__field__subject">Subject</label>
             </th>
             <td>
-                <input type="text" name="tailor_mail_plus[template][subject]" id="tailor-mail-plus__field__subject"
+                <input type="text" name="tm_plus[template][subject]" id="tailor-mail-plus__field__subject"
                        value="{{ template.subject }}">
             </td>
         </tr>
@@ -40,7 +40,7 @@
                 <label for="tailor-mail-plus__field__headers">Additional Headers</label>
             </th>
             <td>
-                <textarea name="tailor_mail_plus[template][headers]"
+                <textarea name="tm_plus[template][headers]"
                           id="tailor-mail-plus__field__headers"
                           rows="3">{{ template.headers }}</textarea>
             </td>
@@ -51,7 +51,7 @@
                 <label for="tailor-mail-plus__field__message">Message</label>
             </th>
             <td>
-                <textarea name="tailor_mail_plus[template][message]" id="tailor-mail-plus__field__message" rows="10">
+                <textarea name="tm_plus[template][message]" id="tailor-mail-plus__field__message" rows="10">
                     {{- template.message -}}
                 </textarea>
             </td>

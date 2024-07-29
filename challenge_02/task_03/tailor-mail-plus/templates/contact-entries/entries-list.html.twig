@@ -1,0 +1,65 @@
+<script>
+    function delete_entry(entry_id, msg) {
+        const url = `{{ admin_post_url }}?action=delete_contact_entry&entry_id=${entry_id}`;
+        msg = "Do you really want to delete the contact entry: \n" + msg;
+        if (confirm(msg)) {
+            location.href = url;
+        }
+    }
+</script>
+
+<div class="wrap">
+
+    <h1>Contact Entries</h1>
+
+    <table class="wp-list-table widefat fixed striped table-view-list posts">
+        <thead>
+        <tr>
+            <th class="column-trash"></th>
+            <th scope="col" id="title" class="manage-column column-title"> Title</th>
+            <th scope="col" id="owner" class="manage-column column-owner">Owner</th>
+            <th scope="col" id="date" class="manage-column column-date"> Date</th>
+        </tr>
+        </thead>
+
+        <tbody id="the-list">
+
+        {% for data in rows %}
+            <tr id="post-1058">
+                <td class="column-trash"><a href="{{ data.delete_href }}"><span
+                                class="dashicons dashicons-trash"></span></a></td>
+                <td data-colname="Title">
+                    <strong><a class="row-title" href="{{ data.href }}">{{ data.subject }}</a></strong>
+                </td>
+                <td class="column-owner" data-colname="Owner"><a
+                            href="{{ data.contact_form.href }}">{{ data.contact_form.title }}</a></td>
+                <td data-colname="Date">{{ data.submission_date }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <th class="column-trash"></th>
+            <th scope="col" id="title" class="manage-column column-title"> Title</th>
+            <th scope="col" id="owner" class="manage-column column-owner">Owner</th>
+            <th scope="col" id="date" class="manage-column column-date"> Date</th>
+        </tr>
+        </tfoot>
+
+    </table>
+
+    <div class="page-navigation">
+        {% for i in range(1, total_pages) %}
+            {% if (page_index == i) %}
+                <span class="page-navigation__item page-navigation__item__active">{{ i }}</span>
+            {% else %}
+                <a class="page-navigation__item" href="{{ request_uri }}&page_index={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+
+</div>

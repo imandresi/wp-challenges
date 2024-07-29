@@ -47,3 +47,46 @@
   list-style: square outside;
   margin-left: 20px;
 }
+
+.column-trash {
+  width: 40px;
+  text-align: center;
+}
+
+.column-owner {
+  width: 300px;
+}
+
+.page-navigation {
+  $link-color: #135e96;
+  $link-color-active: red;
+  cursor: pointer;
+
+  margin-top: 30px;
+  text-align: right;
+
+  .page-navigation__item {
+    border: 1px solid $link-color;
+    padding: 5px 10px 5px 10px;
+
+    &.page-navigation__item__active {
+      background-color: $link-color;
+      color: white;
+    }
+
+ }
+
+  a.page-navigation__item {
+    text-decoration: none;
+    color: $link-color;
+
+    &:hover {
+      border-color: $link-color-active;
+      color: $link-color-active;
+    }
+  }
+
+
+
+
+}

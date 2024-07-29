@@ -38,3 +38,34 @@
   list-style: square outside;
   margin-left: 20px;
 }
+
+.column-trash {
+  width: 40px;
+  text-align: center;
+}
+
+.column-owner {
+  width: 300px;
+}
+
+.page-navigation {
+  cursor: pointer;
+  margin-top: 30px;
+  text-align: right;
+}
+.page-navigation .page-navigation__item {
+  border: 1px solid #135e96;
+  padding: 5px 10px 5px 10px;
+}
+.page-navigation .page-navigation__item.page-navigation__item__active {
+  background-color: #135e96;
+  color: white;
+}
+.page-navigation a.page-navigation__item {
+  text-decoration: none;
+  color: #135e96;
+}
+.page-navigation a.page-navigation__item:hover {
+  border-color: red;
+  color: red;
+}

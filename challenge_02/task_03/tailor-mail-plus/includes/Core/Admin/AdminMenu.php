@@ -2,15 +2,18 @@
 
 namespace Imandresi\TailorMailPlus\Core\Admin;
 
+use Imandresi\TailorMailPlus\Controllers\ContactEntriesController;
 use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
 use Imandresi\TailorMailPlus\Models\ContactFormsModel;
 use Imandresi\TailorMailPlus\System\Singleton;
+use Imandresi\TailorMailPlus\Views\ContactEntriesView;
 use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
 use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class AdminMenu extends Singleton {
 	const MENU_CAPABILITY = 'edit_posts';
 	const SLUG_MAIN_MENU = PLUGIN_IDENTIFIER . '_main_menu';
+	const SLUG_ENTRIES_MENU = PLUGIN_IDENTIFIER . '_entries_menu';
 
 	public bool $active_page;
 
@@ -49,7 +52,11 @@ class AdminMenu extends Singleton {
 			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
 			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
 			self::MENU_CAPABILITY,
-			'edit.php?post_type=' . ContactEntriesModel::POST_TYPE_SLUG
+			self::SLUG_ENTRIES_MENU,
+			function() {
+				$page_index = $_GET['page_index'] ?? 1;
+				ContactEntriesView::display_entries($page_index);
+			}
 		);
 
 		unset( $submenu[ self::SLUG_MAIN_MENU ][0] );
@@ -67,8 +74,7 @@ class AdminMenu extends Singleton {
 	function define_active_page() {
 		$current_screen    = get_current_screen();
 		$this->active_page =
-			( $current_screen->post_type == ContactFormsModel::POST_TYPE_SLUG ) ||
-			( $current_screen->post_type == ContactEntriesModel::POST_TYPE_SLUG );
+			( $current_screen->post_type == ContactFormsModel::POST_TYPE_SLUG ) ;
 	}
 
 	public function init(): void {

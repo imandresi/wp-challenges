@@ -17,7 +17,7 @@ class FrontLoader {
 	public static function load_scripts() {
 		global $post;
 
-		$content = $post->post_content;
+		$content = $post->post_content ?? '';
 		if ( ! has_shortcode( $content, ShortcodeController::CONTACT_FORM_SHORTCODE_TAG ) ) {
 			return;
 		}

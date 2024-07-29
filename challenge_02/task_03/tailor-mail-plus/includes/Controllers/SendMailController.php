@@ -63,15 +63,16 @@ class SendMailController {
 		return $status;
 	}
 
-	public static function process_contact_form_data( $form_data,  int $contact_form_id ) {
+	public static function process_contact_form_data( $form_data, int $contact_form_id ) {
 		$contact_form  = ContactFormsModel::get_data( $contact_form_id );
-		$mail_template = $contact_form['meta'][ContactFormsModel::POST_META_DATA_SLUG]['mail_template'];
+		$mail_template = $contact_form['meta'][ ContactFormsModel::POST_META_DATA_SLUG ]['mail_template'];
 
 		if ( ! $mail_template ) {
 			return;
 		}
 
 		$mail_fields_data = self::prepare_mail_fields( $form_data, $mail_template );
+		error_log( '$mail_fields_data:' . print_r( $mail_fields_data, true ) );
 
 		// sending the mail
 		$mail_is_sent = self::send_mail( $mail_fields_data, $contact_form_id );

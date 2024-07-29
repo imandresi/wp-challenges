@@ -1,6 +1,6 @@
 {
     "name": "imandresi/tailor-mail-plus",
-    "description": "Customizable contact form plugin for WordPress with code-defined fields, entry saving, and wp_mail support via shortcode.",
+    "description": "Advanced contact form plugin with a custom table for entries, admin data management, and SendGrid email integration for WordPress.",
     "type": "project",
     "require": {
         "twig/twig": "^3.10",

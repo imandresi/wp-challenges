@@ -10,11 +10,6 @@ class ContactEntriesModel {
 
 	const ENTRIES_TABLE_NAME = PLUGIN_TABLE_PREFIX . 'tailormailplus_entries';
 
-	const POST_TYPE_SLUG = PLUGIN_IDENTIFIER . '_entries';
-	const POST_META_DATA_SLUG = PLUGIN_IDENTIFIER . '_entries_data';
-	const POST_META_OWNER_SLUG = PLUGIN_IDENTIFIER . '_entries_owner';
-
-
 	public static function create_tables(): void {
 		global $wpdb;
 
@@ -24,6 +19,8 @@ class ContactEntriesModel {
 		$sql = <<<EOT
 CREATE TABLE %s (
 	entry_id INT(11) NOT NULL AUTO_INCREMENT ,
+	contact_form_id INT(11) NOT NULL ,
+	submission_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	subject VARCHAR(255) NOT NULL ,
 	message TEXT NOT NULL ,
 	email VARCHAR(128) NOT NULL ,
@@ -38,119 +35,94 @@ EOT;
 
 	}
 
+	public static function get_entries( $offset = 0, $limit = '', $order_by = 'submission_date', $order_direction = 'DESC' ) {
+		global $wpdb;
 
-	public static function get_entry( $post_id ) {
-		$data = [];
-		$post = get_post( $post_id, ARRAY_A );
-
-		if ( ! $post ) {
-			return false;
+		if ( $limit ) {
+			$limit = "LIMIT $limit";
 		}
 
-		$data['post'] = $post;
-		$meta         = get_post_meta( $post_id, self::POST_META_DATA_SLUG, true );
-		$owner        = get_post_meta( $post_id, self::POST_META_OWNER_SLUG, true );
+		/*
+		 * Get count
+		 */
+		$table_name = self::ENTRIES_TABLE_NAME;
 
-		if ( ! $meta ) {
-			return false;
-		}
+		// language=text
+		$sql = <<<EOT
+SELECT * FROM $table_name 
+ORDER BY $order_by $order_direction
+EOT;
+		$wpdb->get_results( $sql );
+		$count = $wpdb->num_rows;
 
-		$data = [
-			'post' => $post,
-			'mail' => [
-				'subject' => $post['post_title'],
-				'message' => $post['post_content'],
-				'custom'  => $meta,
-				'owner'   => $owner
-			]
+		/*
+		 * Get limited results
+		 */
+
+		// language=text
+		$sql = <<<EOT
+SELECT * FROM $table_name 
+ORDER BY $order_by $order_direction
+$limit
+OFFSET $offset
+EOT;
+
+		$results = $wpdb->get_results( $sql );
+
+		return [
+			'count'   => $count,
+			'results' => $results
 		];
+
+	}
+
+	public static function get_entry( $entry_id ) {
+		global $wpdb;
+
+		// language=text
+		$table_name = self::ENTRIES_TABLE_NAME;
+		$sql        = $wpdb->prepare( "SELECT * FROM $table_name WHERE entry_id = %d", $entry_id );
+
+		$data = $wpdb->get_row( $sql );
 
 		return $data;
 
 	}
 
+	public static function delete_entry( $entry_id ) {
+		global $wpdb;
+
+		return $wpdb->delete( self::ENTRIES_TABLE_NAME, [ 'entry_id' => $entry_id ], [ '%d' ] );
+
+	}
+
 	public static function save_entry( $data ) {
+		global $wpdb;
 
-		/*
-				$data = [
-					'post' => [
-						'ID' => 0,
-					],
-					'mail' => [
-						'subject' => '',
-						'message' => '',
-						'custom'  => [
-							'email'           => '',  // for example
-							'name'            => '',  // for example
-						],
-						'owner' => 0                  // contact_form_id
-					]
-				];
-		*/
-
-		if ( ! $data['mail'] ) {
+		if ( ! $data || ( ! isset( $data['contact_form_id'] ) ) ) {
 			return false;
 		}
 
-		// build the post to be saved
-		$post = $data['post'] ?: [];
+		$result = $wpdb->insert(
+			self::ENTRIES_TABLE_NAME,
+			[
+				'contact_form_id' => $data['contact_form_id'],
+				'subject'         => $data['subject'] ?? '',
+				'message'         => $data['message'] ?? '',
+				'email'           => $data['custom']['email'] ?? '',
+				'custom'          => serialize( $data['custom'] ?? '' )
+			],
+			[ '%d', '%s', '%s', '%s', '%s' ]
+		);
 
-		$post['post_status']  = 'publish';
-		$post['post_type']    = self::POST_TYPE_SLUG;
-		$post['post_title']   = $data['mail']['subject'];
-		$post['post_content'] = $data['mail']['message'];
+		$entry_id = $result ? $wpdb->insert_id : false;
 
-		$post_id = wp_insert_post( $post );
-
-		if ( ! $post_id ) {
-			return false;
-		}
-
-		// save post meta
-		$contact_form_id = $data['mail']['owner'];
-		update_post_meta( $post_id, self::POST_META_DATA_SLUG, $data['mail']['custom'] );
-		update_post_meta( $post_id, self::POST_META_OWNER_SLUG, $contact_form_id );
-
-		return $post_id;
+		return $entry_id;
 
 	}
 
-	public static function init_data_model() {
-
-		register_post_type( self::POST_TYPE_SLUG,
-			[
-				'labels'             => [
-					'name'          => __( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
-					'singular_name' => __( 'Contact Entry', PLUGIN_TEXT_DOMAIN ),
-					'edit_item'     => __( 'Contract Entry', PLUGIN_TEXT_DOMAIN ),
-				],
-				'public'             => true,
-				'hierarchical'       => false,
-				'publicly_queryable' => false,
-				'show_ui'            => true,
-				'show_in_menu'       => false,
-				'capabilities'       => [
-					'create_posts' => false
-				],
-				'map_meta_cap'       => true,
-				'supports'           => [ '' ]
-			]
-		);
-
-		register_post_meta(
-			self::POST_TYPE_SLUG,
-			self::POST_META_DATA_SLUG,
-			[
-				'type'         => 'array',
-				'single'       => true,
-				'show_in_rest' => false
-			]
-		);
-
-	}
 
 	public static function init(): void {
-		add_action( 'init', [ self::class, 'init_data_model' ] );
 	}
 
 }

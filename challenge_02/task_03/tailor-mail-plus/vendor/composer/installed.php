@@ -3,7 +3,7 @@
         'name' => 'imandresi/tailor-mail-plus',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '207fa823f504a94c3851b423ea8c7deca0e18e25',
+        'reference' => 'bc3b3298b637010dc4a9e73c25fcf52d791b3728',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'imandresi/tailor-mail-plus' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '207fa823f504a94c3851b423ea8c7deca0e18e25',
+            'reference' => 'bc3b3298b637010dc4a9e73c25fcf52d791b3728',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
