@@ -94,7 +94,7 @@ class Helper {
 	public static function table_exists( $table_name ): bool {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name );
+		$sql  = $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name );
 		$rows = $wpdb->query( $sql );
 
 		return boolval( $rows );
@@ -107,9 +107,18 @@ class Helper {
 		// language=text
 		$sql = "DROP TABLE IF EXISTS %s;";
 
-		$sql = sprintf($sql, $table_name);
-		$wpdb->query($sql);
+		$sql = sprintf( $sql, $table_name );
+		$wpdb->query( $sql );
 
+	}
+
+	public static function format_datetime( $datetime ): string {
+		$date_format     = get_option( 'date_format' );
+		$time_format     = get_option( 'time_format' );
+		$datetime_format = "$date_format $time_format";
+		$unix_timestamp  = is_numeric( $datetime ) ? (int) $datetime : strtotime( $datetime );
+
+		return date_i18n( $datetime_format, $unix_timestamp );
 	}
 
 

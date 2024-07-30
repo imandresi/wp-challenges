@@ -1,7 +1,7 @@
 <script>
     function delete_entry(entry_id, msg) {
         const url = `{{ admin_post_url }}?action=delete_contact_entry&entry_id=${entry_id}`;
-        msg = "Do you really want to delete the contact entry: \n" + msg;
+        msg = "Do you really want to delete the contact form entry : \n == " + msg + " == ?";
         if (confirm(msg)) {
             location.href = url;
         }
@@ -10,7 +10,7 @@
 
 <div class="wrap">
 
-    <h1>Contact Entries</h1>
+    <h1 class="wp-heading-inline" style="margin-bottom: 25px;">Contact Form Entries</h1>
 
     <table class="wp-list-table widefat fixed striped table-view-list posts">
         <thead>

@@ -1,0 +1,22 @@
+<div class="wrap">
+    <h1>Contact Form Entry</h1>
+    <div>
+        <table class="form-table">
+            <tr>
+                <th>Contact Form</th>
+                <td><p><a href="{{ contact_form.href }}">{{ contact_form.name }}</a></p></td>
+            </tr>
+            {% for key, value in fields %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td>
+                        <div class="tailor-mail-plus-code">{{ value | nl2br }}</div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div style="margin-top: 35px;">
+            <a href="{{ http_referer }}" class="button button-primary">Back to list of contact form entries</a>
+        </div>
+    </div>
+</div>

@@ -49,14 +49,31 @@ class AdminMenu extends Singleton {
 
 		add_submenu_page(
 			self::SLUG_MAIN_MENU,
-			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
-			__( 'Contact Entries', PLUGIN_TEXT_DOMAIN ),
+			__( 'Contact Form Entries', PLUGIN_TEXT_DOMAIN ),
+			__( 'Contact Form Entries', PLUGIN_TEXT_DOMAIN ),
 			self::MENU_CAPABILITY,
 			self::SLUG_ENTRIES_MENU,
-			function() {
+			function () {
+				$action = $_GET['action'] ?? false;
+
+				switch ( $action ) {
+					case 'view':
+						$entry_id = $_GET['entry_id'] ?? false;
+
+						if ( ! $entry_id ) {
+							break;
+						}
+
+						ContactEntriesView::display_entry($entry_id);
+						return;
+
+				}
+
 				$page_index = $_GET['page_index'] ?? 1;
-				ContactEntriesView::display_entries($page_index);
+				ContactEntriesView::display_entries( $page_index );
+
 			}
+
 		);
 
 		unset( $submenu[ self::SLUG_MAIN_MENU ][0] );
@@ -74,7 +91,7 @@ class AdminMenu extends Singleton {
 	function define_active_page() {
 		$current_screen    = get_current_screen();
 		$this->active_page =
-			( $current_screen->post_type == ContactFormsModel::POST_TYPE_SLUG ) ;
+			( $current_screen->post_type == ContactFormsModel::POST_TYPE_SLUG );
 	}
 
 	public function init(): void {

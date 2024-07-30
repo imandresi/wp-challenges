@@ -85,6 +85,12 @@ EOT;
 
 		$data = $wpdb->get_row( $sql );
 
+		if (isset($data->custom) && $data->custom) {
+			$value = unserialize($data->custom);
+			$data->custom = $value === false ? [] : $value;
+
+		}
+
 		return $data;
 
 	}
