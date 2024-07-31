@@ -118,8 +118,6 @@ class ContactEntriesView extends AbstractView {
 
 		// prepare url
 		$request_uri = preg_replace( "/&?page_index=\d+/is", "", $_SERVER['REQUEST_URI'] );
-		error_log( $request_uri );
-
 
 		if ( ! $entries ) {
 			_e( '<p>There is no contact form entries yet.</p>', PLUGIN_TEXT_DOMAIN );

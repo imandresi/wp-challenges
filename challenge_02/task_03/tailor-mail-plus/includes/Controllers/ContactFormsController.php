@@ -126,10 +126,6 @@ class ContactFormsController {
 		return $unique_id;
 	}
 
-	public static function remove_all_forms() {
-		// TODO: to be implemented for plugin uninstallation
-	}
-
 	public static function init(): void {
 		self::prepare_ui();
 

@@ -4,6 +4,7 @@ namespace Imandresi\TailorMailPlus\Controllers;
 
 use Imandresi\TailorMailPlus\Models\ContactFormsModel;
 use Imandresi\TailorMailPlus\System\Mailer\MailerInterface;
+use Imandresi\TailorMailPlus\System\Mailer\MailerProvider;
 use Imandresi\TailorMailPlus\System\Mailer\MailerWpMail;
 use const Imandresi\TailorMailPlus\ACTION_HOOK_CONTACT_FORM_MAIL_SENT;
 use const Imandresi\TailorMailPlus\ACTION_HOOK_PROCESS_CONTACT_FORM_DATA;
@@ -35,8 +36,7 @@ class SendMailController {
 
 	protected static function send_mail( $mail_data, int $contact_form_id ): bool {
 
-		// wp_mail() is the default Mailer Service
-		$mailer = new MailerWpMail();
+		$mailer = MailerProvider::get_active_mailer_instance();
 
 		/**
 		 * Filter used to change the current Mailer Service
@@ -72,7 +72,6 @@ class SendMailController {
 		}
 
 		$mail_fields_data = self::prepare_mail_fields( $form_data, $mail_template );
-		error_log( '$mail_fields_data:' . print_r( $mail_fields_data, true ) );
 
 		// sending the mail
 		$mail_is_sent = self::send_mail( $mail_fields_data, $contact_form_id );

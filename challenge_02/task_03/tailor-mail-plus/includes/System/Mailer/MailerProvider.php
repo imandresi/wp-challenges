@@ -10,7 +10,7 @@ class MailerProvider {
 	const ACTION_MAILER_SETTINGS_SAVE = PLUGIN_IDENTIFIER . '_mailer_settings_save';
 	const OPTION_NAME_MAILERS = PLUGIN_IDENTIFIER . '_mailers';
 
-	const NONCE = PLUGIN_IDENTIFIER . '_mailer_settings_nonce';
+	const NONCE_ACTION = PLUGIN_IDENTIFIER . '_mailer_settings_nonce';
 
 	/**
 	 * @var string[]
@@ -36,7 +36,7 @@ class MailerProvider {
 	public static function save_settings(): void {
 
 		// verify nonce
-		if ( ! wp_verify_nonce( $_POST['_wpnonce'],self::NONCE ) ) {
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], self::NONCE_ACTION ) ) {
 			wp_die( 'Your nonce could not be verified.' );
 		}
 
@@ -46,11 +46,11 @@ class MailerProvider {
 
 		// redirect
 		$url = $_POST['_wp_http_referer'];
-		wp_redirect($url);
+		wp_redirect( $url );
 
 	}
 
-	public function get_active_mailer_instance(): MailerInterface {
+	public static function get_active_mailer_instance(): MailerInterface {
 		$mailer_classname = self::get_active_mailer_classname();
 		$settings         = self::get_settings();
 
@@ -85,11 +85,11 @@ class MailerProvider {
 		$settings = self::get_settings();
 		$mailer   = $settings['active_mailer'] ?? false;
 
-		if ( ! $mailer ) {
+		if ( $mailer ) {
 			$mailer = __NAMESPACE__ . '\\' . $mailer;
 		}
 
-		if ( ! $mailer instanceof MailerInterface ) {
+		if ( ! in_array( MailerInterface::class, class_implements( $mailer ) ) ) {
 			$mailer = false;
 		}
 

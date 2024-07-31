@@ -9,7 +9,7 @@ use Imandresi\TailorMailPlus\Views\AbstractView;
 class MailerProviderView extends AbstractView {
 
 	public static function display_settings_panel( $settings ) {
-		$nonce_field = wp_nonce_field( MailerProvider::NONCE );
+		$nonce_field = wp_nonce_field( MailerProvider::NONCE_ACTION );
 
 		$mailer_options   = [];
 		$mailer_templates = [];

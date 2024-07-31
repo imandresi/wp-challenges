@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "twig/twig": "^3.10",
-        "rakit/validation": "^1.4"
+        "rakit/validation": "^1.4",
+        "sendgrid/sendgrid": "^8.1"
     },
     "license": "GPL v2",
     "autoload": {
