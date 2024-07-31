@@ -74,7 +74,7 @@
       color: white;
     }
 
- }
+  }
 
   a.page-navigation__item {
     text-decoration: none;
@@ -86,7 +86,19 @@
     }
   }
 
+}
 
+.is-hidden {
+  display: none;
+}
 
+.medium-bold {
+  font-size: 14px;
+  font-weight: bold;
+}
 
+.panel-white {
+  background-color: white;
+  border: 1px solid #8c8f94;
+  padding: 20px;
 }

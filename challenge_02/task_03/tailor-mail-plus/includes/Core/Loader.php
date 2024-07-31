@@ -6,6 +6,7 @@ use Imandresi\TailorMailPlus\Controllers\SendMailController;
 use Imandresi\TailorMailPlus\Controllers\ShortcodeController;
 use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
 use Imandresi\TailorMailPlus\System\Helper;
+use Imandresi\TailorMailPlus\System\Mailer\MailerSendGrid;
 use Imandresi\TailorMailPlus\System\Sessions;
 use Imandresi\TailorMailPlus\System\Singleton;
 use const Imandresi\TailorMailPlus\FILTER_HOOK_AFTER_RENDER_CONTACT_FORM_FIELD;
@@ -34,6 +35,7 @@ class Loader extends Singleton {
 	public function init() {
 		$this->language_setup();
 		$this->load_dependencies();
+
 	}
 
 	public static function run() {

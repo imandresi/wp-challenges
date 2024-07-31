@@ -5,6 +5,7 @@ namespace Imandresi\TailorMailPlus\Core\Admin;
 use Imandresi\TailorMailPlus\Controllers\ContactEntriesController;
 use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
 use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Mailer\MailerProvider;
 use Imandresi\TailorMailPlus\System\Singleton;
 use Imandresi\TailorMailPlus\Views\ContactEntriesView;
 use const Imandresi\TailorMailPlus\PLUGIN_IDENTIFIER;
@@ -14,6 +15,8 @@ class AdminMenu extends Singleton {
 	const MENU_CAPABILITY = 'edit_posts';
 	const SLUG_MAIN_MENU = PLUGIN_IDENTIFIER . '_main_menu';
 	const SLUG_ENTRIES_MENU = PLUGIN_IDENTIFIER . '_entries_menu';
+
+	const SLUG_MAILER_SETTINGS_MENU = PLUGIN_IDENTIFIER . '_mailer_settings_menu';
 
 	public bool $active_page;
 
@@ -64,7 +67,8 @@ class AdminMenu extends Singleton {
 							break;
 						}
 
-						ContactEntriesView::display_entry($entry_id);
+						ContactEntriesView::display_entry( $entry_id );
+
 						return;
 
 				}
@@ -74,6 +78,15 @@ class AdminMenu extends Singleton {
 
 			}
 
+		);
+
+		add_submenu_page(
+			self::SLUG_MAIN_MENU,
+			__( 'Mailer Settings', PLUGIN_TEXT_DOMAIN ),
+			__( 'Mailer Settings', PLUGIN_TEXT_DOMAIN ),
+			self::MENU_CAPABILITY,
+			self::SLUG_MAILER_SETTINGS_MENU,
+			[ MailerProvider::class, 'display_settings_panel' ]
 		);
 
 		unset( $submenu[ self::SLUG_MAIN_MENU ][0] );

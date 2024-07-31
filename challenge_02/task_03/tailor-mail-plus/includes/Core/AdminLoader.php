@@ -7,6 +7,7 @@ use Imandresi\TailorMailPlus\Controllers\ContactFormsController;
 use Imandresi\TailorMailPlus\Core\Admin\AdminMenu;
 use Imandresi\TailorMailPlus\Models\ContactEntriesModel;
 use Imandresi\TailorMailPlus\Models\ContactFormsModel;
+use Imandresi\TailorMailPlus\System\Mailer\MailerProvider;
 use Imandresi\TailorMailPlus\System\Singleton;
 use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_DIR;
 use const Imandresi\TailorMailPlus\PLUGIN_ASSETS_CSS_URI;
@@ -67,6 +68,7 @@ class AdminLoader extends Singleton {
 		ContactEntriesModel::init();
 		ContactFormsController::init();
 		ContactEntriesController::init();
+		MailerProvider::init();
 
 		$this->load_scripts();
 

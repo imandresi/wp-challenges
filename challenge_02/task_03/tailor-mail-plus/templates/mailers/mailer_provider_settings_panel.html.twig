@@ -1,0 +1,64 @@
+<script>
+    function active_mailer_change() {
+        const templates = [
+            {% for template in mailer_templates %}
+            '{{ PLUGIN_SLUG }}__{{ template.basename }}'{{ loop.last ? '':',' }}
+            {% endfor %}
+        ];
+        const frmEl = document.getElementById('mailer-settings-panel-form');
+        const activeMailerEl = document.getElementById('active_mailer');
+        if (!frmEl || !activeMailerEl) return;
+
+        const mailer = activeMailerEl.value;
+        const activeTemplateId = '{{ PLUGIN_SLUG }}' + '__' + mailer;
+
+        templates.forEach(templateId => {
+            const activeTemplateEl = document.getElementById(templateId);
+            if (templateId === activeTemplateId) {
+                activeTemplateEl.classList.remove('is-hidden');
+            } else {
+                activeTemplateEl.classList.add('is-hidden');
+            }
+        });
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        active_mailer_change();
+    });
+
+</script>
+
+<div class="wrap">
+    <h1>Mailer Settings</h1>
+    <form id="mailer-settings-panel-form" method="post" action="{{ form_action_url }}">
+        <input type="hidden" name="action" value="{{ form_action }}">
+        {{ nonce_field | raw }}
+
+        <p>Choose the default mailer you want to use to email your contact form in the list below.</p>
+
+        <div style="margin-bottom: 20px;">
+            <label class="medium-bold">Default Mailer</label>
+            <select id="active_mailer" name="mailer_settings[active_mailer]"
+                    onchange="active_mailer_change(this.value)">
+                {% for mailer in mailer_options %}
+                    <option value="{{ mailer.basename }}"
+                            {{ mailer_settings.active_mailer == mailer.basename ? 'selected' : '' }}
+                    >{{ mailer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% for mailer_template in mailer_templates %}
+            {% set panel_id = PLUGIN_SLUG ~ '__' ~ mailer_template.basename %}
+            <div id="{{ panel_id }}" class="is-hidden">
+                {{ mailer_template.template | raw }}
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 35px;">
+            <button type="submit" class="button btn-primary">Save Settings</button>
+        </div>
+
+    </form>
+</div>
