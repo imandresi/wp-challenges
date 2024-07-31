@@ -87,10 +87,9 @@ class MailerProvider {
 
 		if ( $mailer ) {
 			$mailer = __NAMESPACE__ . '\\' . $mailer;
-		}
-
-		if ( ! in_array( MailerInterface::class, class_implements( $mailer ) ) ) {
-			$mailer = false;
+			if ( ! in_array( MailerInterface::class, class_implements( $mailer ) ) ) {
+				$mailer = false;
+			}
 		}
 
 		return $mailer;
