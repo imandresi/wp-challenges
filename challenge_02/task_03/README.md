@@ -62,7 +62,7 @@ You can choose and configure the default mailer by navigating to Tailor Mail Plu
 ### Credits
 
 This plugin utilizes the following open-source packages:
-
+[wp-config.php](..%2F..%2F..%2Fwordpress-test%2Fwp-config.php)
 - **[rakit/validation](https://github.com/rakit/validation)**: A PHP validation library. Created and maintained by [Muhammad Syifa](https://github.com/rakit).
 - **[twig/twig](https://github.com/twigphp/Twig)**: A flexible, fast, and secure template engine for PHP. Created and maintained by [Fabien Potencier](https://github.com/fabpot) and the [Twig Team](https://twig.symfony.com/doc/3.x/contributing.html#the-core-team).
 - **[sendgrid/sendgrid](https://github.com/sendgrid/sendgrid-php)** A PHP Email Delivery service API.

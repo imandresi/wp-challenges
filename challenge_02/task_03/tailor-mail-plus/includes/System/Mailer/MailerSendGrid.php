@@ -5,12 +5,15 @@ namespace Imandresi\TailorMailPlus\System\Mailer;
 use Imandresi\TailorMailPlus\System\Mailer\MailerInterface;
 use Imandresi\TailorMailPlus\Views\MailerSendGridView;
 use SendGrid\Mail\Mail;
+use const Imandresi\TailorMailPlus\PLUGIN_TEXT_DOMAIN;
 
 class MailerSendGrid implements MailerInterface {
 	private string $api_key;
+	private array $_last_status;
 
 	public function __construct( $api_key ) {
-		$this->api_key = $api_key;
+		$this->api_key      = $api_key;
+		$this->_last_status = [];
 	}
 
 	public static function get_name(): string {
@@ -49,13 +52,17 @@ class MailerSendGrid implements MailerInterface {
 		];
 	}
 
+	public function last_status(): array {
+		return $this->_last_status;
+	}
+
 	public function send_mail( $to, $subject, $message, $headers = '', $attachments = [] ): bool {
 		$headers_array = self::raw_headers_to_array( $headers );
 
 		// process FROM header
 		if ( isset( $headers_array['From'] ) ) {
 			$from = self::parse_email( $headers_array['From'] );
-			unset($headers_array['From']);
+			unset( $headers_array['From'] );
 		} else {
 			$from = [
 				get_option( 'admin_email' ),
@@ -64,20 +71,20 @@ class MailerSendGrid implements MailerInterface {
 		}
 
 		// process TO email
-		$to = self::parse_email($to);
+		$to = self::parse_email( $to );
 
 		// process REPLY-TO header
 		$reply_to = '';
 		if ( isset( $headers_array['Reply-To'] ) ) {
 			$reply_to = self::parse_email( $headers_array['Reply-To'] );
-			unset($headers_array['Reply-To']);
+			unset( $headers_array['Reply-To'] );
 		}
 
 		// prepare email
 		$email = new Mail();
-		$email->setFrom($from[0], $from[1] ?? null);
+		$email->setFrom( $from[0], $from[1] ?? null );
 
-		if ($reply_to) {
+		if ( $reply_to ) {
 			$email->setReplyTo( $reply_to[0], $reply_to[1] ?? null );
 		}
 
@@ -87,13 +94,29 @@ class MailerSendGrid implements MailerInterface {
 		$email->addContent( 'text/plain', strip_tags( $message ) );
 		$email->addContent( 'text/html', nl2br( $message ) );
 
-		$sendgrid = new \SendGrid( $this->api_key );
-		$status = false;
+		$sendgrid           = new \SendGrid( $this->api_key );
+		$status             = false;
+		$this->_last_status = [
+			'status'         => 'errors',
+			'status_message' => esc_html__( 'An error occured when sending the mail', PLUGIN_TEXT_DOMAIN )
+		];
+
 		try {
 			$response = $sendgrid->send( $email );
-			$status = $response->statusCode() == 202;
-		} catch ( \Exception $e ) {
+			$status   = $response->statusCode() == 202;
 
+			if ( $status ) {
+				$this->_last_status = [
+					'status'         => 'success',
+					'status_message' => esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN )
+				];
+			}
+
+		} catch ( \Exception $e ) {
+			$this->_last_status = [
+				'status'         => 'errors',
+				'status_message' => $e->getMessage()
+			];
 		}
 
 		return $status;

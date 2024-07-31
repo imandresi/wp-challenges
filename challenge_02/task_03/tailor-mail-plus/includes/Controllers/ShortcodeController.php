@@ -204,13 +204,12 @@ class ShortcodeController {
 			 * @param int $contact_form_id
 			 *
 			 */
-			do_action( ACTION_HOOK_PROCESS_CONTACT_FORM_DATA, $safe_data, $_POST['contact_form_id'] );
-
-			// set success status
-			$form_state['status']         = 'success';
-			$form_state['status_message'] = esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN );
-			$form_state['form_data']      = [];
-			$form_state['errors']         = [];
+			$form_state = apply_filters(
+				ACTION_HOOK_PROCESS_CONTACT_FORM_DATA,
+				$safe_data,
+				$_POST['contact_form_id'],
+				$form_state
+			);
 
 		}
 
