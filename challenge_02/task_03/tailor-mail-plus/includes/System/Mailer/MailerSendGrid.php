@@ -96,19 +96,29 @@ class MailerSendGrid implements MailerInterface {
 
 		$sendgrid           = new \SendGrid( $this->api_key );
 		$status             = false;
+		$default_error_msg  = esc_html__( 'An error occured when sending the mail', PLUGIN_TEXT_DOMAIN );
 		$this->_last_status = [
 			'status'         => 'errors',
-			'status_message' => esc_html__( 'An error occured when sending the mail', PLUGIN_TEXT_DOMAIN )
+			'status_message' => $default_error_msg
 		];
 
 		try {
 			$response = $sendgrid->send( $email );
-			$status   = $response->statusCode() == 202;
+			error_log( print_r( $response, true ) );
+			$status = $response->statusCode() == 202;
 
 			if ( $status ) {
 				$this->_last_status = [
 					'status'         => 'success',
 					'status_message' => esc_html__( 'Your message is sent successfully', PLUGIN_TEXT_DOMAIN )
+				];
+			} else {
+				$errors    = json_decode( $response->body() );
+				$error_msg = $errors->errors[0]->message ?? $default_error_msg;
+
+				$this->_last_status = [
+					'status'         => 'errors',
+					'status_message' => $error_msg
 				];
 			}
 
