@@ -65,7 +65,7 @@ class ContactEntriesModel {
 		}
 
 		// build the post to be saved
-		$post = $data['post'] ?: [];
+		$post = $data['post'] ?? [];
 
 		$post['post_status']  = 'publish';
 		$post['post_type']    = self::POST_TYPE_SLUG;
