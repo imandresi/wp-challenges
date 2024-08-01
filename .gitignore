@@ -2,3 +2,5 @@
 _test
 node_modules
 test.*
+buildlink.bat
+task_03.zip
