@@ -43,7 +43,7 @@ Entries in a separate custom database table instead of using custom post types. 
 the flexibility to send emails using either the default WP Mail or the SendGrid Email service API.
 
 This documentation will be short. Please refer to the documentation of "Tailor Mail" on how to use the plugin.
-[View Tailor Mail Documentation](https://github.com/imandresi/wp-challenges/tree/main/challenge_02/task_03)
+[View Tailor Mail Documentation](https://github.com/imandresi/wp-challenges/tree/main/challenge_02/task_02)
 
 #### Contact Form Entries Custom Table
 
